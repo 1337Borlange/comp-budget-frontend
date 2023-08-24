@@ -1,0 +1,20 @@
+$spacing: none, 3xs, 2xs, xs, s, m, l, xl, 2xl, 3xl, 4xl, 5xl, 6xl, 7xl;
+$directions: row, row-reverse, column, column-reverse;
+$justifies: flex-start, center, flex-end, space-between, space-around, space-evenly;
+$alignItems: flex-start, center, flex-end, stretch, baseline;
+$flexGrow: 1, 0;
+
+$breakpoint-xs: 0px, 600px;
+$breakpoint-sm: 601px, 960px;
+$breakpoint-md: 961px, 1280px;
+$breakpoint-lg: 1281px, 1281px;
+$map-grid-props: (
+    "-lg": $breakpoint-lg,
+    "-md": $breakpoint-md,
+    "-sm": $breakpoint-sm,
+    "-xs": $breakpoint-xs
+);
+
+$grid__cols: 12;
+
+$textAlign: inherit, left, center, right, justify;

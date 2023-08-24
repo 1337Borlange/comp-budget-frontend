@@ -1,0 +1,173 @@
+@import "./variables.scss";
+.flex {
+    display: flex;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+@each $space in $spacing {
+    $sp: var(--spacing-#{$space});
+
+    .gap-#{$space} {
+        gap: $sp;
+    }
+
+    .padding-#{$space} {
+        padding: $sp;
+    }
+
+    .pt-#{$space} {
+        padding-top: $sp;
+    }
+
+    .pb-#{$space} {
+        padding-bottom: $sp;
+    }
+
+    .pl-#{$space} {
+        padding-left: $sp;
+    }
+
+    .pr-#{$space} {
+        padding-right: $sp;
+    }
+
+    .margin-#{$space} {
+        margin: $sp;
+    }
+
+    .mt-#{$space} {
+        margin-top: $sp;
+    }
+
+    .mb-#{$space} {
+        margin-bottom: $sp;
+    }
+
+    .ml-#{$space} {
+        margin-left: $sp;
+    }
+
+    .mr-#{$space} {
+        margin-right: $sp;
+    }
+
+    .negative-mt-#{$space} {
+        margin-top: calc(#{$sp} * -1);
+    }
+
+    .negative-mb-#{$space} {
+        margin-bottom: calc(#{$sp} * -1);
+    }
+
+    .negative-ml-#{$space} {
+        margin-left: calc(#{$sp} * -1);
+    }
+
+    .negative-mr-#{$space} {
+        margin-right: calc(#{$sp} * -1);
+    }
+}
+
+$breakpoint-mobile-max: nth($breakpoint-xs, 2);
+
+@media screen and (max-width: $breakpoint-mobile-max) {
+    @each $space in $spacing {
+        $sp: var(--spacing-#{$space});
+
+        .mobile-mt-#{$space} {
+            margin-top: $sp;
+        }
+
+        .mobile-mb-#{$space} {
+            margin-bottom: $sp;
+        }
+
+        .mobile-ml-#{$space} {
+            margin-left: $sp;
+        }
+
+        .mobile-mr-#{$space} {
+            margin-right: $sp;
+        }
+    }
+}
+
+/* Flex utils */
+.flex {
+    display: flex;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+@each $direction in $directions {
+    .flex-direction-#{$direction} {
+        flex-direction: #{$direction};
+    }
+}
+
+@each $justify in $justifies {
+    .flex-justify-#{$justify} {
+        justify-content: #{$justify};
+    }
+}
+
+@each $align in $alignItems {
+    .flex-align-#{$align} {
+        align-items: #{$align};
+    }
+}
+
+@each $grow in $flexGrow {
+    .flex-grow-#{$grow} {
+        flex-grow: #{$grow};
+    }
+}
+
+/* General */
+.flex-row {
+    flex-direction: row;
+}
+
+div.full-width,
+span.full-width,
+button.full-width,
+.full-width {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+}
+
+@media screen and (max-width: nth($breakpoint-xs, 2)) {
+    .hide-for-mobile-block,
+    .hide-for-mobile-flex {
+        display: none;
+    }
+
+    .hide-for-desktop-block {
+        display: block;
+    }
+
+    .hide-for-desktop-flex {
+        display: flex;
+    }
+}
+
+@media screen and (min-width: nth($breakpoint-xs, 2)) {
+    .hide-for-mobile-block {
+        display: block;
+    }
+
+    .hide-for-mobile-flex {
+        display: flex;
+    }
+
+    .hide-for-desktop-block,
+    .hide-for-desktop-flex {
+        display: none;
+    }
+}

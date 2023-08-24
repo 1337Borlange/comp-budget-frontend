@@ -1,0 +1,130 @@
+@import "./utils.scss";
+@import "./external.scss";
+// @import "./components/box.scss";
+
+:root {
+    --colors-primary: #1d2e8c;
+    --colors-secondary: #04c866;
+    --colors-primarybuttonbg: #04060c;
+    --colors-primarybuttoncolor: #eff2f6;
+    --colors-pagebg: #ffffff;
+    --colors-text: #04060c;
+    --colors-silver: rgba(235, 235, 235, 0.5);
+    --colors-inputbg: #ffffff;
+    --colors-backdrop: rgba(255, 255, 255, 0.7);
+    --spacing-none: 0;
+    --spacing-3xs: 0.15rem;
+    --spacing-2xs: 0.25rem;
+    --spacing-xs: 0.5rem;
+    --spacing-s: 0.75rem;
+    --spacing-m: 1rem;
+    --spacing-l: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    --spacing-3xl: 3rem;
+    --spacing-4xl: 3.5rem;
+    --spacing-5xl: 4rem;
+    --spacing-6xl: 4.5rem;
+    --spacing-7xl: 5rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+* {
+    margin: 0;
+}
+html,
+body {
+    height: 100%;
+}
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--colors-pagebg);
+    color: var(--colors-text);
+    font-family: "Sora", sans-serif;
+    background-position: top center;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    &.has-bg #root {
+        backdrop-filter: blur(12px);
+        background-color: var(--colors-backdrop);
+    }
+    &.overflow-hidden {
+        overflow: hidden;
+    }
+}
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--colors-primary);
+}
+a {
+    color: var(--colors-text);
+}
+#root,
+#__next {
+    isolation: isolate;
+}
+.overflow-hidden {
+    overflow: hidden;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --colors-primary: #04c866;
+        --colors-secondary: #1d2e8c;
+        --colors-primarybuttonbg: #04c866;
+        --colors-primarybuttoncolor: #000;
+        --colors-pagebg: #082032;
+        --colors-text: #fff;
+        --colors-silver: rgba(235, 235, 235, 0.1);
+        --colors-inputbg: #213747;
+        --colors-backdrop: rgba(0, 0, 0, 0.6);
+    }
+}
+
+.no-user {
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #888;
+    font-weight: bold;
+    font-size: 2rem;
+    svg {
+        font-size: 5rem;
+    }
+}

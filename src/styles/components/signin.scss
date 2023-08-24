@@ -1,0 +1,21 @@
+.signin {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    img {
+        max-width: 200px;
+        transition: transform 0.5s ease;
+        &:hover {
+            transform: rotate(360deg) scale(1.05);
+            transform-origin: center center;
+        }
+    }
+    h1 {
+        /* color: ${({ theme }) => theme.colors.text}; */
+        font-size: 2rem;
+        text-align: center;
+    }
+}

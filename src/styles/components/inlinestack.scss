@@ -1,0 +1,9 @@
+.inline-stack {
+    flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    > div {
+        display: inline-flex;
+    }
+}

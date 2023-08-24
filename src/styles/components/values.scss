@@ -1,0 +1,13 @@
+.value-header {
+    font-size: 0.75rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--colors-primary);
+}
+
+.value-content {
+    font-weight: bold;
+    font-size: 3rem;
+    color: var(--colors-text);
+}

@@ -1,0 +1,14 @@
+.user-image {
+    // --user-image-size: 50px;
+    --user-image-border-color: var(--colors-secondary);
+    display: inline-flex;
+    border-radius: 50%;
+    // width: var(--user-image-size);
+    // height: var(--user-image-size);
+    border: 2px solid var(--user-image-border-color);
+}
+@media (prefers-color-scheme: dark) {
+    .user-image {
+        --user-image-border-color: var(--colors-primary);
+    }
+}

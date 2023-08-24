@@ -1,0 +1,23 @@
+.info-box {
+    --info-box-background: rgba(0, 0, 0, 0.05);
+    --info-box-border: rgba(0, 0, 0, 0.2);
+    display: flex;
+    padding: var(--spacing-s);
+    border-width: 1px;
+    border-style: solid;
+    margin-bottom: 2rem;
+    align-items: center;
+    font-style: italic;
+    svg {
+        font-size: 2rem;
+        margin-right: 1rem;
+        color: var(--colors-primary);
+        min-width: 2rem;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .info-box {
+        --info-box-background: rgba(255, 255, 255, 0.1);
+        --info-box-border: rgba(255, 255, 255, 0.2);
+    }
+}

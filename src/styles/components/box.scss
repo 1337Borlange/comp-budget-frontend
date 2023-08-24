@@ -1,0 +1,7 @@
+.box {
+    --box-background: transparent;
+    background-color: var(--box-background);
+    position: relative;
+    display: flex;
+    max-width: 100%;
+}

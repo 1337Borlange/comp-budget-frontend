@@ -1,0 +1,7 @@
+.divider {
+    --divider-color: transparent;
+    height: 1px;
+    width: 100%;
+    padding: 0 !important;
+    background-color: var(--divider-color);
+}
