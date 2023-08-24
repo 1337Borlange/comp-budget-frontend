@@ -14,7 +14,7 @@ export default async function Layout({
     <>
       <div className="page-wrapper">
         <Header user={session?.user} isAdmin={(session as any).isAdmin} />
-        {children}
+        <AdminContextProvider>{children}</AdminContextProvider>
       </div>
     </>
   );

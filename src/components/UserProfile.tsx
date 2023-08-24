@@ -13,11 +13,13 @@ type UserProfileProps = {
   budget?: Budget;
   expenses: Expense[];
   title: string;
+  showEdit: boolean;
 };
 export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
   title,
   budget,
   expenses,
+  showEdit,
 }) => {
   return (
     <div>
@@ -56,7 +58,7 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
       <Divider spacing="2xl" />
       <h3>Expenses</h3>
       <Divider spacing="m" />
-      {expenses && <Timeline expenses={expenses} />}
+      {expenses && <Timeline expenses={expenses} showEdit={showEdit} />}
     </div>
   );
 };

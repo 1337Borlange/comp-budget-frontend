@@ -40,6 +40,7 @@ const getIcon = (type: string) => {
 
 type TimelineProps = {
   expenses: Expense[];
+  showEdit: boolean;
 };
 
 const listItem = {
@@ -53,11 +54,13 @@ const TimeLineItem = ({
   editExpense,
   setShowConfirmDelete,
   setExpenseToDelete,
+  showEdit,
 }: {
   exp: Expense;
   editExpense: (exp: Expense) => void;
   setShowConfirmDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setExpenseToDelete: React.Dispatch<React.SetStateAction<Expense | undefined>>;
+  showEdit: boolean;
 }) => {
   const controls = useAnimation();
   const ref = useRef<HTMLLIElement>(null);
@@ -105,25 +108,27 @@ const TimeLineItem = ({
             </Column>
           </Grid>
           {/* {isAdmin && path.includes('admin') && ( */}
-          <div className="expense-buttons">
-            <Button
-              priority="outline"
-              iconOnly
-              onClick={() => editExpense(exp)}
-            >
-              <PenIcon />
-            </Button>
-            <Button
-              priority="outline"
-              onClick={() => {
-                setShowConfirmDelete(true);
-                setExpenseToDelete(exp);
-              }}
-              iconOnly
-            >
-              <DeleteIcon />
-            </Button>
-          </div>
+          {showEdit && (
+            <div className="expense-buttons">
+              <Button
+                priority="outline"
+                iconOnly
+                onClick={() => editExpense(exp)}
+              >
+                <PenIcon />
+              </Button>
+              <Button
+                priority="outline"
+                onClick={() => {
+                  setShowConfirmDelete(true);
+                  setExpenseToDelete(exp);
+                }}
+                iconOnly
+              >
+                <DeleteIcon />
+              </Button>
+            </div>
+          )}
           {/* )} */}
         </div>
       </div>
@@ -137,6 +142,7 @@ const sortByDate = (a: Expense, b: Expense) => {
 
 export const Timeline: React.FunctionComponent<TimelineProps> = ({
   expenses,
+  showEdit,
 }) => {
   const router = useRouter();
   const { setSelectedExpense } = useAdminContext();
@@ -189,6 +195,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
               editExpense={() => editExpense(exp)}
               setExpenseToDelete={setExpenseToDelete}
               exp={exp}
+              showEdit={showEdit}
               setShowConfirmDelete={setShowConfirmDelete}
             />
           ))}

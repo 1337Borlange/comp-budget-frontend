@@ -6,7 +6,6 @@ import { UserProfile } from '@/components/UserProfile';
 const UserModal = ({}) => {
   const { user, showUserModal, setShowUserModal, userExpenses, userBudget } =
     useAdminContext();
-  const budget = undefined;
   return (
     <Modal
       id="user-profile-modal"
@@ -14,11 +13,12 @@ const UserModal = ({}) => {
       onClose={() => setShowUserModal(false)}
       visible={showUserModal}
     >
-      {user && budget && (
+      {user && userBudget && (
         <UserProfile
           budget={userBudget}
           title={user.name}
           expenses={userExpenses ?? []}
+          showEdit
         />
       )}
     </Modal>

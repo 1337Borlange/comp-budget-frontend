@@ -43,7 +43,12 @@ export default async function MyBudget() {
         Expenses added within the last two months may not be visible in your
         list, or deducted from your balance, due to manual handling.
       </InfoBox>
-      <UserProfile title="My expenses" budget={budget} expenses={expenses} />
+      <UserProfile
+        showEdit={false}
+        title="My expenses"
+        budget={budget}
+        expenses={expenses}
+      />
     </div>
   );
 }

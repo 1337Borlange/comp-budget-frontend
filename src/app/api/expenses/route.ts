@@ -17,36 +17,32 @@ let accessToken;
 //   return res.json()
 // }
 
-const getExpenses = async (id: string) => {
-  return fetch(`${apiUrl}/expenses/${id}`).then((res) => res.json());
-};
+// export async function GET(req: Request, res: NextApiResponse) {
+//   const session = await getSession({ req });
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession({ req });
+//   if (!session) {
+//     return NextResponse.json({
+//       error: 'Internal Server Error. No session found.',
+//       status: 500,
+//     });
+//   }
 
-  if (!session) {
-    return NextResponse.json({
-      error: 'Internal Server Error. No session found.',
-      status: 500,
-    });
-  }
+//   // const token = await getToken({ req, secret });
 
-  // const token = await getToken({ req, secret });
+//   const response = await apiFetch(
+//     (session as any).id_token,
+//     `${apiUrl}/expenses?userId=${(session as any)?.userId}`
+//   );
 
-  const response = await apiFetch(
-    (session as any).id_token,
-    `${apiUrl}/expenses?userId=${(session as any)?.userId}`
-  );
+//   if (response.status !== 200) {
+//     return NextResponse.json({
+//       error: 'Internal Server Error',
+//       status: response.status,
+//     });
+//   }
 
-  if (response.status !== 200) {
-    return NextResponse.json({
-      error: 'Internal Server Error',
-      status: response.status,
-    });
-  }
+//   const data = await response.json();
 
-  const data = await response.json();
-
-  return NextResponse.json({ data });
-}
+//   return NextResponse.json({ data });
+// }
 // export default getExpenses;
