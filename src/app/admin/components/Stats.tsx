@@ -6,7 +6,7 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import { ValueContent, ValueHeader } from '@/components/Values';
 import { barColors } from '@/lib/helpers';
-import { Category, Expense } from '@/lib/types';
+import { Category, Expense, User } from '@/lib/types';
 import { useCallback, useMemo } from 'react';
 import BarChart from './BarChart';
 
@@ -23,10 +23,16 @@ const options = {
   },
 };
 
-const Stats = () => {
-  const allExpenses: Expense[] = [];
-  const categories: Category[] = [];
-  const allUsers: any = [];
+type StatsProps = {
+  allExpenses: Expense[];
+  categories: Category[];
+  allUsers: User[];
+};
+
+const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
+  // const allExpenses: Expense[] = [];
+  // const categories: Category[] = [];
+  // const allUsers: any = [];
 
   const timeExpenses = useMemo(() => {
     return allExpenses?.filter((exp) => exp.type === 'time') || [];
