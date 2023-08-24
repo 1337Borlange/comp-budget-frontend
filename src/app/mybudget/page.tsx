@@ -6,7 +6,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
-// import { TestFetch } from './components/TestFetch';
 
 async function getExpenses(token: string, id: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/expenses?userId=${id}`).then((res) => {
@@ -39,7 +38,6 @@ export default async function MyBudget() {
   return (
     <div className="content-wrapper">
       <h2 style={{ lineHeight: 1 }}>My budget</h2>
-      {/* <TestFetch /> */}
       <Divider spacing="xl" />
       <InfoBox>
         Expenses added within the last two months may not be visible in your

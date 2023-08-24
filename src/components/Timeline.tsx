@@ -6,15 +6,9 @@ import { MoneyIcon } from './Icons/MoneyIcon';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { PenIcon } from './Icons/PenIcon';
 import { DeleteIcon } from './Icons/DeleteIcon';
-// import {
-//   AdminContextActionTypes,
-//   useAdminContext,
-// } from './AdminComponents/AdminContext';
-// import { useCurrentPath } from '../utils/customHooks';
-// import { useNavigate } from 'react-router-dom';
 import format from 'date-fns/format';
 import { ConfirmDialog } from './ConfirmDialog';
-// import { useDeleteExpense, useIsAdmin } from '../api';
+
 import {
   AnimatePresence,
   motion,
@@ -30,6 +24,8 @@ import Button from './Button';
 import { Expense } from '@/lib/types';
 import { InlineStack } from './InlineStack';
 import { getExpenseType } from '@/lib/helpers';
+import { useRouter } from 'next/navigation';
+import { useAdminContext } from '@/app/admin/components/AdminContext';
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -63,8 +59,6 @@ const TimeLineItem = ({
   setShowConfirmDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setExpenseToDelete: React.Dispatch<React.SetStateAction<Expense | undefined>>;
 }) => {
-  //   const { isAdmin } = useIsAdmin();
-  //   const path = useCurrentPath();
   const controls = useAnimation();
   const ref = useRef<HTMLLIElement>(null);
   const inView = useInView(ref);
@@ -144,19 +138,15 @@ const sortByDate = (a: Expense, b: Expense) => {
 export const Timeline: React.FunctionComponent<TimelineProps> = ({
   expenses,
 }) => {
+  const router = useRouter();
+  const { setSelectedExpense } = useAdminContext();
   const [selectedYear, setSelectedYear] = useState<number>(
     new Date().getFullYear()
   );
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [expenseToDelete, setExpenseToDelete] = useState<Expense | undefined>();
 
-  //   const { mutate: deleteExpense } = useDeleteExpense();
-
   const sortedExpenses = expenses.sort(sortByDate);
-
-  //   const { dispatch } = useAdminContext();
-
-  //   const navigate = useNavigate();
 
   const allYears: number[] = useMemo(() => {
     return sortedExpenses.reduce((acc: number[], curr: Expense) => {
@@ -165,18 +155,10 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
     }, []);
   }, [sortedExpenses]);
 
-  //   const editExpense = (exp: Expense) => {
-  //     dispatch({
-  //       type: AdminContextActionTypes.SetSelectedExpense,
-  //       payload: exp,
-  //     });
-  //     dispatch({
-  //       type: AdminContextActionTypes.ToggleUserModal,
-  //       payload: false,
-  //     });
-
-  //     navigate('editexpense');
-  //   };
+  const editExpense = (exp: Expense) => {
+    setSelectedExpense(exp);
+    router.push('/admin/edit');
+  };
 
   const filteredExpenses = useMemo(() => {
     return sortedExpenses.filter(
@@ -204,7 +186,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
           {filteredExpenses.map((exp) => (
             <TimeLineItem
               key={exp.id}
-              editExpense={() => console.log('Edit')} //{editExpense}
+              editExpense={() => editExpense(exp)}
               setExpenseToDelete={setExpenseToDelete}
               exp={exp}
               setShowConfirmDelete={setShowConfirmDelete}

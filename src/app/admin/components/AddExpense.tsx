@@ -38,6 +38,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   reqType,
   expense,
 }) => {
+  console.log('EXPENSE: ', expense);
   const session = useSession();
   const { user } = useAdminContext();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -56,7 +57,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
 
   const filteredCategories = useMemo(() => {
     if (expenseType) {
-      console.log(expenseType);
       return categories.filter((cat) =>
         cat.categoryTypes.some((c) => c.name === expenseType)
       );
@@ -131,10 +131,8 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
     }
   }, [session, categories]);
 
-  console.log(categories);
-
   return (
-    <div>
+    <>
       <h2>{reqType === 'update' ? 'Update' : 'Add'} expense</h2>
       {/* <Grid spacing="s">
         <Column lg="9" md="9" sm="9" xs="9">
@@ -161,7 +159,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
 
               <DatePicker
                 required
-                disabled={!user}
                 selected={expenseDate}
                 id="date"
                 name="date"
@@ -177,7 +174,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
               name="type"
               label="Expsense type"
               defaultValue={expense?.type}
-              disabled={!user}
               onChange={(e) => setExpenseType(e.currentTarget.value)}
             >
               <option value="-1">- Select expense type -</option>
@@ -199,7 +195,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
               name="sum"
               type="number"
               defaultValue={expense?.sum}
-              disabled={!user}
             />
           </Column>
           <Column lg="6" md="6" sm="6" xs="12">
@@ -208,7 +203,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
               name="name"
               id="name"
               type="text"
-              disabled={!user}
               defaultValue={expense?.name}
             />
           </Column>
@@ -251,7 +245,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
                   name="isHardware"
                   checked={isHardware}
                   onChange={onHardwarechange}
-                  disabled={!user}
                 />
                 <Label htmlFor="is-hardware">Is hardware</Label>
               </div>
@@ -265,13 +258,10 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
             id="comment"
             name="comment"
             defaultValue={expense?.comment}
-            disabled={!user}
           ></textarea>
         </FormControl>
         <Box topSpacing="l" alignItems="flex-end">
-          <Button type="submit" disabled={!user}>
-            Save expense
-          </Button>
+          <Button type="submit">Save expense</Button>
         </Box>
       </form>
       <Modal
@@ -308,6 +298,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
           </Box>
         </form>
       </Modal>
-    </div>
+    </>
   );
 };

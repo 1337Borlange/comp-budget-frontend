@@ -28,7 +28,7 @@ export default async function Admin() {
   } catch (e) {
     console.error(e);
   }
-  console.log(users);
+
   return (
     <div>
       <Box

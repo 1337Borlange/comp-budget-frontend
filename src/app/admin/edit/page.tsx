@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useAdminContext } from '../components/AdminContext';
 import Button from '@/components/Button';
 import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
@@ -19,7 +19,9 @@ export default function Edit() {
         </Button>
       </Box>
       <Divider spacing="s" />
-      <AddExpense reqType="update" expense={selectedExpense} />
+      <Box spacing="m" alignItems="stretch">
+        <AddExpense reqType="update" expense={selectedExpense} />
+      </Box>
     </div>
   );
 }

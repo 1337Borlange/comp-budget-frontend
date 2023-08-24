@@ -13,8 +13,8 @@ export default async function Layout({
   return (
     <>
       <div className="page-wrapper">
-        <Header user={session?.user} />
-        <AdminContextProvider>{children}</AdminContextProvider>
+        <Header user={session?.user} isAdmin={(session as any).isAdmin} />
+        {children}
       </div>
     </>
   );
