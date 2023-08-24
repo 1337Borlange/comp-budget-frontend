@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { FormControl } from '../../../components/FormControl/FormControl';
 import { Label } from '../../../components/FormControl/Label';
 import DatePicker from 'react-datepicker';
@@ -7,7 +7,12 @@ import Select from '../../../components/Select';
 import ComboBox from '../../../components/ComboBox';
 import { InlineStack } from '../../../components/InlineStack';
 import Checkbox from '../../../components/Checkbox';
-import { CreateUpdateDeleteType, Expense, NewExpense } from '@/lib/types';
+import {
+  Category,
+  CreateUpdateDeleteType,
+  Expense,
+  NewExpense,
+} from '@/lib/types';
 import Divider from '../../../components/Divider';
 import Grid from '../../../components/Grid';
 import Column from '../../../components/Column';
@@ -16,8 +21,11 @@ import Box from '../../../components/Box';
 import Button from '../../../components/Button';
 import Modal from '../../../components/Modal';
 import ToggleSwitch from '../../../components/ToggleSwitch';
-import { getFormValue } from '@/lib/helpers';
+import { apiFetch, getFormValue } from '@/lib/helpers';
 import 'react-datepicker/dist/react-datepicker.min.css';
+import { useAdminContext } from './AdminContext';
+import { useSession } from 'next-auth/react';
+import { apiUrl } from '@/lib/settings';
 
 const expenseTypes = ['time', 'money'];
 
@@ -30,8 +38,9 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   reqType,
   expense,
 }) => {
-  const [user, setUser] = useState<any>(undefined);
-  const [categories, setCategories] = useState<any>(undefined);
+  const session = useSession();
+  const { user } = useAdminContext();
+  const [categories, setCategories] = useState<Category[]>([]);
   const [expenseDate, setExpenseDate] = useState(
     expense?.date ? new Date(expense.date) : new Date()
   );
@@ -44,6 +53,17 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   const formRef = useRef<HTMLFormElement>(null);
 
   const onHardwarechange = (val: boolean) => setIsHardware(val);
+
+  const filteredCategories = useMemo(() => {
+    if (expenseType) {
+      console.log(expenseType);
+      return categories.filter((cat) =>
+        cat.categoryTypes.some((c) => c.name === expenseType)
+      );
+    }
+
+    return [];
+  }, [expenseType, categories]);
 
   //   const postCreateForm = () => {
   //     if (formRef?.current) {
@@ -102,6 +122,16 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   //     setExpenseType(selectedExpense.type);
   //   }
   // }, [expense]);
+
+  useEffect(() => {
+    if ((session as any)?.data?.id_token && categories.length === 0) {
+      apiFetch((session as any)?.data?.id_token, `${apiUrl}/categories`)
+        .then((res) => res.json())
+        .then(setCategories);
+    }
+  }, [session, categories]);
+
+  console.log(categories);
 
   return (
     <div>
@@ -185,30 +215,16 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
         </Grid>
         <Divider spacing="m" />
         <Grid spacing="l">
-          <Column lg="6" md="6" sm="6" xs="12" justifyContent="center">
-            {expenseType !== 'time' && (
-              <div>
-                <ToggleSwitch
-                  id="is-hardware"
-                  name="isHardware"
-                  checked={isHardware}
-                  onChange={onHardwarechange}
-                  disabled={!user}
-                />
-                <Label htmlFor="is-hardware">Is hardware</Label>
-              </div>
-            )}
-          </Column>
           <Column lg="6" md="6" sm="6" xs="12">
             <Grid spacing="s">
               <Column lg="9" md="9" sm="9" xs="12">
                 <ComboBox
                   fullWidth
                   label="Select category"
-                  disabled={!user}
+                  disabled={filteredCategories.length === 0}
                   defaultValue={expense?.category}
                   name="category"
-                  data={categories.map((cat: any) => ({
+                  data={filteredCategories.map((cat: Category) => ({
                     id: cat.id,
                     title: cat.name,
                   }))}
@@ -226,6 +242,20 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
                 </Box>
               </Column>
             </Grid>
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12" justifyContent="center">
+            {expenseType !== 'time' && (
+              <div>
+                <ToggleSwitch
+                  id="is-hardware"
+                  name="isHardware"
+                  checked={isHardware}
+                  onChange={onHardwarechange}
+                  disabled={!user}
+                />
+                <Label htmlFor="is-hardware">Is hardware</Label>
+              </div>
+            )}
           </Column>
         </Grid>
         <Divider spacing="m" />

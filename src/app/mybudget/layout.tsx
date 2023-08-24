@@ -12,7 +12,10 @@ export default async function Layout({
   return (
     <>
       <div className="page-wrapper">
-        <Header user={session?.user} />
+        <Header
+          user={session?.user}
+          isAdmin={(session as any)?.isAdmin ?? false}
+        />
         {children}
       </div>
     </>

@@ -25,7 +25,7 @@ export const getFormValue = (
 export const apiFetch = async (
   token: string,
   url: string,
-  options: any = { headers: {} }
+  options: RequestInit = { headers: {} }
 ): Promise<Response> => {
   const _options = {
     ...options,

@@ -4,9 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import { getSession } from 'next-auth/react';
 import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
-
-const secret = process.env.NEXTAUTH_SECRET;
-const apiUrl = process.env.API_URL;
+import { apiUrl } from '@/lib/settings';
 let accessToken;
 
 // async function getUser() {

@@ -84,9 +84,9 @@ export type FlexGrow = '1' | '0';
 
 export type User = {
   name: string;
-  // userId: string;
+  userId: string;
   email: string;
-  image: string;
+  // image: string;
   // start: string;
   // image: string;
   // openingBalanceMoney: number;
@@ -149,10 +149,15 @@ export type NewExpense = Pick<
   | 'category'
 >;
 
+type CategoryType = {
+  id: number;
+  name: string;
+};
+
 export type Category = {
   id: string;
   name: string;
-  categoryTypes: string[];
+  categoryTypes: CategoryType[];
 };
 
 export type GoogleProfile = {

@@ -3,7 +3,7 @@
 import { getClasses } from '@/lib/style-helpers';
 import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion';
 import React, { useRef } from 'react';
-
+import '../styles/components/overlay.scss';
 export interface OverlayProps extends HTMLMotionProps<'div'> {
   zIndex?: number;
   visible?: boolean;

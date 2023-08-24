@@ -12,10 +12,10 @@ import UserImage from './UserImage';
 
 type HeaderProps = {
   user: any;
+  isAdmin: boolean;
 };
 
-const Header = ({ user }: HeaderProps) => {
-  const isAdmin = true;
+const Header = ({ user, isAdmin }: HeaderProps) => {
   return (
     <header>
       <Grid spacing="l">

@@ -4,7 +4,7 @@ import { useAdminContext } from './AdminContext';
 import { UserProfile } from '@/components/UserProfile';
 
 const UserModal = ({}) => {
-  const { user, showUserModal, setShowUserModal, userExpenses } =
+  const { user, showUserModal, setShowUserModal, userExpenses, userBudget } =
     useAdminContext();
   const budget = undefined;
   return (
@@ -16,9 +16,9 @@ const UserModal = ({}) => {
     >
       {user && budget && (
         <UserProfile
-          budget={budget}
+          budget={userBudget}
           title={user.name}
-          expenses={userExpenses || []}
+          expenses={userExpenses ?? []}
         />
       )}
     </Modal>

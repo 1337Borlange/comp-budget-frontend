@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import jwt_decode from 'jwt-decode';
-import { getUserId } from '@/lib/helpers';
+import { apiFetch, getUserId } from '@/lib/helpers';
+import { apiUrl } from '@/lib/settings';
 
 export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -31,10 +31,20 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token, user }) {
       if (session) {
+        let isAdmin = false;
+        try {
+          isAdmin = await apiFetch(
+            token.id_token as string,
+            `${apiUrl}/adm/isAdmin`
+          ).then((res) => res.json());
+        } catch (e) {
+          console.error(e);
+        }
         session = Object.assign({}, session, {
           access_token: token.access_token,
           id_token: token.id_token,
           userId: getUserId(token.id_token as string),
+          isAdmin,
         });
       }
       return session;

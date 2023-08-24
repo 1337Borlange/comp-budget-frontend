@@ -1,7 +1,11 @@
+'use client';
+
 import React, { forwardRef } from 'react';
 
 import { FormControl } from './FormControl/FormControl';
 import { Label } from './FormControl/Label';
+
+import '../styles/components/select.scss';
 
 export type SelectProps = {
   label: string;

@@ -6,7 +6,7 @@ import '../styles/components/grid.scss';
 export interface GridProps {
   spacing: Spacings;
   direction?: Direction;
-  mobileDirection?: Direction;
+  // mobileDirection?: Direction;
   justifyContent?: Justify;
   alignItems?: AlignItems;
   width?: string;
@@ -22,6 +22,7 @@ const Grid: React.FunctionComponent<
   alignItems = 'stretch',
   children,
   mobileSpacing,
+  // mobileDirection,
   width = '100%',
   className,
   ...rest

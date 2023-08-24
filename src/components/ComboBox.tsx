@@ -1,6 +1,6 @@
 'use client';
 import { useCombobox } from 'downshift';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Label } from './FormControl/Label';
 import { FormControl } from './FormControl/FormControl';
 import { AngleDownIcon } from './Icons/AngleDownIcon';
@@ -45,7 +45,6 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
   handleChange,
 }) => {
   const [items, setItems] = React.useState<ComboOption[]>(data);
-
   const {
     isOpen,
     getToggleButtonProps,
@@ -67,6 +66,12 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) =>
       handleChange(newSelectedItem),
   });
+
+  useEffect(() => {
+    if (!data.every((d) => items.includes(d))) {
+      setItems(data);
+    }
+  }, [data, items]);
 
   return (
     <FormControl fullWidth={fullWidth}>

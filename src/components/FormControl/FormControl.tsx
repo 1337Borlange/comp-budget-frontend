@@ -10,13 +10,19 @@ interface FormControlProps extends PropsWithChildren {
 export const FormControl = ({
   fullWidth = false,
   inlineControl = true,
+  className,
+  children,
   ...rest
 }: React.HTMLAttributes<HTMLDivElement> & FormControlProps) => {
   const classes = getClasses({
     'full-width': fullWidth,
     [`icon-${inlineControl ? 'row' : 'column'}`]: true,
   });
-  return <div className={`form-control ${classes}`} {...rest} />;
+  return (
+    <div className={`form-control ${classes} ${className}`} {...rest}>
+      {children}
+    </div>
+  );
 };
 
 // export const FormControl = styled.div<FormControlProps>`

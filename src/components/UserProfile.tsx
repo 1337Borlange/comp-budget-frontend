@@ -1,3 +1,4 @@
+'use client';
 import { Budget, Expense, User } from '@/lib/types';
 import { Timeline } from './Timeline';
 import Box from './Box';

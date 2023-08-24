@@ -2,7 +2,7 @@
     input {
         height: 3rem;
         width: 100%;
-        background-color: var(--input-background);
+        background-color: var(--colors-inputbg);
         color: var(--colors-text);
         padding: 0 var(--spacing-s);
         border: 1px solid #000;
@@ -10,7 +10,7 @@
 }
 
 textarea {
-    background-color: var(--input-background);
+    background-color: var(--colors-inputbg);
     color: var(--colors-text);
     padding: var(--spacing-s);
     border: 1px solid #000;

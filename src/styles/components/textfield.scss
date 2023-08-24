@@ -9,7 +9,7 @@
     border: 1px solid #000;
     height: var(--size-input-default);
     padding: 0 var(--spacing-s);
-    background-color: var(--input-background);
+    background-color: var(--colors-inputbg);
     &:focus {
         border-color: blue;
     }

@@ -13,12 +13,13 @@ import { Label } from '@/components/FormControl/Label';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
+import { useAdminContext } from './AdminContext';
 
 export const UpdateUser = () => {
   //   const [currentUser, setCurrentUser] = useState<User | undefined>();
   //   const { user } = useAdminContext();
+  const { user, userBudget: budget } = useAdminContext();
 
-  const budget: any = {};
   const [startDate, setStartDate] = useState(
     budget?.start ? new Date(budget.start) : new Date()
   );
@@ -50,7 +51,7 @@ export const UpdateUser = () => {
 
       <>
         <form onSubmit={onSubmitHandler}>
-          {/* <input type="hidden" name="userId" value={user?.userId} /> */}
+          <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="id" value={budget?.id} />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
@@ -60,7 +61,7 @@ export const UpdateUser = () => {
                   required
                   name="start"
                   id="start"
-                  selected={new Date(budget.start)}
+                  selected={startDate}
                   dateFormat="yyyy-MM-dd"
                   onChange={(date: Date) => setStartDate(date)}
                 />

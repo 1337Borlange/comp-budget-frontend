@@ -3,6 +3,7 @@ import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react';
 
 import { FormControl } from './FormControl/FormControl';
 import { Label } from './FormControl/Label';
+import '../styles/components/textfield.scss';
 
 const ShowPasswordIcon = () => (
   <svg
@@ -137,7 +138,7 @@ const TextField = forwardRef<
           </Label>
         )}
         <input
-          className={`${error ? 'has-error' : ''} ${
+          className={`textfield ${error ? 'has-error' : ''} ${
             isDirty ? 'is-dirty' : ''
           } ${className ? className : ''}`}
           ref={ref || inputRef}

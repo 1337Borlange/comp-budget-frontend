@@ -1,17 +1,16 @@
 'use client';
-import { User } from '@/lib/types';
+
 import { useAdminContext } from './AdminContext';
 
-import '../../../styles/components/usercard.scss';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import { ValueHeader } from '@/components/Values';
 import Button from '@/components/Button';
+import '../../../styles/components/usercard.scss';
 
 export const UserCard: React.FunctionComponent = () => {
-  const { user, setShowUserModal } = useAdminContext();
-  const budget: any = {};
+  const { user, setShowUserModal, userBudget: budget } = useAdminContext();
   //   const { budget } = useGetBudgets(user.userId, false);
   return (
     <div className="user-card">
@@ -25,7 +24,7 @@ export const UserCard: React.FunctionComponent = () => {
         {/* <UserImage size={50} url={user.image} alt={user.name} /> */}
       </h4>
       <Divider spacing="xs" />
-      <Grid spacing="m" mobileDirection="row">
+      <Grid spacing="m">
         <Column lg="6" md="6" sm="6" xs="6">
           <div>
             <ValueHeader>Time balance</ValueHeader>
@@ -40,7 +39,7 @@ export const UserCard: React.FunctionComponent = () => {
         </Column>
       </Grid>
       <Divider spacing="xs" />
-      <Grid spacing="m" mobileDirection="row">
+      <Grid spacing="m">
         <Column lg="6" md="6" sm="6" xs="6">
           <div>
             <ValueHeader>Hardware balance</ValueHeader>

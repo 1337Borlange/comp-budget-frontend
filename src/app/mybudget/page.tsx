@@ -5,8 +5,9 @@ import { Budget, Expense } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
+import { apiUrl } from '@/lib/settings';
 // import { TestFetch } from './components/TestFetch';
-const apiUrl = process.env.API_URL;
+
 async function getExpenses(token: string, id: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/expenses?userId=${id}`).then((res) => {
     return res.json();

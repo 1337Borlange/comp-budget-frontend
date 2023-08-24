@@ -1,9 +1,22 @@
 'use client';
 
 import ComboBox from '@/components/ComboBox';
+import { User } from '@/lib/types';
+import { useAdminContext } from './AdminContext';
 
-const UserSelection = () => {
-  const users: any[] = [];
+type UserSelectionProps = {
+  users: User[];
+};
+
+const UserSelection = ({ users }: UserSelectionProps) => {
+  const { setUser } = useAdminContext();
+
+  const switchUser = (id: string) => {
+    const user = users.find((u) => u.userId === id);
+    if (user) {
+      setUser(user);
+    }
+  };
   return (
     <ComboBox
       fullWidth
@@ -12,7 +25,7 @@ const UserSelection = () => {
         id: user.userId,
         title: user.name,
       }))}
-      handleChange={(val) => console.log(val)}
+      handleChange={(val) => switchUser(val?.id ?? '')}
     />
   );
 };

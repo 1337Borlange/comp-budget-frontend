@@ -6,7 +6,7 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import { ValueContent, ValueHeader } from '@/components/Values';
 import { barColors } from '@/lib/helpers';
-import { Expense } from '@/lib/types';
+import { Category, Expense } from '@/lib/types';
 import { useCallback, useMemo } from 'react';
 import BarChart from './BarChart';
 

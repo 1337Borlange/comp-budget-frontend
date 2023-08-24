@@ -9,6 +9,8 @@ import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { AlignItems, Justify } from '@/lib/types';
 import { getClasses } from '@/lib/style-helpers';
 
+import '../styles/components/modal.scss';
+
 const dropIn = {
   hidden: {
     y: '-100vh',
