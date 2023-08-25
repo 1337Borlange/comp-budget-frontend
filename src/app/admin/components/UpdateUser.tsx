@@ -17,26 +17,6 @@ type UpdateUserProps = {
 };
 
 export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
-  // const responseBody = {} as BudgetRequestBody;
-
-  // const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const formData = new FormData(event.currentTarget);
-  //   formData.forEach((value, property: string) => {
-  //     if (typeof value !== 'undefined') {
-  //       const newVal = getFormValue(value);
-  //       responseBody[property as keyof BudgetRequestBody] = newVal as never;
-  //     }
-  //   });
-
-  //   console.log(responseBody);
-  //   // updateBudget(responseBody);
-  // };
-
-  //   useEffect(() => {
-  //     setStartDate(budget?.start ? new Date(budget.start) : new Date());
-  //   }, [budget]);
-
   return (
     <div>
       <h2>Update user</h2>
@@ -51,14 +31,6 @@ export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
               <FormControl fullWidth>
                 <Label htmlFor="start">Start date</Label>
                 <DatePickerWrapper date={budget?.start} />
-                {/* <DatePicker
-                  required
-                  name="start"
-                  id="start"
-                  selected={startDate}
-                  dateFormat="yyyy-MM-dd"
-                  onChange={(date: Date) => setStartDate(date)}
-                /> */}
               </FormControl>
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">

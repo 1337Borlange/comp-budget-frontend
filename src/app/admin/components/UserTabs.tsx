@@ -2,21 +2,22 @@ import { TabItem, Tabs } from '@/components/Tabs';
 import { AddExpense } from './AddExpense';
 import { UserIcon } from '@/components/Icons/UserIcon';
 import { UpdateUser } from './UpdateUser';
-import { Category, User } from '@/lib/types';
+import { Budget, Category, User } from '@/lib/types';
 
 type UserTabsProps = {
   categories: Category[];
   user?: User;
+  budget?: Budget;
 };
 
-const UserTabs = ({ categories, user }: UserTabsProps) => {
+const UserTabs = ({ categories, user, budget }: UserTabsProps) => {
   return user ? (
     <Tabs spaceEvenly>
       <TabItem eventKey="expense" title="Add expense">
         <AddExpense reqType="create" categories={categories} />
       </TabItem>
       <TabItem eventKey="updateuser" title="Update user">
-        <UpdateUser />
+        <UpdateUser budget={budget} user={user} />
       </TabItem>
     </Tabs>
   ) : (
