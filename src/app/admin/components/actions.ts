@@ -38,7 +38,6 @@ export async function saveExpense(formData: FormData) {
   const responseBody = {} as NewExpense;
   const session = await getServerSession(authOptions);
   const meth = formData.get('reqType') as string;
-  console.log(meth);
   formData.delete('reqType');
   formData.forEach((value, property: string) => {
     console.log(value, property);
