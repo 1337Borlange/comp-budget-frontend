@@ -1,27 +1,38 @@
 'use client';
 import Modal from '@/components/Modal';
-import { useAdminContext } from './AdminContext';
 import { UserProfile } from '@/components/UserProfile';
+import Button from '@/components/Button';
+import { Budget, Expense, User } from '@/lib/types';
+import { useState } from 'react';
 
-const UserModal = ({}) => {
-  const { user, showUserModal, setShowUserModal, userExpenses, userBudget } =
-    useAdminContext();
+type UserModalProps = {
+  budget?: Budget;
+  user?: User;
+  expenses?: Expense[];
+};
+
+const UserModal = ({ user, budget, expenses }: UserModalProps) => {
+  const [showUserModal, setShowUserModal] = useState(false);
+  if (!user && !budget) return null;
   return (
-    <Modal
-      id="user-profile-modal"
-      blur
-      onClose={() => setShowUserModal(false)}
-      visible={showUserModal}
-    >
-      {user && userBudget && (
+    <>
+      <Button priority="outline" onClick={() => setShowUserModal(true)}>
+        Show all
+      </Button>
+      <Modal
+        id="user-profile-modal"
+        blur
+        onClose={() => setShowUserModal(false)}
+        visible={showUserModal}
+      >
         <UserProfile
-          budget={userBudget}
-          title={user.name}
-          expenses={userExpenses ?? []}
+          budget={budget}
+          title={user?.name ?? ''}
+          expenses={expenses ?? []}
           showEdit
         />
-      )}
-    </Modal>
+      </Modal>
+    </>
   );
 };
 

@@ -10,15 +10,15 @@ type UserSelectionProps = {
 };
 
 const UserSelection = ({ users }: UserSelectionProps) => {
-  // const router = useRouter();
-  const { setUser } = useAdminContext();
+  const router = useRouter();
+  // const { setUser } = useAdminContext();
 
-  const switchUser = (id: string) => {
-    const user = users.find((u) => u.userId === id);
-    if (user) {
-      setUser(user);
-    }
-  };
+  // const switchUser = (id: string) => {
+  //   const user = users.find((u) => u.userId === id);
+  //   if (user) {
+  //     setUser(user);
+  //   }
+  // };
   return (
     <ComboBox
       fullWidth
@@ -27,7 +27,7 @@ const UserSelection = ({ users }: UserSelectionProps) => {
         id: user.userId,
         title: user.name,
       }))}
-      handleChange={(val) => switchUser(val?.id ?? '')}
+      handleChange={(val) => router.push(`/admin?userId=${val?.id ?? ''}`)}
     />
   );
 };

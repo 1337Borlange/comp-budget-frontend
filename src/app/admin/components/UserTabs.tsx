@@ -1,18 +1,15 @@
-'use client';
-
 import { TabItem, Tabs } from '@/components/Tabs';
-import { useAdminContext } from './AdminContext';
 import { AddExpense } from './AddExpense';
 import { UserIcon } from '@/components/Icons/UserIcon';
 import { UpdateUser } from './UpdateUser';
-import { Category } from '@/lib/types';
+import { Category, User } from '@/lib/types';
 
 type UserTabsProps = {
   categories: Category[];
+  user?: User;
 };
 
-const UserTabs = ({ categories }: UserTabsProps) => {
-  const { user } = useAdminContext();
+const UserTabs = ({ categories, user }: UserTabsProps) => {
   return user ? (
     <Tabs spaceEvenly>
       <TabItem eventKey="expense" title="Add expense">

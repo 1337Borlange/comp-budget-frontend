@@ -1,10 +1,5 @@
-'use client';
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.min.css';
 // import { useAdminContext } from './AdminContext';
-import { BudgetRequestBody } from '@/lib/types';
-import { getFormValue } from '@/lib/helpers';
+import { Budget, User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
@@ -13,32 +8,30 @@ import { Label } from '@/components/FormControl/Label';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import { useAdminContext } from './AdminContext';
+import { saveBudget } from './actions';
+import DatePickerWrapper from './DatePickerWrapper';
 
-export const UpdateUser = () => {
-  //   const [currentUser, setCurrentUser] = useState<User | undefined>();
-  //   const { user } = useAdminContext();
-  const { user, userBudget: budget } = useAdminContext();
+type UpdateUserProps = {
+  user?: User;
+  budget?: Budget;
+};
 
-  const [startDate, setStartDate] = useState(
-    budget?.start ? new Date(budget.start) : new Date()
-  );
+export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
+  // const responseBody = {} as BudgetRequestBody;
 
-  const responseBody = {} as BudgetRequestBody;
+  // const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   formData.forEach((value, property: string) => {
+  //     if (typeof value !== 'undefined') {
+  //       const newVal = getFormValue(value);
+  //       responseBody[property as keyof BudgetRequestBody] = newVal as never;
+  //     }
+  //   });
 
-  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    formData.forEach((value, property: string) => {
-      if (typeof value !== 'undefined') {
-        const newVal = getFormValue(value);
-        responseBody[property as keyof BudgetRequestBody] = newVal as never;
-      }
-    });
-
-    console.log(responseBody);
-    // updateBudget(responseBody);
-  };
+  //   console.log(responseBody);
+  //   // updateBudget(responseBody);
+  // };
 
   //   useEffect(() => {
   //     setStartDate(budget?.start ? new Date(budget.start) : new Date());
@@ -50,21 +43,22 @@ export const UpdateUser = () => {
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form onSubmit={onSubmitHandler}>
+        <form action={saveBudget}>
           <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="id" value={budget?.id} />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
               <FormControl fullWidth>
                 <Label htmlFor="start">Start date</Label>
-                <DatePicker
+                <DatePickerWrapper date={budget?.start} />
+                {/* <DatePicker
                   required
                   name="start"
                   id="start"
                   selected={startDate}
                   dateFormat="yyyy-MM-dd"
                   onChange={(date: Date) => setStartDate(date)}
-                />
+                /> */}
               </FormControl>
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
@@ -74,7 +68,7 @@ export const UpdateUser = () => {
                 id="hardwareBudget"
                 name="hardwareBudget"
                 type="number"
-                defaultValue={budget?.hardwareBudget || 0}
+                defaultValue={budget?.hardwareBudget ?? 0}
               />
             </Column>
           </Grid>
@@ -87,7 +81,7 @@ export const UpdateUser = () => {
                 id="openingBalanceMoney"
                 name="openingBalanceMoney"
                 type="number"
-                defaultValue={budget?.openingBalanceMoney || 0}
+                defaultValue={budget?.openingBalanceMoney ?? 0}
               />
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
@@ -97,7 +91,7 @@ export const UpdateUser = () => {
                 id="openingBalanceTime"
                 name="openingBalanceTime"
                 type="number"
-                defaultValue={budget?.openingBalanceTime || 0}
+                defaultValue={budget?.openingBalanceTime ?? 0}
               />
             </Column>
           </Grid>
@@ -107,7 +101,7 @@ export const UpdateUser = () => {
             id="yearlyRefill"
             name="yearlyRefill"
             type="number"
-            defaultValue={budget?.yearlyRefill || 0}
+            defaultValue={budget?.yearlyRefill ?? 0}
             fullWidth
           />
           <Divider spacing="m" />

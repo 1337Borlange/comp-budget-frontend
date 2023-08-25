@@ -6,10 +6,9 @@ import { StatsIcon } from '@/components/Icons/StatsIcon';
 import Link from 'next/link';
 import { UserCard } from './components/UserCard';
 import UserTabs from './components/UserTabs';
-import UserModal from './components/UserModal';
 import UserSelection from './components/UserSelection';
 import { apiFetch } from '@/lib/helpers';
-import { Category, User } from '@/lib/types';
+import { Budget, Category, Expense, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
@@ -19,6 +18,25 @@ async function getUsers(token: string): Promise<any> {
     return res.json();
   });
 }
+async function getUserExpenses(token: string, id?: string): Promise<Expense[]> {
+  if (!id) {
+    return Promise.resolve([]);
+  }
+  return apiFetch(token, `${apiUrl}/adm/expenses?userId=${id}`).then((res) =>
+    res.json()
+  );
+}
+async function getUserBudget(
+  token: string,
+  id?: string
+): Promise<Budget | undefined> {
+  if (!id) {
+    return Promise.resolve(undefined);
+  }
+  return apiFetch(token, `${apiUrl}/budgets?userId=${id}`).then((res) =>
+    res.json()
+  );
+}
 
 async function getCategories(token: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/categories`).then((res) => {
@@ -26,13 +44,26 @@ async function getCategories(token: string): Promise<any> {
   });
 }
 
-export default async function Admin() {
+export default async function Admin({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const session = await getServerSession(authOptions);
+  const token = (session as any).id_token;
+  const { userId } = searchParams;
+  const userExpenses = await getUserExpenses(token, userId as string);
+  const userBudget = await getUserBudget(token, userId as string);
+  console.log(searchParams);
+  console.log('USer expenses', userExpenses);
+  console.log('USer budget', userBudget);
   let users: User[] = [];
+  let selectedUser = undefined;
   let categories: Category[] = [];
   try {
     users = await getUsers((session as any).id_token);
     categories = await getCategories((session as any).id_token);
+    selectedUser = users.find((u) => u.userId === userId);
   } catch (e) {
     console.error(e);
   }
@@ -56,15 +87,22 @@ export default async function Admin() {
             <UserSelection users={users} />
           </Column>
           <Column lg="6" md="6" sm="6" xs="12">
-            <UserCard />
+            <UserCard
+              user={selectedUser}
+              budget={userBudget}
+              expenses={userExpenses}
+            />
           </Column>
         </Grid>
       </Box>
       <Divider spacing="2xl" />
       <Box spacing="m" alignItems="stretch">
-        <UserTabs categories={categories} />
+        <UserTabs
+          categories={categories}
+          user={selectedUser}
+          budget={userBudget}
+        />
       </Box>
-      <UserModal />
     </div>
   );
 }

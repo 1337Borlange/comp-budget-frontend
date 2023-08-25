@@ -1,17 +1,24 @@
-'use client';
-
-import { useAdminContext } from './AdminContext';
-
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import { ValueHeader } from '@/components/Values';
-import Button from '@/components/Button';
+import { Budget, Expense, User } from '@/lib/types';
+import UserModal from './UserModal';
 import '../../../styles/components/usercard.scss';
 
-export const UserCard: React.FunctionComponent = () => {
-  const { user, setShowUserModal, userBudget: budget } = useAdminContext();
+type UserCardProps = {
+  budget?: Budget;
+  user?: User;
+  expenses?: Expense[];
+};
+
+export const UserCard: React.FunctionComponent<UserCardProps> = ({
+  budget,
+  user,
+  expenses,
+}) => {
   //   const { budget } = useGetBudgets(user.userId, false);
+  if (!budget) return null;
   return (
     <div className="user-card">
       <h3>Current user</h3>
@@ -47,13 +54,7 @@ export const UserCard: React.FunctionComponent = () => {
           </div>
         </Column>
         <Column lg="6" md="6" sm="6" xs="6">
-          <Button priority="outline" onClick={() => setShowUserModal(true)}>
-            Show all
-          </Button>
-          {/* <div>
-            <ValueHeader>Money balance</ValueHeader>
-            <strong>{user.currentTimeBalance}</strong>
-          </div> */}
+          <UserModal budget={budget} user={user} expenses={expenses} />
         </Column>
       </Grid>
     </div>
