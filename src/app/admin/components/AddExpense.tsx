@@ -26,22 +26,26 @@ import 'react-datepicker/dist/react-datepicker.min.css';
 import { useAdminContext } from './AdminContext';
 import { useSession } from 'next-auth/react';
 import { apiUrl } from '@/lib/settings';
+import { saveCategory, saveExpense } from './actions';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 const expenseTypes = ['time', 'money'];
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
-  expense?: Expense;
+  categories: Category[];
 };
 
 export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   reqType,
-  expense,
+  categories,
 }) => {
-  console.log('EXPENSE: ', expense);
+  // console.log('EXPENSE: ', expense);
   const session = useSession();
+  const { selectedExpense: expense } = useAdminContext();
   const { user } = useAdminContext();
-  const [categories, setCategories] = useState<Category[]>([]);
+  // const [categories, setCategories] = useState<Category[]>([]);
   const [expenseDate, setExpenseDate] = useState(
     expense?.date ? new Date(expense.date) : new Date()
   );
@@ -65,71 +69,13 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
     return [];
   }, [expenseType, categories]);
 
-  //   const postCreateForm = () => {
-  //     if (formRef?.current) {
-  //       formRef.current.reset();
-  //       setExpenseDate(new Date());
-  //       setIsHardware(false);
-  //       setExpenseType(undefined);
-  //     }
-  //   };
-
-  interface formDataType {
-    [key: string]: FormDataEntryValue | FormDataEntryValue[];
-  }
-  const responseBody = {} as NewExpense;
-
-  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-
-    formData.forEach((value, property: string) => {
-      console.log(value, property);
-
-      // let _value = value;
-      if (typeof value !== 'undefined') {
-        const newVal = getFormValue(value);
-        responseBody[property as keyof NewExpense] = newVal as never;
-      }
-    });
-
-    console.log(responseBody);
-    // createExpense(responseBody);
-  };
-
-  const onSubmitCategoryHandler = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const postBody: formDataType = {};
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
-    const chk = formData.getAll('categoryType');
-    if (chk.length === 0) {
-      console.error('Please select at least one category type');
-    } else {
-      formData.forEach((value, property: string) => {
-        if (typeof postBody[property] !== 'undefined') {
-          postBody[property] = formData.getAll(property);
-        } else {
-          postBody[property] = value;
-        }
-      });
-      console.log(postBody);
-    }
-  };
   // useEffect(() => {
-  //   if (expense) {
-  //     setExpenseDate(new Date(selectedExpense.date));
-  //     setIsHardware(selectedExpense.isHardware);
-  //     setExpenseType(selectedExpense.type);
+  //   if ((session as any)?.data?.id_token && categories.length === 0) {
+  //     apiFetch((session as any)?.data?.id_token, `${apiUrl}/categories`)
+  //       .then((res) => res.json())
+  //       .then(setCategories);
   //   }
-  // }, [expense]);
-
-  useEffect(() => {
-    if ((session as any)?.data?.id_token && categories.length === 0) {
-      apiFetch((session as any)?.data?.id_token, `${apiUrl}/categories`)
-        .then((res) => res.json())
-        .then(setCategories);
-    }
-  }, [session, categories]);
+  // }, [session, categories]);
 
   return (
     <>
@@ -144,7 +90,12 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
         </Column>
       </Grid> */}
       <Divider spacing="m" color="transparent" />
-      <form onSubmit={onSubmitHandler} ref={formRef}>
+      <form action={saveExpense} ref={formRef}>
+        <input
+          type="hidden"
+          name="reqType"
+          value={reqType === 'update' ? 'PUT' : 'POST'}
+        />
         <input type="hidden" name="userId" value={user?.userId} />
         {expense && <input type="hidden" name="id" value={expense?.id} />}
         {/* <input
@@ -272,7 +223,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
       >
         <h2>Add a new category</h2>
         <Divider spacing="l" />
-        <form onSubmit={onSubmitCategoryHandler}>
+        <form action={saveCategory}>
           <TextField label="Category name" name="categoryName" fullWidth />
           <Divider spacing="s" color="transparent" />
           <Box bottomSpacing="xs">

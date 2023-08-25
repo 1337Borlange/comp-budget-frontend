@@ -23,9 +23,11 @@ import Divider from './Divider';
 import Button from './Button';
 import { Expense } from '@/lib/types';
 import { InlineStack } from './InlineStack';
-import { getExpenseType } from '@/lib/helpers';
+import { apiFetch, getExpenseType } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
 import { useAdminContext } from '@/app/admin/components/AdminContext';
+import { apiUrl } from '@/lib/settings';
+import { useSession } from 'next-auth/react';
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -144,6 +146,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
   expenses,
   showEdit,
 }) => {
+  const session = useSession();
   const router = useRouter();
   const { setSelectedExpense } = useAdminContext();
   const [selectedYear, setSelectedYear] = useState<number>(
@@ -166,6 +169,11 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
     router.push('/admin/edit');
   };
 
+  const deleteExpense = (id: string) => {
+    apiFetch((session as any)?.data?.id_token, `${apiUrl}/expenses?id=${id}`, {
+      method: 'DELETE',
+    });
+  };
   const filteredExpenses = useMemo(() => {
     return sortedExpenses.filter(
       (exp) => new Date(exp.date).getFullYear() === selectedYear
@@ -207,8 +215,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
         onClose={() => setShowConfirmDelete(false)}
         onConfirm={() => {
           if (expenseToDelete?.id) {
-            // deleteExpense(expenseToDelete?.id);
-            console.log('Edit');
+            deleteExpense(expenseToDelete?.id);
           }
           setShowConfirmDelete(false);
         }}

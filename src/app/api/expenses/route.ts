@@ -7,6 +7,11 @@ import { headers } from 'next/headers';
 import { apiUrl } from '@/lib/settings';
 let accessToken;
 
+export async function POST(req: Request, res: Response) {
+  console.log(req.body);
+  return NextResponse.json({ status: 200 });
+}
+
 // async function getUser() {
 //   const headersInstance = headers()
 //   const authorization = headersInstance.get('authorization')

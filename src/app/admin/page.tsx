@@ -9,7 +9,7 @@ import UserTabs from './components/UserTabs';
 import UserModal from './components/UserModal';
 import UserSelection from './components/UserSelection';
 import { apiFetch } from '@/lib/helpers';
-import { User } from '@/lib/types';
+import { Category, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
@@ -20,11 +20,19 @@ async function getUsers(token: string): Promise<any> {
   });
 }
 
+async function getCategories(token: string): Promise<any> {
+  return apiFetch(token, `${apiUrl}/categories`).then((res) => {
+    return res.json();
+  });
+}
+
 export default async function Admin() {
   const session = await getServerSession(authOptions);
   let users: User[] = [];
+  let categories: Category[] = [];
   try {
     users = await getUsers((session as any).id_token);
+    categories = await getCategories((session as any).id_token);
   } catch (e) {
     console.error(e);
   }
@@ -54,7 +62,7 @@ export default async function Admin() {
       </Box>
       <Divider spacing="2xl" />
       <Box spacing="m" alignItems="stretch">
-        <UserTabs />
+        <UserTabs categories={categories} />
       </Box>
       <UserModal />
     </div>
