@@ -136,7 +136,6 @@ const DropMenuButton: React.FunctionComponent<
             aria-expanded={expanded}
             aria-controls={id}
             onClick={() => {
-              console.log('Click');
               setExpanded(!expanded);
             }}
             ref={buttonRef}

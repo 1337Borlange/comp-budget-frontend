@@ -54,9 +54,7 @@ export default async function Admin({
   const { userId } = searchParams;
   const userExpenses = await getUserExpenses(token, userId as string);
   const userBudget = await getUserBudget(token, userId as string);
-  console.log(searchParams);
-  console.log('USer expenses', userExpenses);
-  console.log('USer budget', userBudget);
+
   let users: User[] = [];
   let selectedUser = undefined;
   let categories: Category[] = [];

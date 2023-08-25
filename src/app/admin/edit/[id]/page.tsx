@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
 import Divider from '@/components/Divider';
-import { AddExpense } from '../components/AddExpense';
+import { AddExpense } from '../../components/AddExpense';
 import Box from '@/components/Box';
 import Link from 'next/link';
 import { apiFetch } from '@/lib/helpers';
@@ -13,11 +13,17 @@ async function getCategories(token: string): Promise<any> {
     return res.json();
   });
 }
+async function getExpense(token: string, id: string): Promise<any> {
+  return apiFetch(token, `${apiUrl}/adm/expenses?id=${id}`).then((res) => {
+    return res.json();
+  });
+}
 
-export default async function Edit() {
+export default async function Edit({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
-  const categories = await getCategories((session as any).id_token);
-
+  const token = (session as any).id_token;
+  const categories = await getCategories(token);
+  const expense = await getExpense(token, params.id);
   return (
     <div>
       <Box topSpacing="m" leftSpacing="m" rightSpacing="m">
@@ -27,7 +33,11 @@ export default async function Edit() {
       </Box>
       <Divider spacing="s" />
       <Box spacing="m" alignItems="stretch">
-        <AddExpense reqType="update" categories={categories} />
+        <AddExpense
+          reqType="update"
+          categories={categories}
+          expense={expense?.[0]}
+        />
       </Box>
     </div>
   );

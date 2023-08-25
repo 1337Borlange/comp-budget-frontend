@@ -1,5 +1,9 @@
 'use client';
 
+/*
+  OBSOLETE COMPONENT
+*/
+
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
 import { Budget, Expense, User } from '@/lib/types';

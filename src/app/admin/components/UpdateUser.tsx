@@ -1,4 +1,3 @@
-// import { useAdminContext } from './AdminContext';
 import { Budget, User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
@@ -30,7 +29,11 @@ export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
             <Column lg="6" md="6" sm="6" xs="12">
               <FormControl fullWidth>
                 <Label htmlFor="start">Start date</Label>
-                <DatePickerWrapper date={budget?.start} />
+                <DatePickerWrapper
+                  date={budget?.start}
+                  name="start"
+                  id="start"
+                />
               </FormControl>
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">

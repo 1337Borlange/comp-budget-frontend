@@ -14,7 +14,7 @@ const UserTabs = ({ categories, user, budget }: UserTabsProps) => {
   return user ? (
     <Tabs spaceEvenly>
       <TabItem eventKey="expense" title="Add expense">
-        <AddExpense reqType="create" categories={categories} />
+        <AddExpense reqType="create" categories={categories} user={user} />
       </TabItem>
       <TabItem eventKey="updateuser" title="Update user">
         <UpdateUser budget={budget} user={user} />

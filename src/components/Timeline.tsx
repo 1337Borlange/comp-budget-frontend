@@ -28,6 +28,7 @@ import { useRouter } from 'next/navigation';
 import { useAdminContext } from '@/app/admin/components/AdminContext';
 import { apiUrl } from '@/lib/settings';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -53,13 +54,11 @@ const listItem = {
 
 const TimeLineItem = ({
   exp,
-  editExpense,
   setShowConfirmDelete,
   setExpenseToDelete,
   showEdit,
 }: {
   exp: Expense;
-  editExpense: (exp: Expense) => void;
   setShowConfirmDelete: React.Dispatch<React.SetStateAction<boolean>>;
   setExpenseToDelete: React.Dispatch<React.SetStateAction<Expense | undefined>>;
   showEdit: boolean;
@@ -112,13 +111,12 @@ const TimeLineItem = ({
           {/* {isAdmin && path.includes('admin') && ( */}
           {showEdit && (
             <div className="expense-buttons">
-              <Button
-                priority="outline"
-                iconOnly
-                onClick={() => editExpense(exp)}
+              <Link
+                className="button outline icon-only"
+                href={`/admin/edit/${exp.id}`}
               >
                 <PenIcon />
-              </Button>
+              </Link>
               <Button
                 priority="outline"
                 onClick={() => {
@@ -147,8 +145,6 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
   showEdit,
 }) => {
   const session = useSession();
-  const router = useRouter();
-  const { setSelectedExpense } = useAdminContext();
   const [selectedYear, setSelectedYear] = useState<number>(
     new Date().getFullYear()
   );
@@ -163,11 +159,6 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
       return [...new Set([...acc, year])];
     }, []);
   }, [sortedExpenses]);
-
-  const editExpense = (exp: Expense) => {
-    setSelectedExpense(exp);
-    router.push('/admin/edit');
-  };
 
   const deleteExpense = (id: string) => {
     apiFetch((session as any)?.data?.id_token, `${apiUrl}/expenses?id=${id}`, {
@@ -200,7 +191,6 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
           {filteredExpenses.map((exp) => (
             <TimeLineItem
               key={exp.id}
-              editExpense={() => editExpense(exp)}
               setExpenseToDelete={setExpenseToDelete}
               exp={exp}
               showEdit={showEdit}

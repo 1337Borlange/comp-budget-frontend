@@ -2,7 +2,6 @@
 
 import ComboBox from '@/components/ComboBox';
 import { User } from '@/lib/types';
-import { useAdminContext } from './AdminContext';
 import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
@@ -11,14 +10,6 @@ type UserSelectionProps = {
 
 const UserSelection = ({ users }: UserSelectionProps) => {
   const router = useRouter();
-  // const { setUser } = useAdminContext();
-
-  // const switchUser = (id: string) => {
-  //   const user = users.find((u) => u.userId === id);
-  //   if (user) {
-  //     setUser(user);
-  //   }
-  // };
   return (
     <ComboBox
       fullWidth

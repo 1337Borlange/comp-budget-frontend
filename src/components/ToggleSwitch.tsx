@@ -3,12 +3,13 @@ import '../styles/components/toggleswitch.scss';
 
 export type ToggleSwitchProps = {
   id: string;
-  checked: boolean;
-  onChange: (checked: boolean) => void;
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
   name?: string;
   optionLabels?: string[];
   small?: boolean;
   disabled?: boolean;
+  defaultChecked?: boolean;
 };
 
 const ToggleSwitch = ({
@@ -16,6 +17,7 @@ const ToggleSwitch = ({
   name,
   checked,
   onChange,
+  defaultChecked,
   optionLabels = ['Yes', 'No'],
   small,
   disabled,
@@ -24,8 +26,18 @@ const ToggleSwitch = ({
     if (e.code !== 'Enter' && e.code !== 'Space') return;
 
     e.preventDefault();
-    onChange(!checked);
+    if (onChange) onChange(!checked);
   };
+
+  const inputProps = {
+    className: 'toggle-switch-checkbox',
+    type: 'checkbox',
+    name,
+    id,
+    ...(typeof checked !== 'undefined' && { checked }),
+    ...(typeof defaultChecked !== 'undefined' && { defaultChecked }),
+    ...(typeof onChange !== 'undefined' && { onChange }),
+  } as React.HTMLAttributes<HTMLInputElement>;
 
   return (
     <div
@@ -33,15 +45,7 @@ const ToggleSwitch = ({
       role="switch"
       aria-checked={checked}
     >
-      <input
-        type="checkbox"
-        name={name}
-        className="toggle-switch-checkbox"
-        id={id}
-        checked={checked}
-        onChange={(e) => onChange(e.target.checked)}
-        disabled={disabled}
-      />
+      <input {...inputProps} />
       {id ? (
         <label
           className="toggle-switch-label"
