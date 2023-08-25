@@ -29,8 +29,5 @@
   "devDependencies": {
     "@types/react-datepicker": "^4.15.0",
     "sass": "^1.66.1"
-  },
-  "engines": {
-    "node": ">=18.16.1"
   }
 }
