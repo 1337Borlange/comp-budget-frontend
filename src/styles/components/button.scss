@@ -102,8 +102,13 @@ a.button {
         font-size: 12px;
     }
 
-    &.icon-only svg {
-        margin: 0;
+    &.icon-only {
+        svg {
+            margin: 0;
+        }
+        &:hover {
+            transform: scale(1.05);
+        }
     }
 
     &.secondary {
