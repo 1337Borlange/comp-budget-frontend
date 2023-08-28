@@ -1,9 +1,13 @@
 // import { getServerSession } from 'next-auth';
-// import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 // import { authOptions } from '../../auth/[...nextauth]/route';
 // import { revalidatePath } from 'next/cache';
 // import { apiFetch } from '@/lib/helpers';
 // import { apiUrl } from '@/lib/settings';
+
+export async function GET(request: NextRequest) {
+  return NextResponse.json({ revalidated: true, now: Date.now() });
+}
 
 // export async function DELETE(request: NextRequest) {
 //   const session = await getServerSession(authOptions);
