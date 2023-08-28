@@ -22,7 +22,7 @@ async function getUserExpenses(token: string, id?: string): Promise<Expense[]> {
   if (!id) {
     return Promise.resolve([]);
   }
-  return apiFetch(token, `${apiUrl}/expenses?userId=${id}`).then((res) =>
+  return apiFetch(token, `${apiUrl}/adm/expenses?userId=${id}`).then((res) =>
     res.json()
   );
 }

@@ -48,7 +48,8 @@ export async function saveExpense(formData: FormData) {
       responseBody[property as keyof NewExpense] = newVal as never;
     }
   });
-
+  console.log(meth);
+  console.log(responseBody);
   await apiFetch((session as any)?.id_token, `${apiUrl}/adm/expenses`, {
     method: meth,
     body: JSON.stringify(responseBody),
@@ -62,7 +63,7 @@ export async function deleteExpense(formData: FormData) {
 
   await apiFetch(
     (session as any)?.id_token,
-    `${apiUrl}/adm/expenses?id=${id}`,
+    `${apiUrl}/adm/expenses?expenseId=${id}`,
     {
       method: 'DELETE',
     }

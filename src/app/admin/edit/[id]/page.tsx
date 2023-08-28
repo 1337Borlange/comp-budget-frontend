@@ -14,9 +14,11 @@ async function getCategories(token: string): Promise<any> {
   });
 }
 async function getExpense(token: string, id: string): Promise<any> {
-  return apiFetch(token, `${apiUrl}/adm/expenses?id=${id}`).then((res) => {
-    return res.json();
-  });
+  return apiFetch(token, `${apiUrl}/adm/expenses?expenseId=${id}`).then(
+    (res) => {
+      return res.json();
+    }
+  );
 }
 
 export default async function Edit({ params }: { params: { id: string } }) {

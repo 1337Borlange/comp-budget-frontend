@@ -26,8 +26,6 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   expense,
   user,
 }) => {
-  console.log('EXPENSE: ', expense);
-
   return (
     <>
       <Grid spacing="m">
@@ -48,7 +46,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
         <input
           type="hidden"
           name="userId"
-          value={user?.userId || expense?.userId}
+          value={expense?.userId || user?.userId}
         />
         {expense && <input type="hidden" name="id" value={expense?.id} />}
         <Grid spacing="l">
