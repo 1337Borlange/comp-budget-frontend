@@ -25,10 +25,10 @@ import { Expense } from '@/lib/types';
 import { InlineStack } from './InlineStack';
 import { apiFetch, getExpenseType } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
-import { useAdminContext } from '@/app/admin/components/AdminContext';
 import { apiUrl } from '@/lib/settings';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { deleteExpense } from '@/app/admin/components/actions';
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -145,6 +145,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
   showEdit,
 }) => {
   const session = useSession();
+  const router = useRouter();
   const [selectedYear, setSelectedYear] = useState<number>(
     new Date().getFullYear()
   );
@@ -160,11 +161,11 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
     }, []);
   }, [sortedExpenses]);
 
-  const deleteExpense = (id: string) => {
-    apiFetch((session as any)?.data?.id_token, `${apiUrl}/expenses?id=${id}`, {
-      method: 'DELETE',
-    });
-  };
+  // const deleteExpense = (id: string) => {
+  //   fetch(`/api/admin/expense?id=${id}`, { method: 'DELETE' })
+  //     .then(() => router.push('/admin'))
+  //     .catch(console.error);
+  // };
   const filteredExpenses = useMemo(() => {
     return sortedExpenses.filter(
       (exp) => new Date(exp.date).getFullYear() === selectedYear
@@ -203,16 +204,24 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
         id="confirm-delete-dialog"
         visible={showConfirmDelete}
         onClose={() => setShowConfirmDelete(false)}
-        onConfirm={() => {
-          if (expenseToDelete?.id) {
-            deleteExpense(expenseToDelete?.id);
-          }
-          setShowConfirmDelete(false);
-        }}
+        // onConfirm={() => {
+        //   if (expenseToDelete?.id) {
+        //     deleteExpense(expenseToDelete?.id);
+        //   }
+        //   setShowConfirmDelete(false);
+        // }}
         width="30rem"
+        action={deleteExpense}
         title="Delete expense"
-        description="Are you sure you want to delete this expense?"
-      />
+      >
+        <p>Are you sure you want to delete this expense?</p>
+        <input
+          type="hidden"
+          name="expenseId"
+          id="expenseId"
+          value={expenseToDelete?.id}
+        />
+      </ConfirmDialog>
     </>
   );
 };
