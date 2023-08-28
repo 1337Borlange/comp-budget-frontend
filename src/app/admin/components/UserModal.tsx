@@ -29,6 +29,7 @@ const UserModal = ({ user, budget, expenses }: UserModalProps) => {
           budget={budget}
           title={user?.name ?? ''}
           expenses={expenses ?? []}
+          user={user}
           showEdit
         />
       </Modal>

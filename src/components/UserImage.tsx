@@ -5,21 +5,28 @@ type UserImageProps = {
   url: string;
   size?: number;
   alt: string;
+  width?: number;
+  height?: number;
 };
 
 const UserImage: React.FunctionComponent<UserImageProps> = ({
   url,
   size = 50,
   alt,
+  width,
+  height,
 }) => {
+  const style = { '--user-image-size': `${size}px` } as React.CSSProperties;
   return (
-    <Image
-      className="user-image"
-      width={size}
-      height={size}
-      src={url}
-      alt={alt}
-    />
+    <div className="user-image-wrapper" style={style}>
+      <Image
+        className="user-image"
+        width={width ?? size}
+        height={height ?? size}
+        src={url}
+        alt={alt}
+      />
+    </div>
   );
 };
 

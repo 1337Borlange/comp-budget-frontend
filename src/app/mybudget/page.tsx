@@ -1,7 +1,7 @@
 import Divider from '@/components/Divider';
 import { InfoBox } from '@/components/InfoBox';
 import { UserProfile } from '@/components/UserProfile';
-import { Budget, Expense } from '@/lib/types';
+import { Budget, Expense, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
@@ -38,12 +38,13 @@ export default async function MyBudget() {
   return (
     <div className="content-wrapper">
       <h2 style={{ lineHeight: 1 }}>My budget</h2>
-      <Divider spacing="xl" />
+      <Divider spacing="m" />
       <InfoBox>
         Expenses added within the last two months may not be visible in your
         list, or deducted from your balance, due to manual handling.
       </InfoBox>
       <UserProfile
+        user={session?.user as User}
         showEdit={false}
         title="My expenses"
         budget={budget}
