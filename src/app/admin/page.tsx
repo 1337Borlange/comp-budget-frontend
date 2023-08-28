@@ -22,7 +22,7 @@ async function getUserExpenses(token: string, id?: string): Promise<Expense[]> {
   if (!id) {
     return Promise.resolve([]);
   }
-  return apiFetch(token, `${apiUrl}/adm/expenses?userId=${id}`).then((res) =>
+  return apiFetch(token, `${apiUrl}/expenses?userId=${id}`).then((res) =>
     res.json()
   );
 }
@@ -52,6 +52,7 @@ export default async function Admin({
   const session = await getServerSession(authOptions);
   const token = (session as any).id_token;
   const { userId } = searchParams;
+  console.log(userId);
   const userExpenses = await getUserExpenses(token, userId as string);
   const userBudget = await getUserBudget(token, userId as string);
 
