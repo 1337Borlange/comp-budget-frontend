@@ -12,9 +12,10 @@ const isNumber = (val: unknown) => {
 export const getFormValue = (
   val: FormDataEntryValue
 ): string | boolean | number | FormDataEntryValue => {
-  if (isNumber(val)) {
-    return Number(val);
-  } else if (val === 'on') {
+  // if (isNumber(val)) {
+  //   return Number(val);
+  // } else
+  if (val === 'on') {
     return true;
   } else if (val === 'off') {
     return false;
