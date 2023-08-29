@@ -180,7 +180,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
         {allYears.map((year) => (
           <Button
             key={`filter-year-${year}`}
-            priority={`${year === selectedYear ? 'primary' : 'secondary'}`}
+            priority={`${year === selectedYear ? 'primary' : 'outline'}`}
             onClick={() => setSelectedYear(year)}
           >
             {year}
