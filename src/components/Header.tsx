@@ -45,16 +45,17 @@ const Header = ({ user, isAdmin }: HeaderProps) => {
                   </div>
                 }
               >
-                <div className="list-switch">
-                  <Label htmlFor="is-darkmode">Darkmode</Label>
-                  {/* <ToggleSwitch
+                {/* <div className="list-switch">
+                  <Label htmlFor="is-darkmode">Darkmode</Label> */}
+                {/* <ToggleSwitch
                     id="is-darkmode"
                     name="is-darkmode"
                     checked={Boolean(storedSettings?.darkTheme)}
                     onChange={(val) => switchTheme(val)}
                   /> */}
-                </div>
+                {/* </div> */}
                 {isAdmin && <Link href="/admin">Admin</Link>}
+                {isAdmin && <Link href="/admin/stats">Stats</Link>}
                 <Link href="/api/auth/signout">Log out</Link>
               </DropMenuButton>
             )}

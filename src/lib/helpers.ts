@@ -43,6 +43,22 @@ export const getUserId = (id_token: string) => {
   const dec = jwt_decode(id_token) as GoogleJWTProfile;
   return dec?.sub;
 };
+
+export const getPercentage = (max: number, current: number): number => {
+  const percentage = Math.floor((current / max) * 100);
+  return percentage;
+};
+export const getValueStatus = (max: number, current: number): string => {
+  const percentage = getPercentage(max, current);
+  if (percentage <= 10) {
+    return 'low';
+  } else if (percentage <= 25) {
+    return 'warn';
+  }
+
+  return 'normal';
+};
+
 export const barColors = [
   '#FF6633',
   '#FFB399',

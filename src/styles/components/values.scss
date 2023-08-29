@@ -1,13 +1,31 @@
+.value-wrapper {
+    transition: transform 0.2s ease;
+    &:hover {
+        transform: scale(1.05);
+        .value-header {
+            color: var(--colors-pagebg);
+            background-color: var(--colors-primary);
+        }
+    }
+}
 .value-header {
     font-size: 0.75rem;
     opacity: 0.8;
     text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--colors-primary);
+    transition: all 0.2s ease;
+    margin-bottom: var(--spacing-xs);
 }
 
 .value-content {
     font-weight: bold;
-    font-size: 3rem;
+    font-size: 1.5rem;
     color: var(--colors-text);
+    &.warn {
+        color: var(--colors-warn);
+    }
+    &.low {
+        color: var(--colors-error);
+    }
 }

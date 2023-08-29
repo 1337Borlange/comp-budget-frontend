@@ -8,6 +8,11 @@
     height: var(--user-image-size);
     border: 2px solid var(--user-image-border-color);
     position: relative;
+    transition: all 0.2s ease;
+    &:hover {
+        transform: scale(1.1);
+        border-width: 3px;
+    }
 }
 .user-image {
     // --user-image-size: 50px;
