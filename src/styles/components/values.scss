@@ -1,11 +1,12 @@
 .value-wrapper {
+    box-shadow: var(--elevation-small);
     transition: transform 0.2s ease;
     &:hover {
         transform: scale(1.05);
-        .value-header {
-            color: var(--colors-pagebg);
-            background-color: var(--colors-primary);
-        }
+        // .value-header {
+        //     color: var(--colors-pagebg);
+        //     background-color: var(--colors-primary);
+        // }
     }
 }
 .value-header {

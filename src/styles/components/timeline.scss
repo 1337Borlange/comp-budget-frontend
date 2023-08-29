@@ -45,6 +45,13 @@
     position: relative;
     flex-direction: column;
     transition: all 0.2s ease;
+    box-shadow: var(--elevation-medium);
+    // box-shadow:
+    //     0 1px 1px hsl(0deg 0% 0% / 0.055),
+    //     0 2px 2px hsl(0deg 0% 0% / 0.055),
+    //     0 4px 4px hsl(0deg 0% 0% / 0.055),
+    //     0 8px 8px hsl(0deg 0% 0% / 0.055),
+    //     0 16px 16px hsl(0deg 0% 0% / 0.055);
     &:after {
         content: "";
         border-right: 0.5rem solid var(--colors-silver);
@@ -74,4 +81,5 @@
 .expense-sum {
     font-size: 2rem;
     font-weight: bold;
+    color: var(--colors-primary);
 }

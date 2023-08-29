@@ -105,19 +105,31 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
     <>
       <Grid spacing="l">
         <Column lg="4" md="4" sm="4" xs="12">
-          <Box backgroundColor="var(--colors-silver)" spacing="m">
+          <Box
+            backgroundColor="var(--colors-silver)"
+            spacing="m"
+            className="value-wrapper"
+          >
             <ValueHeader>Time used per employee</ValueHeader>
             <ValueContent>{averageTimePerUser}h</ValueContent>
           </Box>
         </Column>
         <Column lg="4" md="4" sm="4" xs="12">
-          <Box backgroundColor="var(--colors-silver)" spacing="m">
+          <Box
+            backgroundColor="var(--colors-silver)"
+            spacing="m"
+            className="value-wrapper"
+          >
             <ValueHeader>Money used per employee</ValueHeader>
             <ValueContent>{averageMoneyPerUser} kr</ValueContent>
           </Box>
         </Column>
         <Column lg="4" md="4" sm="4" xs="12">
-          <Box backgroundColor="var(--colors-silver)" spacing="m">
+          <Box
+            backgroundColor="var(--colors-silver)"
+            spacing="m"
+            className="value-wrapper"
+          >
             <ValueHeader>Hardware spent per employee</ValueHeader>
             <ValueContent>{averageHardwarePerUser} kr</ValueContent>
           </Box>
