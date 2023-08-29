@@ -1,5 +1,3 @@
-'use client';
-
 import Box from '@/components/Box';
 import Column from '@/components/Column';
 import Divider from '@/components/Divider';
@@ -7,7 +5,6 @@ import Grid from '@/components/Grid';
 import { ValueContent, ValueHeader } from '@/components/Values';
 import { barColors } from '@/lib/helpers';
 import { Category, Expense, User } from '@/lib/types';
-import { useCallback, useMemo } from 'react';
 import BarChart from './BarChart';
 
 const options = {
@@ -34,73 +31,57 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
   // const categories: Category[] = [];
   // const allUsers: any = [];
 
-  const timeExpenses = useMemo(() => {
-    return allExpenses?.filter((exp) => exp.type === 'time') || [];
-  }, [allExpenses]);
+  const timeExpenses = allExpenses?.filter((exp) => exp.type === 'time') || [];
 
-  const moneyExpenses = useMemo(() => {
-    return allExpenses?.filter((exp) => exp.type === 'money') || [];
-  }, [allExpenses]);
+  const moneyExpenses =
+    allExpenses?.filter((exp) => exp.type === 'money') || [];
 
-  const getAverageValue = useCallback(
-    (expenseArr: Expense[]) => {
-      const noUsers = Array.isArray(allUsers) ? allUsers?.length : 0;
-      const totalValue = expenseArr?.reduce((acc, curr) => {
-        return (acc += curr.sum);
-      }, 0);
+  const getAverageValue = (expenseArr: Expense[]) => {
+    const noUsers = Array.isArray(allUsers) ? allUsers?.length : 0;
+    const totalValue = expenseArr?.reduce((acc, curr) => {
+      return (acc += curr.sum);
+    }, 0);
 
-      return Math.round(totalValue / noUsers);
-    },
-    [allUsers]
+    return Math.round(totalValue / noUsers);
+  };
+
+  const averageTimePerUser = getAverageValue(timeExpenses);
+
+  const averageMoneyPerUser = getAverageValue(moneyExpenses);
+  const averageHardwarePerUser = getAverageValue(
+    moneyExpenses.filter((exp) => exp.isHardware)
   );
 
-  const averageTimePerUser = useMemo(() => {
-    return getAverageValue(timeExpenses);
-  }, [getAverageValue, timeExpenses]);
+  const getCategoryByExpenseType = (expenseArr: Expense[]) => {
+    const numOfInstances = categories?.map(
+      (c) => expenseArr?.filter((exp) => exp.category === c.name).length
+    );
+    return numOfInstances;
+  };
 
-  const averageMoneyPerUser = useMemo(() => {
-    return getAverageValue(moneyExpenses);
-  }, [getAverageValue, moneyExpenses]);
-  const averageHardwarePerUser = useMemo(() => {
-    return getAverageValue(moneyExpenses.filter((exp) => exp.isHardware));
-  }, [getAverageValue, moneyExpenses]);
+  const barTimeData = {
+    labels: categories?.map((c) => c.name) || [],
+    datasets: [
+      {
+        label: 'Time expenses by category',
+        data: getCategoryByExpenseType(timeExpenses) || [],
+        backgroundColor: barColors,
+        borderWidth: 1,
+      },
+    ],
+  };
 
-  const getCategoryByExpenseType = useCallback(
-    (expenseArr: Expense[]) => {
-      const numOfInstances = categories?.map(
-        (c) => expenseArr?.filter((exp) => exp.category === c.name).length
-      );
-      return numOfInstances;
-    },
-    [categories]
-  );
-
-  const barTimeData = useMemo(() => {
-    return {
-      labels: categories?.map((c) => c.name) || [],
-      datasets: [
-        {
-          label: 'Time expenses by category',
-          data: getCategoryByExpenseType(timeExpenses) || [],
-          backgroundColor: barColors,
-          borderWidth: 1,
-        },
-      ],
-    };
-  }, [categories, getCategoryByExpenseType, timeExpenses]);
-  const barMoneyData = useMemo(() => {
-    return {
-      labels: categories?.map((c) => c.name) || [],
-      datasets: [
-        {
-          label: 'Money expenses by category',
-          data: getCategoryByExpenseType(moneyExpenses) || [],
-          backgroundColor: barColors,
-          borderWidth: 1,
-        },
-      ],
-    };
-  }, [categories, getCategoryByExpenseType, moneyExpenses]);
+  const barMoneyData = {
+    labels: categories?.map((c) => c.name) || [],
+    datasets: [
+      {
+        label: 'Money expenses by category',
+        data: getCategoryByExpenseType(moneyExpenses) || [],
+        backgroundColor: barColors,
+        borderWidth: 1,
+      },
+    ],
+  };
   return (
     <>
       <Grid spacing="l">
