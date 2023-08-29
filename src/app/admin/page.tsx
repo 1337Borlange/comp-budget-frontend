@@ -71,8 +71,8 @@ export default async function Admin({
     <div>
       <Box
         topSpacing="m"
-        leftSpacing="m"
-        rightSpacing="m"
+        leftSpacing="l"
+        rightSpacing="l"
         alignItems="flex-end"
       >
         <Link className="button icon-right" href="/admin/stats">
@@ -80,7 +80,7 @@ export default async function Admin({
         </Link>
       </Box>
       <Divider spacing="m" color="var(--colors-silver)" />
-      <Box spacing="m">
+      <Box spacing="l">
         <Grid spacing="l">
           <Column lg="6" md="6" sm="6" xs="12" alignItems="flex-start">
             <UserSelection users={users} />
@@ -94,8 +94,8 @@ export default async function Admin({
           </Column>
         </Grid>
       </Box>
-      <Divider spacing="2xl" />
-      <Box spacing="m" alignItems="stretch">
+      <Divider spacing="m" color="var(--colors-silver)" />
+      <Box spacing="l" alignItems="stretch">
         <UserTabs
           categories={categories}
           user={selectedUser}

@@ -26,7 +26,7 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
 }) => {
   return (
     <div>
-      <Box spacing="l" alignItems="center">
+      <Box topSpacing="l" leftSpacing="l" rightSpacing="l" alignItems="center">
         {user && (
           <UserImage
             size={100}

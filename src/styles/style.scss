@@ -16,6 +16,8 @@
     --colors-error: #e74c3c;
     --elevation-small: rgba(0, 0, 0, 0.1) 0px 10px 13px -3px, rgba(0, 0, 0, 0.04) 0px 5px 5px -3px;
     --elevation-medium: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    --elevation-large: 0 1px 1px hsl(0deg 0% 0% / 0.075), 0 2px 2px hsl(0deg 0% 0% / 0.075),
+        0 4px 4px hsl(0deg 0% 0% / 0.075), 0 8px 8px hsl(0deg 0% 0% / 0.075), 0 16px 16px hsl(0deg 0% 0% / 0.075);
     --spacing-none: 0;
     --spacing-3xs: 0.15rem;
     --spacing-2xs: 0.25rem;

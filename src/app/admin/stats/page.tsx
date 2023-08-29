@@ -41,15 +41,15 @@ export default async function AdminStats() {
   }
   return (
     <div>
-      <Box topSpacing="m" leftSpacing="m" rightSpacing="m">
+      <Box topSpacing="m" leftSpacing="l" rightSpacing="l" bottomSpacing="m">
         <Link className="button outline icon-left" href="/admin">
           <ArrowLeftIcon /> Back
         </Link>
       </Box>
-      <Divider spacing="m" />
-      <Box spacing="m">
+      <Divider spacing="none" color="var(--colors-silver)" />
+      <Box spacing="l">
         <h2>Statistics</h2>
-        <Divider spacing="l" />
+        <Divider spacing="l" color="var(--colors-silver)" />
         <h3>Average usage of budget</h3>
         <Divider spacing="s" color="transparent" />
         <Stats

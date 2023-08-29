@@ -27,7 +27,7 @@ const ExpenseTypeCat = ({ expense, categories }: ExpenseTypeCatProps) => {
     return [];
   }, [expenseType, categories]);
   return (
-    <Grid spacing="m">
+    <Grid spacing="l">
       <Column lg="6" md="6" sm="6" xs="12">
         <Select
           required

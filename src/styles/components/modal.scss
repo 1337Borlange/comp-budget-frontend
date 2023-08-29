@@ -14,8 +14,9 @@
         z-index: 2;
         padding: 0;
         border-radius: 50%;
-        background-color: var(--colors-pagebg);
-        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.23);
+        background-color: var(--colors-primarybuttonbg);
+        color: var(--colors-primarybuttoncolor);
+        box-shadow: var(--elevation-small);
         position: absolute;
         display: inline-flex;
         align-items: center;
