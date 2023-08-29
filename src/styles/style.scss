@@ -103,6 +103,18 @@ a {
     overflow: hidden;
 }
 
+.not-found {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    img,
+    h1 {
+        margin-bottom: var(--spacing-l);
+    }
+}
 @media (prefers-color-scheme: dark) {
     :root {
         --colors-primary: #04c866;
