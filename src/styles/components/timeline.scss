@@ -10,6 +10,14 @@
     margin-bottom: 3rem;
     display: flex;
     align-items: flex-start;
+    &:hover {
+        .expense-icon {
+            transform: scale(1.09);
+        }
+        .expense-content {
+            margin-left: var(--spacing-2xs);
+        }
+    }
 }
 
 .expense-icon {
@@ -25,16 +33,18 @@
     margin-right: 1.5rem;
     border-radius: 50%;
     font-size: 2rem;
+    transition: transform 0.2s ease;
 }
 
 .expense-content {
     display: flex;
     flex: 1;
     background-color: var(--colors-silver);
-    padding: 1rem;
+    padding: var(--spacing-m);
     border-radius: 0.5rem;
     position: relative;
     flex-direction: column;
+    transition: all 0.2s ease;
     &:after {
         content: "";
         border-right: 0.5rem solid var(--colors-silver);
