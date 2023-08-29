@@ -36,9 +36,13 @@
             cursor: pointer;
             width: 100%;
             height: 4rem;
+            transition: all 0.2s ease;
             &:disabled {
                 opacity: 0.5;
                 cursor: default;
+            }
+            &:hover {
+                background-color: var(--colors-silver);
             }
         }
 
@@ -46,6 +50,9 @@
             background-color: var(--colors-primarybuttonbg);
             button {
                 color: var(--colors-primarybuttoncolor);
+                &:hover {
+                    background-color: var(--colors-primarybuttonbg-hover);
+                }
             }
             &:after {
                 content: "";

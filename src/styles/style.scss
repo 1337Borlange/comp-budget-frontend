@@ -6,6 +6,7 @@
     --colors-primary: #1d2e8c;
     --colors-secondary: #04c866;
     --colors-primarybuttonbg: #04060c;
+    --colors-primarybuttonbg-hover: #090d19;
     --colors-primarybuttoncolor: #eff2f6;
     --colors-pagebg: #ffffff;
     --colors-text: #04060c;
@@ -56,6 +57,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
+    font-size: 16px;
     &.has-bg #root {
         backdrop-filter: blur(12px);
         background-color: var(--colors-backdrop);
@@ -124,6 +126,7 @@ a {
         --colors-primary: #04c866;
         --colors-secondary: #1d2e8c;
         --colors-primarybuttonbg: #04c866;
+        --colors-primarybuttonbg-hover: #3ff299;
         --colors-primarybuttoncolor: #000;
         --colors-pagebg: #082032;
         --colors-text: #fff;

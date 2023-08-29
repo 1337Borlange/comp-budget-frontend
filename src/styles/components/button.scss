@@ -13,6 +13,7 @@ a.button {
     --color-button-outline-background: transparent;
     --color-button-outline-color: var(--colors-primarybuttonbg);
     --color-button-outline-border: var(--colors-primarybuttonbg);
+    --color-button-outline-hover: var(--colors-silver);
     text-decoration: none;
     font-family: inherit;
     background-color: var(--colors-primarybuttonbg);
@@ -21,7 +22,7 @@ a.button {
     border-radius: var(--button-radius);
     padding: 0 1rem;
     border-width: 0;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: bold;
     display: inline-flex;
     justify-content: center;
@@ -36,7 +37,7 @@ a.button {
     }
 
     &:hover {
-        background-color: var(--color-button-primary-hover);
+        background-color: var(--colors-primarybuttonbg-hover);
         // @media screen and (min-width: 601px) {
         // }
     }
@@ -169,12 +170,5 @@ a.button {
         svg path {
             fill: var(--color-button-outline-color);
         }
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .button,
-    a.button {
-        --color-button-primary-hover: #3ff299;
     }
 }
