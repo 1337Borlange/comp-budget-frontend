@@ -12,6 +12,11 @@ import { Budget, Category, Expense, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Admin',
+};
 
 async function getUsers(token: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/adm/users`).then((res) => {

@@ -9,7 +9,10 @@ import '../styles/style.scss';
 const sora = Sora({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'My competence budget - tretton37',
+  title: {
+    template: '%s | tretton37',
+    default: 'tretton37', // a default is required when creating a template
+  },
   description: 'View your company competence budget',
 };
 

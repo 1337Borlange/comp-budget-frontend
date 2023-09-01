@@ -7,6 +7,11 @@ import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Edit expense',
+};
 
 async function getCategories(token: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/categories`).then((res) => {

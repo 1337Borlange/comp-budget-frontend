@@ -6,6 +6,11 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'My budget',
+};
 
 async function getExpenses(token: string, id: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/expenses?userId=${id}`).then((res) => {

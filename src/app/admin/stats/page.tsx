@@ -9,6 +9,11 @@ import { apiUrl } from '@/lib/settings';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Category, Expense, User } from '@/lib/types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Statistics',
+};
 
 async function getUsers(token: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/adm/users`).then((res) => {

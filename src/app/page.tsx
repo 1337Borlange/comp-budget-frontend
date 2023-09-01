@@ -3,6 +3,11 @@ import Image from 'next/image';
 import Divider from '@/components/Divider';
 import SignIn from '@/components/SignIn';
 import '../styles/components/signin.scss';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sign in',
+};
 
 export default function Home() {
   return (
