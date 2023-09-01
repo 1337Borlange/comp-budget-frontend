@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef } from 'react';
 import '../styles/components/toggleswitch.scss';
 
 export type ToggleSwitchProps = {
@@ -23,11 +23,17 @@ const ToggleSwitch = ({
   small,
   disabled,
 }: ToggleSwitchProps) => {
+  const labelRef = useRef<HTMLLabelElement>(null);
   const handleKeyPress = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.code !== 'Enter' && e.code !== 'Space') return;
-
-    e.preventDefault();
-    if (onChange) onChange(!checked);
+    if (onChange) {
+      e.preventDefault();
+      onChange(!checked);
+    } else {
+      if (labelRef?.current) {
+        labelRef.current.click();
+      }
+    }
   };
 
   const inputProps = {
@@ -50,9 +56,10 @@ const ToggleSwitch = ({
       {id ? (
         <label
           className="toggle-switch-label"
-          tabIndex={disabled ? -1 : 1}
+          tabIndex={disabled ? -1 : 0}
           onKeyDown={(e) => handleKeyPress(e)}
           htmlFor={id}
+          ref={labelRef}
         >
           <span
             className={
