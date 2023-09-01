@@ -122,7 +122,7 @@ a {
     }
 }
 @media (prefers-color-scheme: dark) {
-    :root {
+    :root:not(.light) body {
         --colors-primary: #04c866;
         --colors-secondary: #1d2e8c;
         --colors-primarybuttonbg: #04c866;
@@ -134,6 +134,9 @@ a {
         --colors-inputbg: #213747;
         --colors-backdrop: rgba(0, 0, 0, 0.6);
     }
+    // :root {
+
+    // }
 }
 
 .no-user {

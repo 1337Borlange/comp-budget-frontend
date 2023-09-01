@@ -112,7 +112,7 @@
 }
 
 @media (prefers-color-scheme: light) {
-    .toggle-switch {
+    :root:not(.dark) .toggle-switch {
         --switch-inner: #eeeeee;
     }
 }

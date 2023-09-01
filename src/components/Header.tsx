@@ -9,6 +9,7 @@ import DropMenuButton from './DropMenuButton';
 
 import '../styles/components/header.scss';
 import UserImage from './UserImage';
+import ToggleDarkMode from './ToggleDarkMode';
 
 type HeaderProps = {
   user: any;
@@ -56,6 +57,7 @@ const Header = ({ user, isAdmin }: HeaderProps) => {
                 {/* </div> */}
                 {isAdmin && <Link href="/admin">Admin</Link>}
                 {isAdmin && <Link href="/admin/stats">Stats</Link>}
+                <ToggleDarkMode />
                 <Link href="/api/auth/signout">Log out</Link>
               </DropMenuButton>
             )}

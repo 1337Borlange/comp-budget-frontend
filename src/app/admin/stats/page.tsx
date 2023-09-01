@@ -50,7 +50,7 @@ export default async function AdminStats() {
       <Box spacing="l">
         <h2>Statistics</h2>
         <Divider spacing="l" color="var(--colors-silver)" />
-        <h3>Average usage of budget</h3>
+        <h3>Average usage of budget last year</h3>
         <Divider spacing="s" color="transparent" />
         <Stats
           allExpenses={allExpenses}

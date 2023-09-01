@@ -6,6 +6,7 @@ import { ValueContent, ValueHeader } from '@/components/Values';
 import { barColors } from '@/lib/helpers';
 import { Category, Expense, User } from '@/lib/types';
 import BarChart from './BarChart';
+import addDays from 'date-fns/addDays';
 
 const options = {
   responsive: true,
@@ -26,6 +27,10 @@ type StatsProps = {
   allUsers: User[];
 };
 
+const compDate = addDays(new Date(), -365);
+
+const lastYearFilter = (exp: Expense) => new Date(exp.date) > compDate;
+
 const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
   // const allExpenses: Expense[] = [];
   // const categories: Category[] = [];
@@ -45,11 +50,15 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
     return Math.round(totalValue / noUsers);
   };
 
-  const averageTimePerUser = getAverageValue(timeExpenses);
+  const averageTimePerUser = getAverageValue(
+    timeExpenses.filter(lastYearFilter)
+  );
 
-  const averageMoneyPerUser = getAverageValue(moneyExpenses);
+  const averageMoneyPerUser = getAverageValue(
+    moneyExpenses.filter(lastYearFilter)
+  );
   const averageHardwarePerUser = getAverageValue(
-    moneyExpenses.filter((exp) => exp.isHardware)
+    moneyExpenses.filter(lastYearFilter).filter((exp) => exp.isHardware)
   );
 
   const getCategoryByExpenseType = (expenseArr: Expense[]) => {
@@ -117,7 +126,7 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
         </Column>
       </Grid>
       <Divider spacing="l" />
-      <h3>Categories</h3>
+      <h3>Categories used in budget</h3>
       <Divider spacing="s" color="transparent" />
       <h4>Type: time</h4>
       <Divider spacing="s" color="transparent" />

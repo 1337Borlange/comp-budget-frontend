@@ -25,7 +25,7 @@
     top: 0;
 }
 @media (prefers-color-scheme: dark) {
-    .user-image-wrapper {
+    :root:not(.light) .user-image-wrapper {
         --user-image-border-color: var(--colors-primary);
     }
 }
