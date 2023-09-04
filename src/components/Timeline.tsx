@@ -84,7 +84,7 @@ const TimeLineItem = ({
         <div className="expense-icon">{getIcon(getExpenseType(exp))}</div>
         <div className="expense-content">
           <Grid spacing="l">
-            <Column lg="9" md="9" sm="9" xs="12">
+            <Column lg="8" md="8" sm="8" xs="12">
               <div>
                 <strong>{format(new Date(exp.date), 'yyyy-MM-dd')}</strong>
               </div>
@@ -102,9 +102,9 @@ const TimeLineItem = ({
                 <strong>Comment: </strong> {exp.comment}
               </div>
             </Column>
-            <Column lg="3" md="3" sm="3" xs="12" alignItems="flex-end">
+            <Column lg="4" md="4" sm="4" xs="12" alignItems="flex-end">
               <span className="expense-sum">
-                {exp.sum} {exp.type === 'time' ? 'h' : 'kr'}
+                {exp.sum} {exp.type === 'time' ? 'h' : 'SEK'}
               </span>
             </Column>
           </Grid>

@@ -18,6 +18,11 @@ async function getCategories(token: string): Promise<any> {
     return res.json();
   });
 }
+async function getCategoryTypes(token: string): Promise<any> {
+  return apiFetch(token, `${apiUrl}/categories/types`).then((res) => {
+    return res.json();
+  });
+}
 async function getExpense(token: string, id: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/adm/expenses?expenseId=${id}`).then(
     (res) => {
@@ -31,6 +36,7 @@ export default async function Edit({ params }: { params: { id: string } }) {
   const token = (session as any).id_token;
   const categories = await getCategories(token);
   const expense = await getExpense(token, params.id);
+  const categoryTypes = await getCategoryTypes(token);
   return (
     <div>
       <Box topSpacing="m" leftSpacing="m" rightSpacing="m">
@@ -42,6 +48,7 @@ export default async function Edit({ params }: { params: { id: string } }) {
       <Box spacing="m" alignItems="stretch">
         <AddExpense
           reqType="update"
+          categoryTypes={categoryTypes}
           categories={categories}
           expense={expense?.[0]}
         />

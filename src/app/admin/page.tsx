@@ -49,6 +49,12 @@ async function getCategories(token: string): Promise<any> {
   });
 }
 
+async function getCategoryTypes(token: string): Promise<any> {
+  return apiFetch(token, `${apiUrl}/categories/types`).then((res) => {
+    return res.json();
+  });
+}
+
 export default async function Admin({
   searchParams,
 }: {
@@ -60,6 +66,7 @@ export default async function Admin({
   console.log(userId);
   const userExpenses = await getUserExpenses(token, userId as string);
   const userBudget = await getUserBudget(token, userId as string);
+  const categoryTypes = await getCategoryTypes(token);
 
   let users: User[] = [];
   let selectedUser = undefined;
@@ -102,6 +109,7 @@ export default async function Admin({
       <Divider spacing="m" color="var(--colors-silver)" />
       <Box spacing="l" alignItems="stretch">
         <UserTabs
+          categoryTypes={categoryTypes}
           categories={categories}
           user={selectedUser}
           budget={userBudget}

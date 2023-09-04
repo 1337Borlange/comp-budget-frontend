@@ -1,6 +1,12 @@
 import { FormControl } from '../../../components/FormControl/FormControl';
 import { Label } from '../../../components/FormControl/Label';
-import { Category, CreateUpdateDeleteType, Expense, User } from '@/lib/types';
+import {
+  Category,
+  CategoryType,
+  CreateUpdateDeleteType,
+  Expense,
+  User,
+} from '@/lib/types';
 import Divider from '../../../components/Divider';
 import Grid from '../../../components/Grid';
 import Column from '../../../components/Column';
@@ -16,6 +22,7 @@ import ExpenseTypeCat from './ExpenseTypeCat';
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
   categories: Category[];
+  categoryTypes: CategoryType[];
   expense?: Expense;
   user?: User;
 };
@@ -23,6 +30,7 @@ type AddExpenseType = {
 export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   reqType,
   categories,
+  categoryTypes,
   expense,
   user,
 }) => {
@@ -83,7 +91,11 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
           </Column>
         </Grid>
         <Divider spacing="m" />
-        <ExpenseTypeCat expense={expense} categories={categories} />
+        <ExpenseTypeCat
+          expense={expense}
+          categories={categories}
+          categoryTypes={categoryTypes}
+        />
         <Divider spacing="m" />
         {/* <Grid spacing="l">
           <Column lg="6" md="6" sm="6" xs="12">

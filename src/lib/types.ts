@@ -149,7 +149,7 @@ export type NewExpense = Pick<
   | 'category'
 >;
 
-type CategoryType = {
+export type CategoryType = {
   id: number;
   name: string;
 };

@@ -3,17 +3,22 @@ import Column from '@/components/Column';
 import ComboBox from '@/components/ComboBox';
 import Grid from '@/components/Grid';
 import Select from '@/components/Select';
-import { Category, Expense } from '@/lib/types';
+import { Category, CategoryType, Expense } from '@/lib/types';
 import { useMemo, useState } from 'react';
 
 type ExpenseTypeCatProps = {
   expense?: Expense;
   categories: Category[];
+  categoryTypes: CategoryType[];
 };
 
-const expenseTypes = ['time', 'money'];
+// const expenseTypes = ['time', 'money'];
 
-const ExpenseTypeCat = ({ expense, categories }: ExpenseTypeCatProps) => {
+const ExpenseTypeCat = ({
+  expense,
+  categories,
+  categoryTypes,
+}: ExpenseTypeCatProps) => {
   const [expenseType, setExpenseType] = useState<string | undefined>(
     expense?.type ?? undefined
   );
@@ -38,9 +43,9 @@ const ExpenseTypeCat = ({ expense, categories }: ExpenseTypeCatProps) => {
           onChange={(e) => setExpenseType(e.currentTarget.value)}
         >
           <option value="-1">- Select expense type -</option>
-          {expenseTypes.map((t) => (
-            <option value={t} key={t}>
-              {t}
+          {categoryTypes.map((t) => (
+            <option value={t.name} key={t.id}>
+              {t.name}
             </option>
           ))}
         </Select>
