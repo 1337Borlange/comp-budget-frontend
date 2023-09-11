@@ -100,8 +100,8 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
             spacing="m"
             className="value-wrapper"
           >
-            <ValueHeader>Time used per employee</ValueHeader>
-            <ValueContent>{averageTimePerUser}h</ValueContent>
+            <ValueHeader>Time used (hours)</ValueHeader>
+            <ValueContent>{averageTimePerUser}</ValueContent>
           </Box>
         </Column>
         <Column lg="4" md="4" sm="4" xs="12">
@@ -110,8 +110,8 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
             spacing="m"
             className="value-wrapper"
           >
-            <ValueHeader>Money used per employee</ValueHeader>
-            <ValueContent>{averageMoneyPerUser} kr</ValueContent>
+            <ValueHeader>Money used (SEK)</ValueHeader>
+            <ValueContent>{averageMoneyPerUser}</ValueContent>
           </Box>
         </Column>
         <Column lg="4" md="4" sm="4" xs="12">
@@ -120,8 +120,8 @@ const Stats = ({ allExpenses, categories, allUsers }: StatsProps) => {
             spacing="m"
             className="value-wrapper"
           >
-            <ValueHeader>Hardware spent per employee</ValueHeader>
-            <ValueContent>{averageHardwarePerUser} kr</ValueContent>
+            <ValueHeader>Hardware spent (SEK)</ValueHeader>
+            <ValueContent>{averageHardwarePerUser}</ValueContent>
           </Box>
         </Column>
       </Grid>

@@ -49,7 +49,7 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
             spacing="m"
             className="value-wrapper"
           >
-            <ValueHeader>Time balance</ValueHeader>
+            <ValueHeader>Time balance (hours)</ValueHeader>
             <ValueContent
               className={`${getValueStatus(
                 budget?.openingBalanceTime ?? 0,
@@ -67,7 +67,7 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
             spacing="m"
             className="value-wrapper"
           >
-            <ValueHeader>Money balance</ValueHeader>
+            <ValueHeader>Money balance (SEK)</ValueHeader>
             <ValueContent
               className={`${getValueStatus(
                 budget?.openingBalanceMoney ?? 0,
@@ -85,7 +85,7 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
             spacing="m"
             className="value-wrapper"
           >
-            <ValueHeader>Hardware balance</ValueHeader>
+            <ValueHeader>Hardware balance (SEK)</ValueHeader>
             <ValueContent
               className={`${getValueStatus(
                 budget?.hardwareBudget ?? 0,
