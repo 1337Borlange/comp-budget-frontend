@@ -60,7 +60,7 @@ const Header = ({ user, isAdmin }: HeaderProps) => {
                 {isAdmin && <Link href="/admin">Admin</Link>}
                 {isAdmin && <Link href="/admin/stats">Stats</Link>}
                 <ToggleDarkMode />
-                <Link href="/api/auth/signout">Log out</Link>
+                <a href="/api/auth/signout">Log out</a>
               </DropMenuButton>
             )}
           </div>
