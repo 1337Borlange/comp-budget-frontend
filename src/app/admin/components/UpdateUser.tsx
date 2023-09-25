@@ -10,10 +10,12 @@ import Button from '@/components/Button';
 import { saveBudget } from './actions';
 import DatePickerWrapper from './DatePickerWrapper';
 import Select from '@/components/Select';
+import ComboBox from '@/components/ComboBox';
 
 type UpdateUserProps = {
   user?: User;
   budget?: Budget;
+  allUsers: User[];
 };
 
 const shirtSizes = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'];
@@ -33,7 +35,7 @@ const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljubljana'];
 
 */
 
-export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
+export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
   return (
     <div>
       <h2>Update user</h2>
@@ -63,7 +65,7 @@ export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
               <TextField
-                label="Personal number"
+                label="Personal number (six digits, eg. XXXXXX)"
                 name="personalNumber"
                 id="personalNumber"
                 type="number"
@@ -114,7 +116,16 @@ export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
               </Select>
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
-              <TextField label="Manager" name="manager" id="manager" />
+              {/* <TextField label="Manager" name="manager" id="manager" /> */}
+              <ComboBox
+                fullWidth
+                label="Select manager"
+                name="manager"
+                data={allUsers.map((user) => ({
+                  id: user.userId,
+                  title: user.name,
+                }))}
+              />
             </Column>
           </Grid>
           <Divider spacing="s" />

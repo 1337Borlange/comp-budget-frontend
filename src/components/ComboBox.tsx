@@ -19,7 +19,7 @@ type ComboBoxProps = {
   disabled?: boolean;
   name?: string;
   defaultValue?: string;
-  handleChange: (val: ComboOption | null | undefined) => void;
+  handleChange?: (val: ComboOption | null | undefined) => void;
 };
 
 const filterOptions = (inputValue?: string) => {
@@ -64,7 +64,7 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
       return item ? item.title : '';
     },
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) =>
-      handleChange(newSelectedItem),
+      typeof handleChange === 'function' ? handleChange(newSelectedItem) : null,
   });
 
   useEffect(() => {

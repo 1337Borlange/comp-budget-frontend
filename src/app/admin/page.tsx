@@ -113,6 +113,7 @@ export default async function Admin({
           categories={categories}
           user={selectedUser}
           budget={userBudget}
+          allUsers={users}
         />
       </Box>
     </div>

@@ -7,6 +7,7 @@ import { Budget, Category, CategoryType, User } from '@/lib/types';
 type UserTabsProps = {
   categories: Category[];
   user?: User;
+  allUsers?: User[];
   budget?: Budget;
   categoryTypes: CategoryType[];
 };
@@ -16,6 +17,7 @@ const UserTabs = ({
   user,
   budget,
   categoryTypes,
+  allUsers = [],
 }: UserTabsProps) => {
   return user ? (
     <Tabs spaceEvenly>
@@ -28,7 +30,7 @@ const UserTabs = ({
         />
       </TabItem>
       <TabItem eventKey="updateuser" title="Update user">
-        <UpdateUser budget={budget} user={user} />
+        <UpdateUser budget={budget} user={user} allUsers={allUsers} />
       </TabItem>
     </Tabs>
   ) : (
