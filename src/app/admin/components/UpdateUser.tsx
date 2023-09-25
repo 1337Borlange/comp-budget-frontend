@@ -18,7 +18,7 @@ type UpdateUserProps = {
 
 const shirtSizes = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'];
 
-const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljublijana'];
+const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljubljana'];
 
 /*
  * Employee number
