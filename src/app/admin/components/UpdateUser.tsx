@@ -9,11 +9,29 @@ import Box from '@/components/Box';
 import Button from '@/components/Button';
 import { saveBudget } from './actions';
 import DatePickerWrapper from './DatePickerWrapper';
+import Select from '@/components/Select';
 
 type UpdateUserProps = {
   user?: User;
   budget?: Budget;
 };
+
+const shirtSizes = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'];
+
+const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljublijana'];
+
+/*
+ * Employee number
+ * departement number
+ * 6 första siffrorna i personnumret
+ * telefonnummer
+ * adress
+ * tröjstorlek
+ * allergier
+ * manager
+ * kontor man tillhör
+
+*/
 
 export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
   return (
@@ -25,6 +43,81 @@ export const UpdateUser = ({ user, budget }: UpdateUserProps) => {
         <form action={saveBudget}>
           <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="id" value={budget?.id} />
+          <Grid spacing="l">
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField
+                label="Employee number"
+                name="employeeNumber"
+                id="employeeNumber"
+              />
+            </Column>
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField
+                label="Departement number"
+                name="departementNumber"
+                id="departementNumber"
+              />
+            </Column>
+          </Grid>
+          <Divider spacing="s" />
+          <Grid spacing="l">
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField
+                label="Personal number"
+                name="personalNumber"
+                id="personalNumber"
+                type="number"
+              />
+            </Column>
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField
+                label="Phone number"
+                name="phoneNumber"
+                id="phoneNumber"
+                type="tel"
+              />
+            </Column>
+          </Grid>
+          <Divider spacing="s" />
+          <Grid spacing="l">
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField label="Address" name="address" id="address" />
+            </Column>
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField label="Email" name="email" id="email" type="email" />
+            </Column>
+          </Grid>
+          <Divider spacing="s" />
+          <Grid spacing="l">
+            <Column lg="6" md="6" sm="6" xs="12">
+              <Select label="Shirt size" name="shirtSize">
+                {shirtSizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </Select>
+            </Column>
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField label="Allergies" name="allergies" id="allergies" />
+            </Column>
+          </Grid>
+          <Divider spacing="s" />
+          <Grid spacing="l">
+            <Column lg="6" md="6" sm="6" xs="12">
+              <Select label="Office" name="office">
+                {offices.map((office) => (
+                  <option key={office} value={office}>
+                    {office}
+                  </option>
+                ))}
+              </Select>
+            </Column>
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField label="Manager" name="manager" id="manager" />
+            </Column>
+          </Grid>
+          <Divider spacing="s" />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
               <FormControl fullWidth>
