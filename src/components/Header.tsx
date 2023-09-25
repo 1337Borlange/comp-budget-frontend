@@ -10,6 +10,7 @@ import DropMenuButton from './DropMenuButton';
 import '../styles/components/header.scss';
 import UserImage from './UserImage';
 import ToggleDarkMode from './ToggleDarkMode';
+import TempDebugComponent from './TempDebugComponent';
 
 type HeaderProps = {
   user: any;
@@ -19,6 +20,7 @@ type HeaderProps = {
 const Header = ({ user, isAdmin }: HeaderProps) => {
   return (
     <header>
+      <TempDebugComponent />
       <Grid spacing="l">
         <Column lg="6" md="6" sm="6" xs="12" className="logo-col">
           <h1>
