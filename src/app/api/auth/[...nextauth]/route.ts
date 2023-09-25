@@ -18,7 +18,8 @@ export const authOptions: AuthOptions = {
           prompt: 'consent',
           access_type: 'offline',
           response_type: 'code',
-          scope: 'https://www.googleapis.com/auth/userinfo.profile',
+          scope:
+            'openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
         },
       },
     }),
@@ -76,7 +77,8 @@ export const authOptions: AuthOptions = {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session(data) {
+      let { session, token } = data;
       if (session) {
         let isAdmin = false;
         try {
