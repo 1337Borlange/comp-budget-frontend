@@ -4,6 +4,7 @@ import { getClasses } from '@/lib/style-helpers';
 import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion';
 import React, { useRef } from 'react';
 import '../styles/components/overlay.scss';
+import { createPortal } from 'react-dom';
 export interface OverlayProps extends HTMLMotionProps<'div'> {
   zIndex?: number;
   visible?: boolean;
@@ -43,7 +44,7 @@ const Overlay: React.FunctionComponent<
     ...(zIndex && { ['--overlay-z-index']: zIndex }),
   } as React.CSSProperties;
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {visible && (
         <motion.div
@@ -59,7 +60,8 @@ const Overlay: React.FunctionComponent<
           onClick={handleClick}
         />
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
