@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { TimesIcon } from './Icons/TimesIcon';
 import Overlay, { OverlayProps } from './Overlay';
@@ -65,6 +65,8 @@ const Modal: React.FunctionComponent<
 }) => {
   // if (!visible) return null;
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const classes = getClasses({
     [`flex-align-${alignItems}`]: !!alignItems,
     [`flex-justify-${justifyContent}`]: !!justifyContent,
@@ -76,13 +78,50 @@ const Modal: React.FunctionComponent<
   };
 
   useEffect(() => {
-    if (visible) {
+    const modalElement = modalRef.current;
+    console.log(modalElement);
+    let handleTabKeyPress = (event: KeyboardEvent) => undefined;
+
+    const handleEscapeKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (visible && modalElement) {
       document.body.style.overflow = 'hidden';
+
+      //add any focusable HTML element you want to include to this string
+      const focusableElements: NodeListOf<HTMLElement> =
+        modalElement.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      handleTabKeyPress = (event: KeyboardEvent) => {
+        if (event.key === 'Tab') {
+          if (event.shiftKey && document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement?.focus();
+          } else if (
+            !event.shiftKey &&
+            document.activeElement === lastElement
+          ) {
+            event.preventDefault();
+            firstElement?.focus();
+          }
+        }
+      };
     }
+    modalElement?.addEventListener('keydown', handleTabKeyPress, false);
+    modalElement?.addEventListener('keydown', handleEscapeKeyPress, false);
     return () => {
       document.body.style.overflow = 'unset';
+      modalElement?.removeEventListener('keydown', handleTabKeyPress);
+      modalElement?.removeEventListener('keydown', handleEscapeKeyPress);
     };
-  }, [visible]);
+  }, [visible, onClose]);
   return (
     <AnimatePresence>
       <Overlay
@@ -103,6 +142,7 @@ const Modal: React.FunctionComponent<
               initial="hidden"
               animate="visible"
               exit="exit"
+              ref={modalRef}
               {...rest}
             >
               <button

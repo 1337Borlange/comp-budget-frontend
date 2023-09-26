@@ -10,7 +10,7 @@ const ToggleDarkMode = () => {
 
   useEffect(() => {
     const root = document.querySelector(':root');
-    console.log(root);
+
     if (isDarkMode) {
       root?.classList?.add('dark');
       root?.classList?.remove('light');
@@ -22,7 +22,7 @@ const ToggleDarkMode = () => {
 
   return (
     <div className="list-switch">
-      <Label htmlFor="is-darkmode">Darkmode</Label>
+      <Label htmlFor="is-darkmode">Dark mode</Label>
       <ToggleSwitch
         id="is-darkmode"
         name="is-darkmode"

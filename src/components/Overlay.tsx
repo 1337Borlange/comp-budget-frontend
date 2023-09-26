@@ -2,6 +2,7 @@
 
 import { getClasses } from '@/lib/style-helpers';
 import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion';
+import FocusLock, { AutoFocusInside } from 'react-focus-lock';
 import React, { useRef } from 'react';
 import '../styles/components/overlay.scss';
 import { createPortal } from 'react-dom';
@@ -47,21 +48,23 @@ const Overlay: React.FunctionComponent<
   return createPortal(
     <AnimatePresence>
       {visible && (
-        <motion.div
-          key={`overlay`}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          ref={ovRef}
-          className={`overlay ${classes} ${className ? ` ${className}` : ''}`}
-          aria-hidden="true"
-          style={inlineStyle}
-          {...rest}
-          onClick={handleClick}
-        />
+        <FocusLock>
+          <motion.div
+            key={`overlay`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            ref={ovRef}
+            className={`overlay ${classes} ${className ? ` ${className}` : ''}`}
+            aria-hidden="true"
+            style={inlineStyle}
+            {...rest}
+            onClick={handleClick}
+          />
+        </FocusLock>
       )}
     </AnimatePresence>,
-    document.body
+    document?.body
   );
 };
 
