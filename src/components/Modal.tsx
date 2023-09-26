@@ -79,7 +79,6 @@ const Modal: React.FunctionComponent<
 
   useEffect(() => {
     const modalElement = modalRef.current;
-    console.log(modalElement);
     let handleTabKeyPress = (event: KeyboardEvent) => undefined;
 
     const handleEscapeKeyPress = (event: KeyboardEvent) => {

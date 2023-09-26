@@ -2,7 +2,7 @@
 
 import { getClasses } from '@/lib/style-helpers';
 import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion';
-import FocusLock, { AutoFocusInside } from 'react-focus-lock';
+import FocusLock from 'react-focus-lock';
 import React, { useRef } from 'react';
 import '../styles/components/overlay.scss';
 import { createPortal } from 'react-dom';
