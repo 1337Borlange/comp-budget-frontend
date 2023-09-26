@@ -134,9 +134,20 @@ a {
         --colors-inputbg: #213747;
         --colors-backdrop: rgba(0, 0, 0, 0.6);
     }
-    // :root {
-
-    // }
+}
+@media (prefers-color-scheme: light) {
+    :root:not(.light) body {
+        --colors-primary: #04c866;
+        --colors-secondary: #1d2e8c;
+        --colors-primarybuttonbg: #04c866;
+        --colors-primarybuttonbg-hover: #3ff299;
+        --colors-primarybuttoncolor: #000;
+        --colors-pagebg: #082032;
+        --colors-text: #fff;
+        --colors-silver: rgba(235, 235, 235, 0.1);
+        --colors-inputbg: #213747;
+        --colors-backdrop: rgba(0, 0, 0, 0.6);
+    }
 }
 
 .no-user {
