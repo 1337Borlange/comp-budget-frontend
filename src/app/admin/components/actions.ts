@@ -92,3 +92,24 @@ export async function saveBudget(formData: FormData) {
   redirect('/admin');
   //   apiFetch()
 }
+
+export async function saveUser(formData: FormData) {
+  const responseBody = {} as any; // User request body
+  const session = await getServerSession(authOptions);
+  formData.forEach((value, property: string) => {
+    if (typeof value !== 'undefined') {
+      const newVal = getFormValue(value);
+      responseBody[property as keyof BudgetRequestBody] = newVal as never;
+    }
+  });
+
+  console.log(responseBody);
+
+  await apiFetch((session as any)?.id_token, `${apiUrl}/adm/users`, {
+    method: 'PUT',
+    body: JSON.stringify(responseBody),
+  });
+  revalidatePath('/admin');
+  redirect('/admin');
+  //   apiFetch()
+}

@@ -11,6 +11,7 @@ import '../styles/components/header.scss';
 import UserImage from './UserImage';
 import ToggleDarkMode from './ToggleDarkMode';
 import TempDebugComponent from './TempDebugComponent';
+import UserDropMenuButton from './UserDropMenuButton';
 
 type HeaderProps = {
   user: any;
@@ -37,7 +38,8 @@ const Header = ({ user, isAdmin }: HeaderProps) => {
         </Column>
         <Column lg="6" md="6" sm="6" xs="12" alignItems="flex-end">
           <div className="profile-wrapper">
-            {user && (
+            <UserDropMenuButton />
+            {/* {user && (
               <DropMenuButton
                 fromRight
                 id="user-menu"
@@ -48,21 +50,12 @@ const Header = ({ user, isAdmin }: HeaderProps) => {
                   </div>
                 }
               >
-                {/* <div className="list-switch">
-                  <Label htmlFor="is-darkmode">Darkmode</Label> */}
-                {/* <ToggleSwitch
-                    id="is-darkmode"
-                    name="is-darkmode"
-                    checked={Boolean(storedSettings?.darkTheme)}
-                    onChange={(val) => switchTheme(val)}
-                  /> */}
-                {/* </div> */}
                 {isAdmin && <Link href="/admin">Admin</Link>}
                 {isAdmin && <Link href="/admin/stats">Stats</Link>}
                 <ToggleDarkMode />
                 <a href="/api/auth/signout">Log out</a>
               </DropMenuButton>
-            )}
+            )} */}
           </div>
         </Column>
       </Grid>

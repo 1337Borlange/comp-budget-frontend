@@ -206,3 +206,18 @@ export type GoogleJWTProfile = {
   iat: number;
   exp: number;
 };
+
+export type Employee = {
+  userId: string;
+  name: string;
+  email: string;
+  employeeNumber?: string;
+  departementNumber?: string;
+  personalNumber?: string;
+  phoneNumber?: string;
+  address?: string;
+  shirtSize?: string;
+  allergies?: string;
+  office?: string;
+  manager?: string;
+};

@@ -79,21 +79,31 @@ export const authOptions: AuthOptions = {
     },
     async session(data) {
       let { session, token } = data;
-      if (session) {
-        let isAdmin = false;
-        try {
-          isAdmin = await apiFetch(
-            token.id_token as string,
-            `${apiUrl}/adm/isAdmin`
-          ).then((res) => res.json());
-        } catch (e) {
-          console.error(e);
+      if (session && typeof (session as any)?.isAdmin !== 'boolean') {
+        let isAdmin = undefined;
+        if (token?.id_token) {
+          try {
+            isAdmin = await apiFetch(
+              token.id_token as string,
+              `${apiUrl}/adm/isAdmin`
+            )
+              .then((res) => {
+                console.log(res);
+                return res;
+              })
+              .then((res) => res.json());
+            // console.log('IS ADMIN: ', isAdmin);
+          } catch (e) {
+            // console.log('Admin error');
+            console.error(e);
+          }
         }
         session = Object.assign({}, session, {
           access_token: token.access_token,
           id_token: token.id_token,
           userId: getUserId(token.id_token as string),
-          isAdmin,
+          ...(typeof isAdmin === 'boolean' && { isAdmin }),
+          // isAdmin,
         });
       }
       return session;

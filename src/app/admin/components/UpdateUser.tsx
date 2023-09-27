@@ -1,20 +1,16 @@
-import { Budget, User } from '@/lib/types';
+import { Budget, Employee, User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
-import { FormControl } from '@/components/FormControl/FormControl';
-import { Label } from '@/components/FormControl/Label';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import { saveBudget } from './actions';
-import DatePickerWrapper from './DatePickerWrapper';
+import { saveUser } from './actions';
 import Select from '@/components/Select';
 import ComboBox from '@/components/ComboBox';
 
 type UpdateUserProps = {
-  user?: User;
-  budget?: Budget;
+  user?: Employee;
   allUsers: User[];
 };
 
@@ -35,22 +31,23 @@ const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljubljana'];
 
 */
 
-export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
+export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
   return (
     <div>
       <h2>Update user</h2>
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form action={saveBudget}>
+        <form action={saveUser}>
           <input type="hidden" name="userId" value={user?.userId} />
-          <input type="hidden" name="id" value={budget?.id} />
+
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
               <TextField
                 label="Employee number"
                 name="employeeNumber"
                 id="employeeNumber"
+                defaultValue={user?.employeeNumber}
               />
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
@@ -58,6 +55,7 @@ export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
                 label="Departement number"
                 name="departementNumber"
                 id="departementNumber"
+                defaultValue={user?.departementNumber}
               />
             </Column>
           </Grid>
@@ -69,6 +67,7 @@ export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
                 name="personalNumber"
                 id="personalNumber"
                 type="number"
+                defaultValue={user?.personalNumber}
               />
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
@@ -77,22 +76,38 @@ export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
                 name="phoneNumber"
                 id="phoneNumber"
                 type="tel"
+                defaultValue={user?.phoneNumber}
               />
             </Column>
           </Grid>
           <Divider spacing="s" />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
-              <TextField label="Address" name="address" id="address" />
+              <TextField
+                label="Address"
+                name="address"
+                id="address"
+                defaultValue={user?.address}
+              />
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
-              <TextField label="Email" name="email" id="email" type="email" />
+              <TextField
+                label="Email"
+                name="email"
+                id="email"
+                type="email"
+                defaultValue={user?.email}
+              />
             </Column>
           </Grid>
           <Divider spacing="s" />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
-              <Select label="Shirt size" name="shirtSize">
+              <Select
+                label="Shirt size"
+                name="shirtSize"
+                defaultValue={user?.shirtSize}
+              >
                 {shirtSizes.map((size) => (
                   <option key={size} value={size}>
                     {size}
@@ -101,13 +116,18 @@ export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
               </Select>
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
-              <TextField label="Allergies" name="allergies" id="allergies" />
+              <TextField
+                label="Allergies"
+                name="allergies"
+                id="allergies"
+                defaultValue={user?.allergies}
+              />
             </Column>
           </Grid>
           <Divider spacing="s" />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
-              <Select label="Office" name="office">
+              <Select label="Office" name="office" defaultValue={user?.office}>
                 {offices.map((office) => (
                   <option key={office} value={office}>
                     {office}
@@ -121,6 +141,7 @@ export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
                 fullWidth
                 label="Select manager"
                 name="manager"
+                defaultValue={user?.manager}
                 data={allUsers.map((user) => ({
                   id: user.userId,
                   title: user.name,
@@ -128,70 +149,6 @@ export const UpdateUser = ({ user, budget, allUsers }: UpdateUserProps) => {
               />
             </Column>
           </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <FormControl fullWidth>
-                <Label htmlFor="start">Start date</Label>
-                <DatePickerWrapper
-                  date={budget?.start}
-                  name="start"
-                  id="start"
-                />
-              </FormControl>
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                required
-                label="Hardware budget"
-                id="hardwareBudget"
-                name="hardwareBudget"
-                type="number"
-                defaultValue={budget?.hardwareBudget ?? 0}
-              />
-            </Column>
-          </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                required
-                label="Opening balance money"
-                id="openingBalanceMoney"
-                name="openingBalanceMoney"
-                type="number"
-                defaultValue={budget?.openingBalanceMoney ?? 0}
-              />
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                required
-                label="Opening balance time"
-                id="openingBalanceTime"
-                name="openingBalanceTime"
-                type="number"
-                defaultValue={budget?.openingBalanceTime ?? 0}
-              />
-            </Column>
-          </Grid>
-          <Divider spacing="m" />
-          <TextField
-            label="Yearly refill"
-            id="yearlyRefill"
-            name="yearlyRefill"
-            type="number"
-            defaultValue={budget?.yearlyRefill ?? 0}
-            fullWidth
-          />
-          <Divider spacing="m" />
-          <FormControl fullWidth>
-            <Label htmlFor="comment">Comment</Label>
-            <textarea
-              id="comment"
-              name="comment"
-              defaultValue={budget?.comment}
-            ></textarea>
-          </FormControl>
           <Box topSpacing="l" alignItems="flex-end">
             <Button type="submit">Update user</Button>
           </Box>

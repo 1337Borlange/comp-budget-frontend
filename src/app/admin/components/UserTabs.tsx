@@ -1,8 +1,9 @@
 import { TabItem, Tabs } from '@/components/Tabs';
 import { AddExpense } from './AddExpense';
 import { UserIcon } from '@/components/Icons/UserIcon';
-import { UpdateUser } from './UpdateUser';
+import { UpdateBudget } from './UpdateBudget';
 import { Budget, Category, CategoryType, User } from '@/lib/types';
+import { UpdateUser } from './UpdateUser';
 
 type UserTabsProps = {
   categories: Category[];
@@ -29,8 +30,11 @@ const UserTabs = ({
           user={user}
         />
       </TabItem>
+      <TabItem eventKey="updatebudget" title="Update budget">
+        <UpdateBudget budget={budget} user={user} allUsers={allUsers} />
+      </TabItem>
       <TabItem eventKey="updateuser" title="Update user">
-        <UpdateUser budget={budget} user={user} allUsers={allUsers} />
+        <UpdateUser user={user} allUsers={allUsers} />
       </TabItem>
     </Tabs>
   ) : (
