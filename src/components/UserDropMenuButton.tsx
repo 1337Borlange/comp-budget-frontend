@@ -24,8 +24,14 @@ const UserDropMenuButton = () => {
         </div>
       }
     >
-      {(data as any)?.isAdmin && <Link href="/admin">Admin</Link>}
-      {(data as any)?.isAdmin && <Link href="/admin/stats">Stats</Link>}
+      {(data as any)?.isAdmin ? (
+        <>
+          <Link href="/admin">Admin</Link>
+          <Link href="/admin/stats">Stats</Link>
+          <Link href="/admin/newuser">Add user</Link>
+        </>
+      ) : null}
+
       <ToggleDarkMode />
       <a href="/api/auth/signout">Log out</a>
     </DropMenuButton>
