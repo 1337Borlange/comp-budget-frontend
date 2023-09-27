@@ -5,7 +5,7 @@ import React, { forwardRef } from 'react';
 import '../styles/components/button.scss';
 
 export type ButtonProps = {
-  priority?: 'primary' | 'secondary' | 'tertiary' | 'outline';
+  priority?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'critical';
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
   fullWidth?: boolean;

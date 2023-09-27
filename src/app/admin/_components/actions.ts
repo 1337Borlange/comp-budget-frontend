@@ -113,3 +113,19 @@ export async function saveUser(formData: FormData) {
   redirect('/admin');
   //   apiFetch()
 }
+
+export async function deleteUser(formData: FormData) {
+  const session = await getServerSession(authOptions);
+  const id = formData.get('userId') as string;
+
+  await apiFetch(
+    (session as any)?.id_token,
+    `${apiUrl}/adm/users?userId=${id}`,
+    {
+      method: 'DELETE',
+    }
+  );
+  revalidatePath('/admin');
+  redirect('/admin');
+  //   apiFetch()
+}

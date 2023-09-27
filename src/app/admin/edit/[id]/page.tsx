@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
 import Divider from '@/components/Divider';
-import { AddExpense } from '../../components/AddExpense';
+import { AddExpense } from '../../_components/AddExpense';
 import Box from '@/components/Box';
 import Link from 'next/link';
 import { apiFetch } from '@/lib/helpers';

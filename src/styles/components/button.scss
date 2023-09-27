@@ -1,3 +1,4 @@
+@import "../variables.scss";
 .button,
 a.button {
     --color-button-primary-hover: #08090d;
@@ -32,7 +33,7 @@ a.button {
     transition: all 0.2s ease;
     svg {
         path {
-            fill: var(--color-button-primary-color);
+            fill: currentColor;
         }
     }
 
@@ -125,10 +126,6 @@ a.button {
         &:disabled {
             background-color: var(--color-button-secondary-disabled);
         }
-
-        svg path {
-            fill: var(--colors-button-secondary-color);
-        }
     }
 
     &.tertiary {
@@ -144,10 +141,6 @@ a.button {
 
         &:disabled {
             background-color: var(--color-button-tertiary-disabled);
-        }
-
-        svg path {
-            fill: var(--color-button-tertiary-color);
         }
     }
 
@@ -166,9 +159,38 @@ a.button {
             background-color: var(--color-button-outline-disabled);
             // color: var(--colors-button-tertiary-disabled-color);
         }
+    }
+    &.critical {
+        background-color: var(--color-button-outline-background);
+        color: var(--colors-error);
+        border: 1px solid var(--colors-error);
 
-        svg path {
-            fill: var(--color-button-outline-color);
+        &:hover {
+            @media screen and (min-width: 601px) {
+                background-color: var(--color-button-outline-hover);
+            }
+        }
+
+        &:disabled {
+            background-color: var(--color-button-outline-disabled);
+            // color: var(--colors-button-tertiary-disabled-color);
         }
     }
+    // &.critical {
+    //     background-color: var(--colors-error);
+    //     color: #fff;
+
+    //     &:hover {
+    //         background-color: lighten($error-color, 10%);
+    //     }
+
+    //     &:disabled {
+    //         background-color: var(--color-button-outline-disabled);
+    //         // color: var(--colors-button-tertiary-disabled-color);
+    //     }
+
+    //     svg path {
+    //         fill: currentColor;
+    //     }
+    // }
 }

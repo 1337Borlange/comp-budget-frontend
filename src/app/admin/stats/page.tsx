@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
 import Divider from '@/components/Divider';
 import Link from 'next/link';
-import Stats from '../components/Stats';
+import Stats from '../_components/Stats';
 import Box from '@/components/Box';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';

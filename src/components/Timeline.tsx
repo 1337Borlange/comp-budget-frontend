@@ -28,7 +28,7 @@ import { useRouter } from 'next/navigation';
 import { apiUrl } from '@/lib/settings';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { deleteExpense } from '@/app/admin/components/actions';
+import { deleteExpense } from '@/app/admin/_components/actions';
 
 const getIcon = (type: string) => {
   switch (type) {

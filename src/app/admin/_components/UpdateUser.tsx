@@ -1,22 +1,24 @@
-import { Budget, Employee, User } from '@/lib/types';
+'use client';
+
+import { Employee, User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import { saveUser } from './actions';
+import { deleteUser, saveUser } from './actions';
 import Select from '@/components/Select';
 import ComboBox from '@/components/ComboBox';
+import { offices, shirtSizes } from '@/lib/settings';
+import { ConfirmDialog } from '@/components/ConfirmDialog';
+import { useState } from 'react';
+import { DeleteIcon } from '@/components/Icons/DeleteIcon';
 
 type UpdateUserProps = {
   user?: Employee;
   allUsers: User[];
 };
-
-const shirtSizes = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'];
-
-const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljubljana'];
 
 /*
  * Employee number
@@ -32,14 +34,50 @@ const offices = ['Lund', 'Helsingborg', 'Stockholm', 'Borlänge', 'Ljubljana'];
 */
 
 export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
+  const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   return (
     <div>
-      <h2>Update user</h2>
+      <Grid spacing="m">
+        <Column lg="8" md="8" sm="8" xs="12">
+          <h2>Update user</h2>
+        </Column>
+        <Column lg="4" md="4" sm="4" xs="12">
+          <Button
+            priority="critical"
+            onClick={() => setShowConfirmDelete(true)}
+            iconLeft
+          >
+            <DeleteIcon /> Delete user
+          </Button>
+        </Column>
+      </Grid>
+      <ConfirmDialog
+        id="confirm-delete-user-dialog"
+        visible={showConfirmDelete}
+        onClose={() => setShowConfirmDelete(false)}
+        // onConfirm={() => {
+        //   if (expenseToDelete?.id) {
+        //     deleteExpense(expenseToDelete?.id);
+        //   }
+        //   setShowConfirmDelete(false);
+        // }}
+        width="30rem"
+        action={deleteUser}
+        title="Delete user"
+      >
+        <p>
+          <strong>This action is permanent.</strong>
+        </p>
+        <Divider spacing="xs" />
+        <p>Are you sure you want to delete this user and all related data?</p>
+        <input type="hidden" name="userId" id="userId" value={user?.userId} />
+      </ConfirmDialog>
       <Divider spacing="m" color="transparent" />
 
       <>
         <form action={saveUser}>
           <input type="hidden" name="userId" value={user?.userId} />
+          <input type="hidden" name="name" value={user?.name} />
 
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">

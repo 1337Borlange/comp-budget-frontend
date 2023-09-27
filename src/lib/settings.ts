@@ -6,3 +6,13 @@ export const maxValues = {
   time: 40,
   money: 23500,
 };
+
+export const shirtSizes = ['xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl'];
+
+export const offices = [
+  'Lund',
+  'Helsingborg',
+  'Stockholm',
+  'Borlänge',
+  'Ljubljana',
+];
