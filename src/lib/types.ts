@@ -221,3 +221,7 @@ export type Employee = {
   office?: string;
   manager?: string;
 };
+
+export interface formDataType {
+  [key: string]: FormDataEntryValue | FormDataEntryValue[];
+}

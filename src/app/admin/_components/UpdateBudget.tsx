@@ -7,8 +7,8 @@ import { Label } from '@/components/FormControl/Label';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import { saveBudget } from './actions';
 import DatePickerWrapper from './DatePickerWrapper';
+import { updateBudget } from '../_actions/budget';
 
 type UpdateBudgetProps = {
   user?: User;
@@ -36,7 +36,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form action={saveBudget}>
+        <form action={updateBudget}>
           <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="id" value={budget?.id} />
 

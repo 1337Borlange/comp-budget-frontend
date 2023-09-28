@@ -5,7 +5,6 @@ import { apiUrl, offices, shirtSizes } from '@/lib/settings';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Metadata } from 'next';
-import { saveUser } from '../_components/actions';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import TextField from '@/components/Textfield';
@@ -13,6 +12,7 @@ import Select from '@/components/Select';
 import ComboBox from '@/components/ComboBox';
 import Button from '@/components/Button';
 import { User } from '@/lib/types';
+import { addUser } from '../_actions/user';
 
 export const metadata: Metadata = {
   title: 'Add a new user',
@@ -41,7 +41,7 @@ export default async function NewUser() {
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form action={saveUser}>
+        <form action={addUser}>
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
               <TextField label="Name" name="name" id="name" required />

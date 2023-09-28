@@ -7,13 +7,13 @@ import Column from '@/components/Column';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import { deleteUser, saveUser } from './actions';
 import Select from '@/components/Select';
 import ComboBox from '@/components/ComboBox';
 import { offices, shirtSizes } from '@/lib/settings';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useState } from 'react';
 import { DeleteIcon } from '@/components/Icons/DeleteIcon';
+import { deleteUser, updateUser } from '../_actions/user';
 
 type UpdateUserProps = {
   user?: Employee;
@@ -75,7 +75,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form action={saveUser}>
+        <form action={updateUser}>
           <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="name" value={user?.name} />
 

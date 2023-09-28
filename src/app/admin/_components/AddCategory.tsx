@@ -3,13 +3,13 @@
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import { useState } from 'react';
-import { saveCategory } from './actions';
 import Divider from '@/components/Divider';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import { Label } from '@/components/FormControl/Label';
 import { InlineStack } from '@/components/InlineStack';
 import Checkbox from '@/components/Checkbox';
+import { saveCategory } from '../_actions/category';
 
 const AddCategory = () => {
   const [showAddCategory, setShowAddCategory] = useState(false);

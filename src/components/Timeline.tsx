@@ -23,12 +23,11 @@ import Divider from './Divider';
 import Button from './Button';
 import { Expense } from '@/lib/types';
 import { InlineStack } from './InlineStack';
-import { apiFetch, getExpenseType } from '@/lib/helpers';
+import { getExpenseType } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
-import { apiUrl } from '@/lib/settings';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { deleteExpense } from '@/app/admin/_components/actions';
+import { deleteExpense } from '@/app/admin/_actions/expense';
 
 const getIcon = (type: string) => {
   switch (type) {
