@@ -109,12 +109,7 @@ export default async function NewUser() {
               <TextField label="Address" name="address" id="address" />
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
-              <TextField label="Email" name="email" id="email" type="email" />
-            </Column>
-          </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
+              {/* <TextField label="Email" name="email" id="email" type="email" /> */}
               <Select label="Shirt size" name="shirtSize">
                 {shirtSizes.map((size) => (
                   <option key={size} value={size}>
@@ -123,12 +118,12 @@ export default async function NewUser() {
                 ))}
               </Select>
             </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField label="Allergies" name="allergies" id="allergies" />
-            </Column>
           </Grid>
           <Divider spacing="s" />
           <Grid spacing="l">
+            <Column lg="6" md="6" sm="6" xs="12">
+              <TextField label="Allergies" name="allergies" id="allergies" />
+            </Column>
             <Column lg="6" md="6" sm="6" xs="12">
               <Select label="Office" name="office">
                 {offices.map((office) => (
@@ -138,6 +133,9 @@ export default async function NewUser() {
                 ))}
               </Select>
             </Column>
+          </Grid>
+          <Divider spacing="s" />
+          <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
               {/* <TextField label="Manager" name="manager" id="manager" /> */}
               <ComboBox
