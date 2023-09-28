@@ -31,6 +31,9 @@ export async function saveExpense(formData: FormData) {
         body: JSON.stringify(responseBody),
       }
     );
+    if (res.status !== 200) {
+      throw new Error(res.statusText);
+    }
     const data = res.json();
     revalidatePath('/admin');
     return {
