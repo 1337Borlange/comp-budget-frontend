@@ -22,6 +22,7 @@ import { saveExpense } from '../_actions/expense';
 import toast from 'react-hot-toast';
 import { useRef } from 'react';
 import { getErrorMessage } from '@/lib/helpers';
+import { redirect, useRouter } from 'next/navigation';
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
@@ -39,6 +40,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   user,
 }) => {
   const formRef = useRef<HTMLFormElement>(null);
+  const router = useRouter();
   async function clientAction(formData: FormData) {
     const result = await saveExpense(formData);
 
@@ -47,8 +49,19 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
       const msg = getErrorMessage(result.error);
       toast.error(msg);
     } else {
-      toast.success('Expense succesfully created!');
-      formRef?.current?.reset();
+      toast.success(
+        `Expense succesfully ${reqType}d! ${
+          reqType === 'update' ? 'Redirecting to admin in 2 seconds.' : ''
+        }`
+      );
+
+      if (reqType === 'update') {
+        setTimeout(() => {
+          router.push(`/admin?userId=${expense?.userId}`);
+        }, 2000);
+      } else {
+        formRef?.current?.reset();
+      }
     }
   }
   return (

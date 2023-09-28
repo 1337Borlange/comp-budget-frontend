@@ -14,6 +14,9 @@ import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useState } from 'react';
 import { DeleteIcon } from '@/components/Icons/DeleteIcon';
 import { deleteUser, updateUser } from '../_actions/user';
+import { getErrorMessage } from '@/lib/helpers';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 type UpdateUserProps = {
   user?: Employee;
@@ -35,6 +38,33 @@ type UpdateUserProps = {
 
 export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+  const router = useRouter();
+  async function clientSaveAction(formData: FormData) {
+    const result = await updateUser(formData);
+
+    console.log(result);
+    if (result?.error) {
+      const msg = getErrorMessage(result.error);
+      toast.error(msg);
+    } else {
+      toast.success(`User has been updated!´}`);
+    }
+  }
+
+  async function clientDeleteAction(formData: FormData) {
+    const result = await deleteUser(formData);
+
+    console.log(result);
+    if (result?.error) {
+      const msg = getErrorMessage(result.error);
+      toast.error(msg);
+    } else {
+      toast.success(`User has been deleted! Redirecting in 2 seconds´}`);
+      setTimeout(() => {
+        router.push('/admin');
+      }, 2000);
+    }
+  }
   return (
     <div>
       <Grid spacing="m">
@@ -62,7 +92,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
         //   setShowConfirmDelete(false);
         // }}
         width="30rem"
-        action={deleteUser}
+        action={clientDeleteAction}
         title="Delete user"
       >
         <p>
@@ -75,7 +105,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form action={updateUser}>
+        <form action={clientSaveAction}>
           <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="name" value={user?.name} />
 

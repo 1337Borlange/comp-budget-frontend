@@ -48,15 +48,26 @@ export async function deleteUser(formData: FormData) {
   const session = await getServerSession(authOptions);
   const id = formData.get('userId') as string;
 
-  await apiFetch(
-    (session as any)?.id_token,
-    `${apiUrl}/adm/users?userId=${id}`,
-    {
-      method: 'DELETE',
-    }
-  );
-  revalidatePath('/admin');
-  redirect('/admin');
+  try {
+    const res = await apiFetch(
+      (session as any)?.id_token,
+      `${apiUrl}/adm/users?userId=${id}`,
+      {
+        method: 'DELETE',
+      }
+    );
+    const data = res.json();
+    revalidatePath('/admin');
+    return {
+      status: res.status,
+      data,
+    };
+  } catch (error) {
+    return {
+      error,
+    };
+  }
+
   //   apiFetch()
 }
 
@@ -93,6 +104,4 @@ export async function addUser(formData: FormData) {
       error,
     };
   }
-
-  // redirect('/admin');
 }
