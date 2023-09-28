@@ -212,7 +212,7 @@ export type Employee = {
   name: string;
   email: string;
   employeeNumber?: string;
-  departementNumber?: string;
+  departmentNumber?: string;
   personalNumber?: string;
   phoneNumber?: string;
   address?: string;

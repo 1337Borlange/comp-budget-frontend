@@ -90,10 +90,10 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
             </Column>
             <Column lg="6" md="6" sm="6" xs="12">
               <TextField
-                label="Departement number"
-                name="departementNumber"
-                id="departementNumber"
-                defaultValue={user?.departementNumber}
+                label="Department number"
+                name="departmentNumber"
+                id="departmentNumber"
+                defaultValue={user?.departmentNumber}
               />
             </Column>
           </Grid>
