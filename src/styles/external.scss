@@ -9,6 +9,13 @@
     }
 }
 
+.react-datepicker__tab-loop {
+    z-index: 2;
+}
+.react-datepicker__tab-loop .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle {
+    margin-left: -8px;
+}
+
 textarea {
     background-color: var(--colors-inputbg);
     color: var(--colors-text);
