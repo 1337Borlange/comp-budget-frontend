@@ -1,6 +1,6 @@
 .select-wrapper {
     --select-border: #000;
-    --select-focus: blue;
+    --select-focus: var(--colors-secondary);
     --select-arrow: var(--colors-text);
     --size-input-default: 3rem;
     width: 100%;
@@ -23,23 +23,23 @@
     background-color: var(--colors-inputbg);
     /* background-image: linear-gradient(to top, #f9f9f9, #fff 33%); */
 
-    select,
-    &::after {
-        grid-area: select;
-    }
+    // select,
+    // &::after {
+    //     grid-area: select;
+    // }
 
     // Custom arrow
-    &:not(.select--multiple)::after {
-        content: "";
-        justify-self: end;
-        width: 0.8em;
-        height: 0.5em;
-        background-color: var(--select-arrow);
-        clip-path: polygon(100% 0%, 0 0%, 50% 100%);
-    }
+    // &:not(.select--multiple)::after {
+    //     content: "";
+    //     justify-self: end;
+    //     width: 0.8em;
+    //     height: 0.5em;
+    //     background-color: inherit;
+    //     clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    // }
     select {
-        appearance: none;
-        background-color: transparent;
+        // appearance: none;
+        background-color: var(--colors-inputbg);
         border: none;
         padding: 0 1em 0 0;
         margin: 0;
@@ -48,7 +48,7 @@
         font-size: inherit;
         cursor: inherit;
         line-height: inherit;
-        height: var(--size-input-default);
+        height: calc(var(--size-input-default) - 2px);
         font-size: 1rem;
 
         z-index: 1;
