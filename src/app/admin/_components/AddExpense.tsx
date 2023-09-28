@@ -1,3 +1,4 @@
+'use client';
 import { FormControl } from '../../../components/FormControl/FormControl';
 import { Label } from '../../../components/FormControl/Label';
 import {
@@ -18,6 +19,9 @@ import DatePickerWrapper from './DatePickerWrapper';
 import AddCategory from './AddCategory';
 import ExpenseTypeCat from './ExpenseTypeCat';
 import { saveExpense } from '../_actions/expense';
+import toast from 'react-hot-toast';
+import { useRef } from 'react';
+import { getErrorMessage } from '@/lib/helpers';
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
@@ -34,6 +38,19 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   expense,
   user,
 }) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  async function clientAction(formData: FormData) {
+    const result = await saveExpense(formData);
+
+    console.log(result);
+    if (result?.error) {
+      const msg = getErrorMessage(result.error);
+      toast.error(msg);
+    } else {
+      toast.success('Expense succesfully created!');
+      formRef?.current?.reset();
+    }
+  }
   return (
     <>
       <Grid spacing="m">
@@ -45,7 +62,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
         </Column>
       </Grid>
       <Divider spacing="m" color="transparent" />
-      <form action={saveExpense}>
+      <form action={clientAction} ref={formRef}>
         <input
           type="hidden"
           name="reqType"

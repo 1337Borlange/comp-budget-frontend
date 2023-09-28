@@ -5,6 +5,7 @@ import { Providers } from '@/lib/Providers';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import '../styles/style.scss';
+import { Toaster } from 'react-hot-toast';
 
 const sora = Sora({ subsets: ['latin'] });
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={sora.className}>
         <Providers session={session}>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );

@@ -6,12 +6,11 @@ import { apiUrl } from '@/lib/settings';
 import { NewExpense } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export async function saveExpense(formData: FormData) {
   const responseBody = {} as NewExpense;
   const session = await getServerSession(authOptions);
-  const meth = formData.get('reqType') as string;
+  const method = formData.get('reqType') as string;
   formData.delete('reqType');
   formData.forEach((value, property: string) => {
     console.log(value, property);
@@ -22,26 +21,55 @@ export async function saveExpense(formData: FormData) {
       responseBody[property as keyof NewExpense] = newVal as never;
     }
   });
-  console.log(meth);
-  console.log(responseBody);
-  await apiFetch((session as any)?.id_token, `${apiUrl}/adm/expenses`, {
-    method: meth,
-    body: JSON.stringify(responseBody),
-  });
-  revalidatePath('/admin');
-  redirect('/admin');
+
+  try {
+    const res = await apiFetch(
+      (session as any)?.id_token,
+      `${apiUrl}/adm/expenses`,
+      {
+        method,
+        body: JSON.stringify(responseBody),
+      }
+    );
+    const data = res.json();
+    revalidatePath('/admin');
+    return {
+      status: res.status,
+      data,
+    };
+  } catch (error) {
+    return {
+      error,
+      data: {},
+    };
+  }
+  // redirect('/admin');
 }
 export async function deleteExpense(formData: FormData) {
   const session = await getServerSession(authOptions);
   const id = formData.get('expenseId') as string;
 
-  await apiFetch(
-    (session as any)?.id_token,
-    `${apiUrl}/adm/expenses?expenseId=${id}`,
-    {
-      method: 'DELETE',
-    }
-  );
-  revalidatePath('/admin');
-  redirect('/admin');
+  try {
+    const res = await apiFetch(
+      (session as any)?.id_token,
+      `${apiUrl}/adm/expenses?expenseId=${id}`,
+      {
+        method: 'DELETE',
+      }
+    );
+
+    const data = res.json();
+    revalidatePath('/admin');
+
+    return {
+      status: res.status,
+      data,
+    };
+  } catch (error) {
+    return {
+      error,
+      data: {},
+    };
+  }
+  // redirect('/admin');
 }
