@@ -33,6 +33,7 @@ type UpdateBudgetProps = {
 */
 
 export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
+  console.log(budget);
   async function clientUpdateBudgetAction(formData: FormData) {
     const result = await updateBudget(formData);
 

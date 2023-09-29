@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.min.css';
 
@@ -12,9 +12,23 @@ const DatePickerWrapper = ({
   name: string;
   id: string;
 }) => {
-  const [startDate, setStartDate] = useState(
-    date ? new Date(date) : new Date()
-  );
+  console.log('DATE: ', date);
+  const [startDate, setStartDate] = useState(new Date());
+
+  useEffect(() => {
+    if (date) {
+      try {
+        const parsed = new Date(date);
+        if (parsed instanceof Date && !isNaN(parsed.getTime())) {
+          setStartDate(parsed);
+        } else {
+          throw 'Invalid date';
+        }
+      } catch {
+        setStartDate(new Date());
+      }
+    }
+  }, [date]);
   return (
     <DatePicker
       required
