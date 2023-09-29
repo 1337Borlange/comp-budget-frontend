@@ -54,6 +54,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
             label="Employee number"
             name="employeeNumber"
             id="employeeNumber"
+            required
           />
         </Column>
         <Column lg="6" md="6" sm="6" xs="12">
