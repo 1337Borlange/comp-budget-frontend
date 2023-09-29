@@ -66,23 +66,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
         </Column>
       </Grid>
       <Divider spacing="s" />
-      <Grid spacing="l">
-        <Column lg="6" md="6" sm="6" xs="12">
-          <TextField
-            label="Employee number"
-            name="employeeNumber"
-            id="employeeNumber"
-          />
-        </Column>
-        <Column lg="6" md="6" sm="6" xs="12">
-          <TextField
-            label="Department number"
-            name="departmentNumber"
-            id="departmentNumber"
-          />
-        </Column>
-      </Grid>
-      <Divider spacing="s" />
+
       <Grid spacing="l">
         <Column lg="6" md="6" sm="6" xs="12">
           <TextField
