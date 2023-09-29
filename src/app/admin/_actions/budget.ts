@@ -38,7 +38,7 @@ export async function updateBudget(formData: FormData) {
     };
   } catch (error) {
     return {
-      status: 500,
+      error,
       data: {},
     };
   }

@@ -59,7 +59,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
       const msg = getErrorMessage(result.error);
       toast.error(msg);
     } else {
-      toast.success(`User has been deleted! Redirecting in 2 seconds´}`);
+      toast.success(`User has been deleted! Redirecting in 2 seconds...´}`);
       setTimeout(() => {
         router.push('/admin');
       }, 2000);

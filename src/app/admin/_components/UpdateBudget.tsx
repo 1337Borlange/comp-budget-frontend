@@ -1,3 +1,4 @@
+'use client';
 import { Budget, User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
@@ -9,6 +10,8 @@ import Box from '@/components/Box';
 import Button from '@/components/Button';
 import DatePickerWrapper from './DatePickerWrapper';
 import { updateBudget } from '../_actions/budget';
+import { getErrorMessage } from '@/lib/helpers';
+import toast from 'react-hot-toast';
 
 type UpdateBudgetProps = {
   user?: User;
@@ -30,13 +33,24 @@ type UpdateBudgetProps = {
 */
 
 export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
+  async function clientUpdateBudgetAction(formData: FormData) {
+    const result = await updateBudget(formData);
+
+    console.log(result);
+    if (result?.error) {
+      const msg = getErrorMessage(result.error);
+      toast.error(msg);
+    } else {
+      toast.success(`User has been updated!´}`);
+    }
+  }
   return (
     <div>
       <h2>Update budget</h2>
       <Divider spacing="m" color="transparent" />
 
       <>
-        <form action={updateBudget}>
+        <form action={clientUpdateBudgetAction}>
           <input type="hidden" name="userId" value={user?.userId} />
           <input type="hidden" name="id" value={budget?.id} />
 
