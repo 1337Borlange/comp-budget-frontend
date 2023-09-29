@@ -63,7 +63,7 @@ export default async function Admin({
   const session = await getServerSession(authOptions);
   const token = (session as any).id_token;
   const { userId } = searchParams;
-  console.log(userId);
+
   const userExpenses = await getUserExpenses(token, userId as string);
   const userBudget = await getUserBudget(token, userId as string);
   const categoryTypes = await getCategoryTypes(token);

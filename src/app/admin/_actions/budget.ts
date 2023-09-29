@@ -17,8 +17,6 @@ export async function updateBudget(formData: FormData) {
     }
   });
 
-  console.log(responseBody);
-
   try {
     const res = await apiFetch(
       (session as any)?.id_token,

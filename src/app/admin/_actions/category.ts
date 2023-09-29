@@ -25,7 +25,7 @@ export async function saveCategory(formData: FormData) {
         postBody[property] = value;
       }
     });
-    console.log(postBody);
+
     const res = await apiFetch(
       (session as any)?.id_token,
       `${apiUrl}/adm/categories`,

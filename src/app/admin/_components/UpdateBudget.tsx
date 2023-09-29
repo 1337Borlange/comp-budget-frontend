@@ -36,7 +36,6 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
   async function clientUpdateBudgetAction(formData: FormData) {
     const result = await updateBudget(formData);
 
-    console.log(result);
     if (result?.error) {
       const msg = getErrorMessage(result.error);
       toast.error(msg);

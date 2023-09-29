@@ -86,15 +86,8 @@ export const authOptions: AuthOptions = {
             isAdmin = await apiFetch(
               token.id_token as string,
               `${apiUrl}/adm/isAdmin`
-            )
-              .then((res) => {
-                console.log(res);
-                return res;
-              })
-              .then((res) => res.json());
-            // console.log('IS ADMIN: ', isAdmin);
+            ).then((res) => res.json());
           } catch (e) {
-            // console.log('Admin error');
             console.error(e);
           }
         }

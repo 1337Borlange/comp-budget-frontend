@@ -5,7 +5,6 @@ import { apiFetch, getFormValue } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
 import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export async function updateUser(formData: FormData) {
   const responseBody = {} as any; // User request body
@@ -16,8 +15,6 @@ export async function updateUser(formData: FormData) {
       responseBody[property as any] = newVal as never;
     }
   });
-
-  console.log(responseBody);
 
   try {
     const res = await apiFetch(
@@ -80,8 +77,6 @@ export async function addUser(formData: FormData) {
       responseBody[property as any] = newVal as never;
     }
   });
-
-  console.log(responseBody);
 
   try {
     const res = await apiFetch(

@@ -42,7 +42,6 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
   async function clientSaveAction(formData: FormData) {
     const result = await updateUser(formData);
 
-    console.log(result);
     if (result?.error) {
       const msg = getErrorMessage(result.error);
       toast.error(msg);
@@ -54,7 +53,6 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
   async function clientDeleteAction(formData: FormData) {
     const result = await deleteUser(formData);
 
-    console.log(result);
     if (result?.error) {
       const msg = getErrorMessage(result.error);
       toast.error(msg);

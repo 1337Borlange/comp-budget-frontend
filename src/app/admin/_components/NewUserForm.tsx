@@ -26,7 +26,6 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
   async function clientSaveUserAction(formData: FormData) {
     const result = await addUser(formData);
 
-    console.log(result);
     if (result?.error) {
       const msg = getErrorMessage(result.error);
       toast.error(msg);

@@ -13,9 +13,6 @@ export async function saveExpense(formData: FormData) {
   const method = formData.get('reqType') as string;
   formData.delete('reqType');
   formData.forEach((value, property: string) => {
-    console.log(value, property);
-
-    // let _value = value;
     if (typeof value !== 'undefined') {
       const newVal = getFormValue(value);
       responseBody[property as keyof NewExpense] = newVal as never;
