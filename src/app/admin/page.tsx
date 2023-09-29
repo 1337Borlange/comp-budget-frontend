@@ -27,9 +27,16 @@ async function getUserExpenses(token: string, id?: string): Promise<Expense[]> {
   if (!id) {
     return Promise.resolve([]);
   }
-  return apiFetch(token, `${apiUrl}/adm/expenses?userId=${id}`).then((res) =>
-    res.json()
-  );
+  try {
+    const result = await apiFetch(token, `${apiUrl}/adm/expenses?userId=${id}`);
+    if (result.ok) {
+      const data = await result.json();
+      return data;
+    }
+    return [];
+  } catch (error) {
+    return [];
+  }
 }
 async function getUserBudget(
   token: string,
@@ -38,9 +45,16 @@ async function getUserBudget(
   if (!id) {
     return Promise.resolve(undefined);
   }
-  return apiFetch(token, `${apiUrl}/budgets?userId=${id}`).then((res) =>
-    res.json()
-  );
+  try {
+    const result = await apiFetch(token, `${apiUrl}/budgets?userId=${id}`);
+    if (result.ok) {
+      const data = await result.json();
+      return data;
+    }
+    return;
+  } catch (error) {
+    return;
+  }
 }
 
 async function getCategories(token: string): Promise<any> {
