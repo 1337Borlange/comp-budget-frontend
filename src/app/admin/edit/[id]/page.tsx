@@ -40,7 +40,10 @@ export default async function Edit({ params }: { params: { id: string } }) {
   return (
     <div>
       <Box topSpacing="m" leftSpacing="m" rightSpacing="m">
-        <Link className="button outline icon-left" href="/admin">
+        <Link
+          className="button outline icon-left"
+          href={`/admin${expense?.userId ? `?userId=${expense.userId}` : ''}`}
+        >
           <ArrowLeftIcon /> Back
         </Link>
       </Box>

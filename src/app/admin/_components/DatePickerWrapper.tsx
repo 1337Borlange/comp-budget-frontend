@@ -12,7 +12,6 @@ const DatePickerWrapper = ({
   name: string;
   id: string;
 }) => {
-  console.log('DATE: ', date);
   const [startDate, setStartDate] = useState(new Date());
 
   useEffect(() => {
