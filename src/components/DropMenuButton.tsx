@@ -62,7 +62,12 @@ const DropMenuButton: React.FunctionComponent<
   const buttonRef = useRef<any>(null);
 
   const handleClickOutside = (e: any) => {
-    if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
+    if (
+      dropMenuRef.current &&
+      !dropMenuRef.current.contains(e.target) &&
+      buttonRef.current !== e.target &&
+      !buttonRef.current.contains(e.target)
+    ) {
       setExpanded(false);
     }
   };
