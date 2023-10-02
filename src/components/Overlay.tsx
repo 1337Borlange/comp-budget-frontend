@@ -45,27 +45,32 @@ const Overlay: React.FunctionComponent<
     ...(zIndex && { ['--overlay-z-index']: zIndex }),
   } as React.CSSProperties;
 
-  return createPortal(
-    <AnimatePresence>
-      {visible && (
-        <FocusLock>
-          <motion.div
-            key={`overlay`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            ref={ovRef}
-            className={`overlay ${classes} ${className ? ` ${className}` : ''}`}
-            aria-hidden="true"
-            style={inlineStyle}
-            {...rest}
-            onClick={handleClick}
-          />
-        </FocusLock>
-      )}
-    </AnimatePresence>,
-    document?.body
-  );
+  if (typeof window === 'object') {
+    return createPortal(
+      <AnimatePresence>
+        {visible && (
+          <FocusLock>
+            <motion.div
+              key={`overlay`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              ref={ovRef}
+              className={`overlay ${classes} ${
+                className ? ` ${className}` : ''
+              }`}
+              aria-hidden="true"
+              style={inlineStyle}
+              {...rest}
+              onClick={handleClick}
+            />
+          </FocusLock>
+        )}
+      </AnimatePresence>,
+      document?.body
+    );
+  }
+  return null;
 };
 
 Overlay.displayName = 'Overlay';
