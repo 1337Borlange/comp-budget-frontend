@@ -1,15 +1,14 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { auth } from '@/lib/auth';
 import { apiFetch, getFormValue } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
 import { BudgetRequestBody } from '@/lib/types';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 export async function updateBudget(formData: FormData) {
   const responseBody = {} as BudgetRequestBody;
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   formData.forEach((value, property: string) => {
     if (typeof value !== 'undefined') {
       const newVal = getFormValue(value);
@@ -19,7 +18,7 @@ export async function updateBudget(formData: FormData) {
 
   try {
     const res = await apiFetch(
-      (session as any)?.id_token,
+      session?.id_token,
       `${apiUrl}/adm/budgets`,
       {
         method: 'PUT',

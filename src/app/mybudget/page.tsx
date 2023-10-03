@@ -29,12 +29,12 @@ export default async function MyBudget() {
   let expenses: Expense[] = [];
   try {
     budget = await getBudget(
-      (session as any).id_token,
-      (session as any).userId
+      session.id_token,
+      session.userId
     );
     expenses = await getExpenses(
-      (session as any).id_token,
-      (session as any).userId
+      session.id_token,
+      session.userId
     );
   } catch (e) {
     console.error(e);

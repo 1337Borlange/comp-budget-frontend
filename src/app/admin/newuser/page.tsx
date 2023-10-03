@@ -2,8 +2,6 @@ import Divider from '@/components/Divider';
 import Box from '@/components/Box';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl, offices, shirtSizes } from '@/lib/settings';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Metadata } from 'next';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
@@ -14,6 +12,7 @@ import Button from '@/components/Button';
 import { User } from '@/lib/types';
 import { addUser } from '../_actions/user';
 import NewUserForm from '../_components/NewUserForm';
+import { auth } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Add a new user',
@@ -26,8 +25,8 @@ async function getUsers(token: string): Promise<any> {
 }
 
 export default async function NewUser() {
-  const session = await getServerSession(authOptions);
-  const token = (session as any).id_token;
+  const session = await auth();
+  const token = session.id_token;
 
   let allUsers: User[] = [];
   try {

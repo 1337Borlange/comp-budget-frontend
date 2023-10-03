@@ -1,6 +1,5 @@
-// import { getServerSession } from 'next-auth';
+// import { auth } from '@/lib/auth';
 import { NextRequest, NextResponse } from 'next/server';
-// import { authOptions } from '../../auth/[...nextauth]/route';
 // import { revalidatePath } from 'next/cache';
 // import { apiFetch } from '@/lib/helpers';
 // import { apiUrl } from '@/lib/settings';
@@ -10,10 +9,10 @@ export async function GET(request: NextRequest) {
 }
 
 // export async function DELETE(request: NextRequest) {
-//   const session = await getServerSession(authOptions);
+//   const session = await auth(authOptions);
 //   const id = request.nextUrl.searchParams.get('id');
 //   const deleted = await apiFetch(
-//     (session as any)?.id_token,
+//     session?.id_token,
 //     `${apiUrl}/adm/expenses?expenseId=${id}`,
 //     { method: 'DELETE' }
 //   );

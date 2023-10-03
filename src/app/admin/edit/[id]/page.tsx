@@ -5,9 +5,8 @@ import Box from '@/components/Box';
 import Link from 'next/link';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Metadata } from 'next';
+import { auth } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Edit expense',
@@ -32,11 +31,12 @@ async function getExpense(token: string, id: string): Promise<any> {
 }
 
 export default async function Edit({ params }: { params: { id: string } }) {
-  const session = await getServerSession(authOptions);
-  const token = (session as any).id_token;
+  const session = await auth();
+  const token = session.id_token;
   const categories = await getCategories(token);
   const expense = await getExpense(token, params.id);
   const categoryTypes = await getCategoryTypes(token);
+
   return (
     <div>
       <Box topSpacing="m" leftSpacing="m" rightSpacing="m">

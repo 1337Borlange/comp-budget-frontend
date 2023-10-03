@@ -6,10 +6,9 @@ import Stats from '../_components/Stats';
 import Box from '@/components/Box';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Category, Expense, User } from '@/lib/types';
 import { Metadata } from 'next';
+import { auth } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Statistics',
@@ -32,11 +31,12 @@ async function getCategories(token: string): Promise<any> {
 }
 
 export default async function AdminStats() {
-  const session = await getServerSession(authOptions);
-  const token = (session as any).id_token;
+  const session = await auth();
+  const token = session.id_token;
   let allUsers: User[] = [];
   let allExpenses: Expense[] = [];
   let categories: Category[] = [];
+
   try {
     allUsers = await getUsers(token);
     allExpenses = await getExpenses(token);
@@ -44,6 +44,7 @@ export default async function AdminStats() {
   } catch (e) {
     console.error(e);
   }
+  
   return (
     <div>
       <Box topSpacing="m" leftSpacing="l" rightSpacing="l" bottomSpacing="m">

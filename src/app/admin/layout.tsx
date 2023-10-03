@@ -1,23 +1,23 @@
 import Header from '@/components/Header';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import '../../styles/components/page.scss';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
+import { auth } from '@/lib/auth';
 
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
-  if (!session) redirect('/api/auth/signin');
-  if (session && !(session as any).isAdmin) {
+  const session = await auth();
+
+  if (!session.isAdmin) {
     notFound();
   }
+
   return (
     <>
       <div className="page-wrapper">
-        <Header user={session?.user} isAdmin={(session as any).isAdmin} />
+        <Header user={session.user} isAdmin={session.isAdmin} />
         {/* <AdminContextProvider> */}
         {children}
         {/* </AdminContextProvider> */}

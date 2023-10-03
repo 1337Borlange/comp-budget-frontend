@@ -35,8 +35,8 @@ export async function POST(req: Request, res: Response) {
 //   // const token = await getToken({ req, secret });
 
 //   const response = await apiFetch(
-//     (session as any).id_token,
-//     `${apiUrl}/expenses?userId=${(session as any)?.userId}`
+//     session.id_token,
+//     `${apiUrl}/expenses?userId=${session?.userId}`
 //   );
 
 //   if (response.status !== 200) {
