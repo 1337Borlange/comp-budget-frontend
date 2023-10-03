@@ -1,16 +1,16 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { auth } from '@/lib/auth';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
 import { formDataType } from '@/lib/types';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 export async function saveCategory(formData: FormData) {
   const postBody: formDataType = {};
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const chk = formData.getAll('categoryType');
+  
   if (chk.length === 0) {
     // throw new Error('Please select at least one category type.');
     return {
@@ -27,7 +27,7 @@ export async function saveCategory(formData: FormData) {
     });
 
     const res = await apiFetch(
-      (session as any)?.id_token,
+      session?.id_token,
       `${apiUrl}/adm/categories`,
       {
         method: 'POST',

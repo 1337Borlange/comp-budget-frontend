@@ -1,14 +1,14 @@
 'use server';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { auth } from '@/lib/auth';
 import { apiFetch, getFormValue } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 export async function updateUser(formData: FormData) {
   const responseBody = {} as any; // User request body
-  const session = await getServerSession(authOptions);
+  const session = await auth();
+
   formData.forEach((value, property: string) => {
     if (typeof value !== 'undefined') {
       const newVal = getFormValue(value);
@@ -18,7 +18,7 @@ export async function updateUser(formData: FormData) {
 
   try {
     const res = await apiFetch(
-      (session as any)?.id_token,
+      session?.id_token,
       `${apiUrl}/adm/users`,
       {
         method: 'PUT',
@@ -42,12 +42,12 @@ export async function updateUser(formData: FormData) {
 }
 
 export async function deleteUser(formData: FormData) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const id = formData.get('userId') as string;
 
   try {
     const res = await apiFetch(
-      (session as any)?.id_token,
+      session?.id_token,
       `${apiUrl}/adm/users?userId=${id}`,
       {
         method: 'DELETE',
@@ -70,7 +70,8 @@ export async function deleteUser(formData: FormData) {
 
 export async function addUser(formData: FormData) {
   const responseBody = {} as any; // User request body
-  const session = await getServerSession(authOptions);
+  const session = await auth();
+
   formData.forEach((value, property: string) => {
     if (typeof value !== 'undefined') {
       const newVal = getFormValue(value);
@@ -80,7 +81,7 @@ export async function addUser(formData: FormData) {
 
   try {
     const res = await apiFetch(
-      (session as any)?.id_token,
+      session?.id_token,
       `${apiUrl}/adm/users`,
       {
         method: 'POST',

@@ -9,10 +9,9 @@ import UserTabs from './_components/UserTabs';
 import UserSelection from './_components/UserSelection';
 import { apiFetch } from '@/lib/helpers';
 import { Budget, Category, Expense, User } from '@/lib/types';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
 import { Metadata } from 'next';
+import { auth } from '@/lib/auth';
 
 export const metadata: Metadata = {
   title: 'Admin',
@@ -74,8 +73,8 @@ export default async function Admin({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const session = await getServerSession(authOptions);
-  const token = (session as any).id_token;
+  const session = await auth();
+  const token = session.id_token;
   const { userId } = searchParams;
 
   const userExpenses = await getUserExpenses(token, userId as string);
@@ -86,8 +85,8 @@ export default async function Admin({
   let selectedUser = undefined;
   let categories: Category[] = [];
   try {
-    users = await getUsers((session as any).id_token);
-    categories = await getCategories((session as any).id_token);
+    users = await getUsers(session.id_token);
+    categories = await getCategories(session.id_token);
     selectedUser = users.find((u) => u.userId === userId);
   } catch (e) {
     console.error(e);

@@ -2,10 +2,9 @@
 import type { Metadata } from 'next';
 import { Sora } from 'next/font/google';
 import { Providers } from '@/lib/Providers';
-import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
 import '../styles/style.scss';
 import { Toaster } from 'react-hot-toast';
+import { auth } from '@/lib/auth';
 
 const sora = Sora({ subsets: ['latin'] });
 
@@ -22,7 +21,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
+  
   return (
     <html lang="en">
       <body className={sora.className}>
