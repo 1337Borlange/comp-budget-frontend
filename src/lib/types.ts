@@ -82,22 +82,11 @@ export type Severity = 'success' | 'warning' | 'error' | 'info';
 
 export type FlexGrow = '1' | '0';
 
-export type User = {
-  name: string;
-  userId: string;
-  email: string;
-  // image: string;
-  // start: string;
-  // image: string;
-  // openingBalanceMoney: number;
-  // openingBalanceTime: number;
-  // yearlyRefill: number;
-  // comment: string;
-  // hardwareBudget: number;
-  // currentMoneyBalance: number;
-  // currentTimeBalance: number;
-  // currentHardwareBalance: number;
-};
+// export type User = {
+//   name: string;
+//   userId: string;
+//   email: string;
+// };
 export type Budget = {
   name: string;
   userId: string;
@@ -208,7 +197,7 @@ export type GoogleJWTProfile = {
 };
 
 export type Employee = {
-  userId: string;
+  id: string;
   name: string;
   email: string;
   employeeNumber?: string;

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { addUser } from '../_actions/user';
-import { User } from '@/lib/types';
+import { Employee } from '@/lib/types';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import TextField from '@/components/Textfield';
@@ -17,7 +17,7 @@ import Box from '@/components/Box';
 import Button from '@/components/Button';
 
 type NewUserFormProps = {
-  allUsers: User[];
+  allUsers: Employee[];
 };
 
 const NewUserForm = ({ allUsers }: NewUserFormProps) => {
@@ -33,7 +33,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
       formRef?.current?.reset();
       toast.success(`User succesfully added! Redirecting in 2 seconds...`);
       setTimeout(() => {
-        router.push(`/admin?userId=${(result?.data as User)?.userId}`);
+        router.push(`/admin?userId=${(result?.data as Employee)?.id}`);
       }, 2000);
     }
   }
@@ -125,7 +125,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
             label="Select manager"
             name="manager"
             data={allUsers.map((user) => ({
-              id: user.userId,
+              id: user.id,
               title: user.name,
             }))}
           />

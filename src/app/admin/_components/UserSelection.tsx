@@ -1,11 +1,11 @@
 'use client';
 
 import ComboBox from '@/components/ComboBox';
-import { User } from '@/lib/types';
+import { Employee } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
-  users: User[];
+  users: Employee[];
 };
 
 const UserSelection = ({ users }: UserSelectionProps) => {
@@ -15,7 +15,7 @@ const UserSelection = ({ users }: UserSelectionProps) => {
       fullWidth
       label="Select user"
       data={users.map((user) => ({
-        id: user.userId,
+        id: user.id,
         title: user.name,
       }))}
       handleChange={(val) => router.push(`/admin?userId=${val?.id ?? ''}`)}

@@ -1,5 +1,5 @@
 'use client';
-import { Budget, User } from '@/lib/types';
+import { Budget, Employee } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
@@ -14,9 +14,9 @@ import { getErrorMessage } from '@/lib/helpers';
 import toast from 'react-hot-toast';
 
 type UpdateBudgetProps = {
-  user?: User;
+  user?: Employee;
   budget?: Budget;
-  allUsers: User[];
+  allUsers: Employee[];
 };
 
 /*
@@ -51,7 +51,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
 
       <>
         <form action={clientUpdateBudgetAction}>
-          <input type="hidden" name="userId" value={user?.userId} />
+          <input type="hidden" name="userId" value={user?.id} />
           <input type="hidden" name="id" value={budget?.id} />
 
           <Grid spacing="l">

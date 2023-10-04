@@ -5,8 +5,8 @@ import {
   Category,
   CategoryType,
   CreateUpdateDeleteType,
+  Employee,
   Expense,
-  User,
 } from '@/lib/types';
 import Divider from '../../../components/Divider';
 import Grid from '../../../components/Grid';
@@ -29,7 +29,7 @@ type AddExpenseType = {
   categories: Category[];
   categoryTypes: CategoryType[];
   expense?: Expense;
-  user?: User;
+  user?: Employee;
 };
 
 export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
@@ -84,7 +84,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
         <input
           type="hidden"
           name="userId"
-          value={expense?.userId || user?.userId}
+          value={expense?.userId || user?.id}
         />
         {expense && <input type="hidden" name="id" value={expense?.id} />}
         <Grid spacing="l">
