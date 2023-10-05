@@ -30,11 +30,11 @@ export default async function MyBudget() {
   try {
     budget = await getBudget(
       (session as any).id_token,
-      (session as any).userId
+      (session as any).internalUserId
     );
     expenses = await getExpenses(
       (session as any).id_token,
-      (session as any).userId
+      (session as any).internalUserId
     );
   } catch (e) {
     console.error(e);
