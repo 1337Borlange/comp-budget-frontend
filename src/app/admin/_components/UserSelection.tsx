@@ -1,11 +1,11 @@
 'use client';
 
 import ComboBox from '@/components/ComboBox';
-import { Employee } from '@/lib/types';
+import { User } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
-  users: Employee[];
+  users: User[];
 };
 
 const UserSelection = ({ users }: UserSelectionProps) => {

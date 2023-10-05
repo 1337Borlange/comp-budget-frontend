@@ -5,7 +5,7 @@ import {
   Category,
   CategoryType,
   CreateUpdateDeleteType,
-  Employee,
+  User,
   Expense,
 } from '@/lib/types';
 import Divider from '../../../components/Divider';
@@ -29,7 +29,7 @@ type AddExpenseType = {
   categories: Category[];
   categoryTypes: CategoryType[];
   expense?: Expense;
-  user?: Employee;
+  user?: User;
 };
 
 export const AddExpense: React.FunctionComponent<AddExpenseType> = ({

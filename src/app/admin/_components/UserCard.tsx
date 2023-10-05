@@ -2,13 +2,13 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import { ValueHeader } from '@/components/Values';
-import { Budget, Employee, Expense } from '@/lib/types';
+import { Budget, User, Expense } from '@/lib/types';
 import UserModal from './UserModal';
 import '../../../styles/components/usercard.scss';
 
 type UserCardProps = {
   budget?: Budget;
-  user?: Employee;
+  user?: User;
   expenses?: Expense[];
 };
 

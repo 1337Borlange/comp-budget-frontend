@@ -1,5 +1,5 @@
 'use client';
-import { Budget, Employee } from '@/lib/types';
+import { Budget, User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
@@ -14,9 +14,9 @@ import { getErrorMessage } from '@/lib/helpers';
 import toast from 'react-hot-toast';
 
 type UpdateBudgetProps = {
-  user?: Employee;
+  user?: User;
   budget?: Budget;
-  allUsers: Employee[];
+  allUsers: User[];
 };
 
 /*

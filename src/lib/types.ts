@@ -196,7 +196,7 @@ export type GoogleJWTProfile = {
   exp: number;
 };
 
-export type Employee = {
+export type User = {
   id: string;
   name: string;
   email: string;

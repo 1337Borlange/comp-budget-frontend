@@ -1,7 +1,7 @@
 import Divider from '@/components/Divider';
 import { InfoBox } from '@/components/InfoBox';
 import { UserProfile } from '@/components/UserProfile';
-import { Budget, Expense, Employee } from '@/lib/types';
+import { Budget, Expense, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
@@ -50,7 +50,7 @@ export default async function MyBudget() {
         list, or deducted from your balance, due to manual handling.
       </InfoBox>
       <UserProfile
-        user={session?.user as Employee}
+        user={session?.user as User}
         showEdit={false}
         title="My expenses"
         budget={budget}

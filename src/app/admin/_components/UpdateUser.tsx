@@ -1,6 +1,6 @@
 'use client';
 
-import { Employee } from '@/lib/types';
+import { User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
@@ -19,8 +19,8 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 type UpdateUserProps = {
-  user?: Employee;
-  allUsers: Employee[];
+  user?: User;
+  allUsers: User[];
 };
 
 /*

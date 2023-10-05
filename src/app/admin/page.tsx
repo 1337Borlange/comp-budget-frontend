@@ -8,7 +8,7 @@ import { UserCard } from './_components/UserCard';
 import UserTabs from './_components/UserTabs';
 import UserSelection from './_components/UserSelection';
 import { apiFetch } from '@/lib/helpers';
-import { Budget, Category, Employee, Expense } from '@/lib/types';
+import { Budget, Category, User, Expense } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
@@ -82,7 +82,7 @@ export default async function Admin({
   const userBudget = await getUserBudget(token, userId as string);
   const categoryTypes = await getCategoryTypes(token);
 
-  let users: Employee[] = [];
+  let users: User[] = [];
   let selectedUser = undefined;
   let categories: Category[] = [];
   try {

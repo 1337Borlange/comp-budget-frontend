@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
 import { addUser } from '../_actions/user';
-import { Employee } from '@/lib/types';
+import { User } from '@/lib/types';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import TextField from '@/components/Textfield';
@@ -17,7 +17,7 @@ import Box from '@/components/Box';
 import Button from '@/components/Button';
 
 type NewUserFormProps = {
-  allUsers: Employee[];
+  allUsers: User[];
 };
 
 const NewUserForm = ({ allUsers }: NewUserFormProps) => {
@@ -33,7 +33,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
       formRef?.current?.reset();
       toast.success(`User succesfully added! Redirecting in 2 seconds...`);
       setTimeout(() => {
-        router.push(`/admin?userId=${(result?.data as Employee)?.id}`);
+        router.push(`/admin?userId=${(result?.data as User)?.id}`);
       }, 2000);
     }
   }
