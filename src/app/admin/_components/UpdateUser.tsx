@@ -37,7 +37,6 @@ type UpdateUserProps = {
 */
 
 export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
-  console.log({ user });
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const router = useRouter();
   async function clientSaveAction(formData: FormData) {
