@@ -63,6 +63,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
                   date={budget?.start}
                   name="start"
                   id="start"
+                  key={`start-${user?.id}`}
                 />
               </FormControl>
             </Column>
@@ -73,6 +74,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
                 id="hardwareBudget"
                 name="hardwareBudget"
                 type="number"
+                key={`hardware-${user?.id}`}
                 defaultValue={budget?.hardwareBudget ?? 0}
               />
             </Column>
@@ -85,6 +87,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
                 label="Opening balance money"
                 id="openingBalanceMoney"
                 name="openingBalanceMoney"
+                key={`moneybalance-${user?.id}`}
                 type="number"
                 defaultValue={budget?.openingBalanceMoney ?? 0}
               />
@@ -95,6 +98,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
                 label="Opening balance time"
                 id="openingBalanceTime"
                 name="openingBalanceTime"
+                key={`timebalance-${user?.id}`}
                 type="number"
                 defaultValue={budget?.openingBalanceTime ?? 0}
               />
@@ -105,6 +109,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
             label="Yearly refill"
             id="yearlyRefill"
             name="yearlyRefill"
+            key={`refill-${user?.id}`}
             type="number"
             defaultValue={budget?.yearlyRefill ?? 0}
             fullWidth
@@ -115,6 +120,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
             <textarea
               id="comment"
               name="comment"
+              key={`comment-${user?.id}`}
               defaultValue={budget?.comment}
             ></textarea>
           </FormControl>
