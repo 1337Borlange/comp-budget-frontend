@@ -2,7 +2,7 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import { ValueHeader } from '@/components/Values';
-import { Budget, Expense, User } from '@/lib/types';
+import { Budget, User, Expense } from '@/lib/types';
 import UserModal from './UserModal';
 import '../../../styles/components/usercard.scss';
 

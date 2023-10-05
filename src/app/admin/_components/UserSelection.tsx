@@ -15,7 +15,7 @@ const UserSelection = ({ users }: UserSelectionProps) => {
       fullWidth
       label="Select user"
       data={users.map((user) => ({
-        id: user.userId,
+        id: user.id,
         title: user.name,
       }))}
       handleChange={(val) => router.push(`/admin?userId=${val?.id ?? ''}`)}

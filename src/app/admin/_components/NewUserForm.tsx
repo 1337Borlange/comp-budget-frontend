@@ -33,7 +33,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
       formRef?.current?.reset();
       toast.success(`User succesfully added! Redirecting in 2 seconds...`);
       setTimeout(() => {
-        router.push(`/admin?userId=${(result?.data as User)?.userId}`);
+        router.push(`/admin?userId=${(result?.data as User)?.id}`);
       }, 2000);
     }
   }
@@ -125,7 +125,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
             label="Select manager"
             name="manager"
             data={allUsers.map((user) => ({
-              id: user.userId,
+              id: user.id,
               title: user.name,
             }))}
           />

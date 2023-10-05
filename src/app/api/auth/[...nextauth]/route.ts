@@ -80,13 +80,12 @@ export const authOptions: AuthOptions = {
     async session(data) {
       let { session, token } = data;
       if (session && typeof (session as any)?.isAdmin !== 'boolean') {
-        let isAdmin = undefined;
+        let me = undefined;
         if (token?.id_token) {
           try {
-            isAdmin = await apiFetch(
-              token.id_token as string,
-              `${apiUrl}/adm/isAdmin`
-            ).then((res) => res.json());
+            me = await apiFetch(token.id_token as string, `${apiUrl}/me`).then(
+              (res) => res.json()
+            );
           } catch (e) {
             console.error(e);
           }
@@ -95,7 +94,10 @@ export const authOptions: AuthOptions = {
           access_token: token.access_token,
           id_token: token.id_token,
           userId: getUserId(token.id_token as string),
-          ...(typeof isAdmin === 'boolean' && { isAdmin }),
+          ...(typeof me?.isAdmin === 'boolean' && { isAdmin: me.isAdmin }),
+          ...(typeof me?.user?.id !== 'undefined' && {
+            internalUserId: me.user.id,
+          }),
           // isAdmin,
         });
       }

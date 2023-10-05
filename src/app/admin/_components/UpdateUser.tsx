@@ -1,6 +1,6 @@
 'use client';
 
-import { Employee, User } from '@/lib/types';
+import { User } from '@/lib/types';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
@@ -19,7 +19,7 @@ import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 type UpdateUserProps = {
-  user?: Employee;
+  user?: User;
   allUsers: User[];
 };
 
@@ -98,13 +98,13 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
         </p>
         <Divider spacing="xs" />
         <p>Are you sure you want to delete this user and all related data?</p>
-        <input type="hidden" name="userId" id="userId" value={user?.userId} />
+        <input type="hidden" name="userId" id="userId" value={user?.id} />
       </ConfirmDialog>
       <Divider spacing="m" color="transparent" />
 
       <>
         <form action={clientSaveAction}>
-          <input type="hidden" name="userId" value={user?.userId} />
+          <input type="hidden" name="userId" value={user?.id} />
           <input type="hidden" name="name" value={user?.name} />
 
           <Grid spacing="l">
@@ -209,7 +209,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 name="manager"
                 defaultValue={user?.manager}
                 data={allUsers.map((user) => ({
-                  id: user.userId,
+                  id: user.id,
                   title: user.name,
                 }))}
               />

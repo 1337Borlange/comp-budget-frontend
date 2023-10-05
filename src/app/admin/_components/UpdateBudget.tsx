@@ -51,7 +51,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
 
       <>
         <form action={clientUpdateBudgetAction}>
-          <input type="hidden" name="userId" value={user?.userId} />
+          <input type="hidden" name="userId" value={user?.id} />
           <input type="hidden" name="id" value={budget?.id} />
 
           <Grid spacing="l">
