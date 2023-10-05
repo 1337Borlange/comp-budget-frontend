@@ -44,6 +44,7 @@ export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
       toast.success(`User has been updated!´}`);
     }
   }
+
   return (
     <div>
       <h2>Update budget</h2>

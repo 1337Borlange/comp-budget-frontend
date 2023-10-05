@@ -37,6 +37,7 @@ type UpdateUserProps = {
 */
 
 export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
+  console.log({ user });
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const router = useRouter();
   async function clientSaveAction(formData: FormData) {
@@ -113,6 +114,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 label="Employee number"
                 name="employeeNumber"
                 id="employeeNumber"
+                key={`employeenr-${user?.id}`}
                 defaultValue={user?.employeeNumber}
               />
             </Column>
@@ -121,6 +123,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 label="Department number"
                 name="departmentNumber"
                 id="departmentNumber"
+                key={`departmentnr-${user?.id}`}
                 defaultValue={user?.departmentNumber}
               />
             </Column>
@@ -133,6 +136,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 name="personalNumber"
                 id="personalNumber"
                 type="number"
+                key={`personalnr-${user?.id}`}
                 defaultValue={user?.personalNumber}
               />
             </Column>
@@ -141,6 +145,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 label="Phone number"
                 name="phoneNumber"
                 id="phoneNumber"
+                key={`phonenr-${user?.id}`}
                 type="tel"
                 defaultValue={user?.phoneNumber}
               />
@@ -153,6 +158,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 label="Address"
                 name="address"
                 id="address"
+                key={`address-${user?.id}`}
                 defaultValue={user?.address}
               />
             </Column>
@@ -162,6 +168,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 name="email"
                 id="email"
                 type="email"
+                key={`email-${user?.id}`}
                 defaultValue={user?.email}
               />
             </Column>
@@ -172,6 +179,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
               <Select
                 label="Shirt size"
                 name="shirtSize"
+                key={`shirtsize-${user?.id}`}
                 defaultValue={user?.shirtSize}
               >
                 {shirtSizes.map((size) => (
@@ -186,6 +194,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 label="Allergies"
                 name="allergies"
                 id="allergies"
+                key={`allergies-${user?.id}`}
                 defaultValue={user?.allergies}
               />
             </Column>
@@ -193,7 +202,12 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
           <Divider spacing="s" />
           <Grid spacing="l">
             <Column lg="6" md="6" sm="6" xs="12">
-              <Select label="Office" name="office" defaultValue={user?.office}>
+              <Select
+                label="Office"
+                name="office"
+                key={`office-${user?.id}`}
+                defaultValue={user?.office}
+              >
                 {offices.map((office) => (
                   <option key={office} value={office}>
                     {office}
@@ -208,6 +222,7 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
                 label="Select manager"
                 name="manager"
                 defaultValue={user?.manager}
+                key={`manager-${user?.id}`}
                 data={allUsers.map((user) => ({
                   id: user.id,
                   title: user.name,

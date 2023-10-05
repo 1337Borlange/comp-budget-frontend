@@ -18,7 +18,9 @@ const UserSelection = ({ users }: UserSelectionProps) => {
         id: user.id,
         title: user.name,
       }))}
-      handleChange={(val) => router.push(`/admin?userId=${val?.id ?? ''}`)}
+      handleChange={(val) => {
+        router.push(`/admin?userId=${val?.id ?? ''}`);
+      }}
     />
   );
 };
