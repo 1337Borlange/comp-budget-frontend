@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { PropsWithChildren, useEffect } from 'react';
-import { Session } from 'next-auth';
-import { SessionProvider } from 'next-auth/react';
-import { useDarkMode } from 'usehooks-ts';
-// import GlobalsCss from '@/app/globals.css';
+import { PropsWithChildren } from "react";
+import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "./context";
 
 interface ProvidersProps extends PropsWithChildren {
   session: Session | null;
@@ -13,8 +12,9 @@ interface ProvidersProps extends PropsWithChildren {
 export function Providers({ children, session }: ProvidersProps) {
   return (
     <>
-      {/* <GlobalsCss /> */}
-      <SessionProvider session={session}>{children}</SessionProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider>{children}</ThemeProvider>
+      </SessionProvider>
     </>
   );
 }

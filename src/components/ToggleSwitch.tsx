@@ -1,6 +1,6 @@
-'use client';
-import React, { useRef } from 'react';
-import '../styles/components/toggleswitch.scss';
+"use client";
+import React, { useRef } from "react";
+import "../styles/components/toggleswitch.scss";
 
 export type ToggleSwitchProps = {
   id: string;
@@ -19,13 +19,13 @@ const ToggleSwitch = ({
   checked,
   onChange,
   defaultChecked,
-  optionLabels = ['Yes', 'No'],
+  optionLabels = ["Yes", "No"],
   small,
   disabled,
 }: ToggleSwitchProps) => {
   const labelRef = useRef<HTMLLabelElement>(null);
   const handleKeyPress = (e: React.KeyboardEvent<HTMLLabelElement>) => {
-    if (e.code !== 'Enter' && e.code !== 'Space') return;
+    if (e.code !== "Enter" && e.code !== "Space") return;
     if (onChange) {
       e.preventDefault();
       onChange(!checked);
@@ -37,18 +37,18 @@ const ToggleSwitch = ({
   };
 
   const inputProps = {
-    className: 'toggle-switch-checkbox',
-    type: 'checkbox',
+    className: "toggle-switch-checkbox",
+    type: "checkbox",
     name,
     id,
-    ...(typeof checked !== 'undefined' && { checked }),
-    ...(typeof defaultChecked !== 'undefined' && { defaultChecked }),
-    ...(typeof onChange !== 'undefined' && { onChange }),
+    checked,
+    defaultChecked,
+    onChange,
   } as React.HTMLAttributes<HTMLInputElement>;
 
   return (
     <div
-      className={`toggle-switch ${small ? ' small-switch' : ''}`}
+      className={`toggle-switch ${small ? " small-switch" : ""}`}
       role="switch"
       aria-checked={checked}
     >
@@ -64,8 +64,8 @@ const ToggleSwitch = ({
           <span
             className={
               disabled
-                ? 'toggle-switch-inner toggle-switch-disabled'
-                : 'toggle-switch-inner'
+                ? "toggle-switch-inner toggle-switch-disabled"
+                : "toggle-switch-inner"
             }
             data-yes={optionLabels[0]}
             data-no={optionLabels[1]}
@@ -74,8 +74,8 @@ const ToggleSwitch = ({
           <span
             className={
               disabled
-                ? 'toggle-switch-switch toggle-switch-disabled'
-                : 'toggle-switch-switch'
+                ? "toggle-switch-switch toggle-switch-disabled"
+                : "toggle-switch-switch"
             }
             tabIndex={-1}
           />

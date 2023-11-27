@@ -1,28 +1,28 @@
-'use client';
-import { FormControl } from '../../../components/FormControl/FormControl';
-import { Label } from '../../../components/FormControl/Label';
+"use client";
+import { FormControl } from "../../../components/FormControl/FormControl";
+import { Label } from "../../../components/FormControl/Label";
 import {
   Category,
   CategoryType,
   CreateUpdateDeleteType,
   User,
   Expense,
-} from '@/lib/types';
-import Divider from '../../../components/Divider';
-import Grid from '../../../components/Grid';
-import Column from '../../../components/Column';
-import TextField from '../../../components/Textfield';
-import Box from '../../../components/Box';
-import Button from '../../../components/Button';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import DatePickerWrapper from './DatePickerWrapper';
-import AddCategory from './AddCategory';
-import ExpenseTypeCat from './ExpenseTypeCat';
-import { saveExpense } from '../_actions/expense';
-import toast from 'react-hot-toast';
-import { useRef } from 'react';
-import { getErrorMessage } from '@/lib/helpers';
-import { redirect, useRouter } from 'next/navigation';
+} from "@/lib/types";
+import Divider from "../../../components/Divider";
+import Grid from "../../../components/Grid";
+import Column from "../../../components/Column";
+import TextField from "../../../components/Textfield";
+import Box from "../../../components/Box";
+import Button from "../../../components/Button";
+import ToggleSwitch from "../../../components/ToggleSwitch";
+import DatePickerWrapper from "./DatePickerWrapper";
+import AddCategory from "./AddCategory";
+import ExpenseTypeCat from "./ExpenseTypeCat";
+import { saveExpense } from "../_actions/expense";
+import toast from "react-hot-toast";
+import { useRef } from "react";
+import { getErrorMessage } from "@/lib/helpers";
+import { redirect, useRouter } from "next/navigation";
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
@@ -44,18 +44,17 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   async function clientAction(formData: FormData) {
     const result = await saveExpense(formData);
 
-    console.log(result);
     if (result?.error) {
       const msg = getErrorMessage(result.error);
       toast.error(msg);
     } else {
       toast.success(
         `Expense succesfully ${reqType}d! ${
-          reqType === 'update' ? 'Redirecting to admin in 2 seconds.' : ''
+          reqType === "update" ? "Redirecting to admin in 2 seconds." : ""
         }`
       );
 
-      if (reqType === 'update') {
+      if (reqType === "update") {
         setTimeout(() => {
           router.push(`/admin?userId=${expense?.userId}`);
         }, 2000);
@@ -68,7 +67,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
     <>
       <Grid spacing="m">
         <Column lg="9" md="9" sm="9" xs="6">
-          <h2>{reqType === 'update' ? 'Update' : 'Add'} expense</h2>
+          <h2>{reqType === "update" ? "Update" : "Add"} expense</h2>
         </Column>
         <Column lg="3" md="3" sm="3" xs="6">
           <AddCategory />
@@ -79,7 +78,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
         <input
           type="hidden"
           name="reqType"
-          value={reqType === 'update' ? 'PUT' : 'POST'}
+          value={reqType === "update" ? "PUT" : "POST"}
         />
         <input
           type="hidden"

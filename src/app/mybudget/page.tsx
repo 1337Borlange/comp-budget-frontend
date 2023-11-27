@@ -1,15 +1,15 @@
-import Divider from '@/components/Divider';
-import { InfoBox } from '@/components/InfoBox';
-import { UserProfile } from '@/components/UserProfile';
-import { Budget, Expense, User } from '@/lib/types';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
-import { apiFetch } from '@/lib/helpers';
-import { apiUrl } from '@/lib/settings';
-import { Metadata } from 'next';
+import Divider from "@/components/Divider";
+import { InfoBox } from "@/components/InfoBox";
+import { UserProfile } from "@/components/UserProfile";
+import { Budget, Expense, User } from "@/lib/types";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { apiFetch } from "@/lib/helpers";
+import { apiUrl } from "@/lib/settings";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'My budget',
+  title: "My budget",
 };
 
 async function getExpenses(token: string, id: string): Promise<any> {
@@ -39,8 +39,7 @@ export default async function MyBudget() {
   } catch (e) {
     console.error(e);
   }
-  // console.log('Session: ', session);
-  console.log(budget);
+
   return (
     <div className="content-wrapper">
       <h2 style={{ lineHeight: 1 }}>My budget</h2>

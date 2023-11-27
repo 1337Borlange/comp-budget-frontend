@@ -1,20 +1,17 @@
-// import './globals.css';
-import type { Metadata } from 'next';
-import { Sora } from 'next/font/google';
-import { Providers } from '@/lib/Providers';
-import { getServerSession } from 'next-auth';
-import { authOptions } from './api/auth/[...nextauth]/route';
-import '../styles/style.scss';
-import { Toaster } from 'react-hot-toast';
+import type { Metadata } from "next";
+import { Providers } from "@/lib/Providers";
 
-const sora = Sora({ subsets: ['latin'] });
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
+import "../styles/style.scss";
+import { Main } from "@/components/Main";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | tretton37',
-    default: 'tretton37', // a default is required when creating a template
+    template: "%s | tretton37",
+    default: "tretton37", // a default is required when creating a template
   },
-  description: 'View your company competence budget',
+  description: "View your company competence budget",
 };
 
 export default async function RootLayout({
@@ -23,12 +20,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+
   return (
-    <html lang="en">
-      <body className={sora.className}>
-        <Providers session={session}>{children}</Providers>
-        <Toaster />
-      </body>
-    </html>
+    <Providers session={session}>
+      <Main>{children}</Main>
+    </Providers>
   );
 }

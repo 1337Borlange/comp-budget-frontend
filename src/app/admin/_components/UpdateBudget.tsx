@@ -1,17 +1,17 @@
-'use client';
-import { Budget, User } from '@/lib/types';
-import Divider from '@/components/Divider';
-import Grid from '@/components/Grid';
-import Column from '@/components/Column';
-import { FormControl } from '@/components/FormControl/FormControl';
-import { Label } from '@/components/FormControl/Label';
-import TextField from '@/components/Textfield';
-import Box from '@/components/Box';
-import Button from '@/components/Button';
-import DatePickerWrapper from './DatePickerWrapper';
-import { updateBudget } from '../_actions/budget';
-import { getErrorMessage } from '@/lib/helpers';
-import toast from 'react-hot-toast';
+"use client";
+import { Budget, User } from "@/lib/types";
+import Divider from "@/components/Divider";
+import Grid from "@/components/Grid";
+import Column from "@/components/Column";
+import { FormControl } from "@/components/FormControl/FormControl";
+import { Label } from "@/components/FormControl/Label";
+import TextField from "@/components/Textfield";
+import Box from "@/components/Box";
+import Button from "@/components/Button";
+import DatePickerWrapper from "./DatePickerWrapper";
+import { updateBudget } from "../_actions/budget";
+import { getErrorMessage } from "@/lib/helpers";
+import toast from "react-hot-toast";
 
 type UpdateBudgetProps = {
   user?: User;
@@ -33,7 +33,6 @@ type UpdateBudgetProps = {
 */
 
 export const UpdateBudget = ({ user, budget, allUsers }: UpdateBudgetProps) => {
-  console.log(budget);
   async function clientUpdateBudgetAction(formData: FormData) {
     const result = await updateBudget(formData);
 

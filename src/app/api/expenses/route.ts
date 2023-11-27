@@ -1,14 +1,13 @@
-import { apiFetch } from '@/lib/helpers';
-import { NextApiRequest, NextApiResponse } from 'next';
-import { getToken } from 'next-auth/jwt';
-import { getSession } from 'next-auth/react';
-import { NextRequest, NextResponse } from 'next/server';
-import { headers } from 'next/headers';
-import { apiUrl } from '@/lib/settings';
+import { apiFetch } from "@/lib/helpers";
+import { NextApiRequest, NextApiResponse } from "next";
+import { getToken } from "next-auth/jwt";
+import { getSession } from "next-auth/react";
+import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
+import { apiUrl } from "@/lib/settings";
 let accessToken;
 
 export async function POST(req: Request, res: Response) {
-  console.log(req.body);
   return NextResponse.json({ status: 200 });
 }
 
