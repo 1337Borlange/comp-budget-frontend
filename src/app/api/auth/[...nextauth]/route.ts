@@ -30,9 +30,7 @@ export const authOptions: AuthOptions = {
         token = Object.assign({}, token, {
           access_token: account.access_token,
           id_token: account.id_token,
-          expires_at: Math.floor(
-            Date.now() / 1000 + Number(account.expires_in)
-          ),
+          expires_at: Math.floor(Date.now() / 1000 + Number(account.expires_in)),
           refresh_token: account.refresh_token,
         });
       } else if (Date.now() < Number(token.expires_at) * 1000) {
@@ -62,9 +60,7 @@ export const authOptions: AuthOptions = {
             ...token, // Keep the previous token properties
             access_token: tokens.access_token,
             id_token: tokens.id_token,
-            expires_at: Math.floor(
-              Date.now() / 1000 + Number(tokens.expires_in)
-            ),
+            expires_at: Math.floor(Date.now() / 1000 + Number(tokens.expires_in)),
             // Fall back to old refresh token, but note that
             // many providers may only allow using a refresh token once.
             refresh_token: tokens.refresh_token ?? token.refresh_token,
@@ -79,13 +75,12 @@ export const authOptions: AuthOptions = {
     },
     async session(data) {
       let { session, token } = data;
+      console.log(token);
       if (session && typeof (session as any)?.isAdmin !== 'boolean') {
         let me = undefined;
         if (token?.id_token) {
           try {
-            me = await apiFetch(token.id_token as string, `${apiUrl}/me`).then(
-              (res) => res.json()
-            );
+            me = await apiFetch(token.id_token as string, `${apiUrl}/me`).then((res) => res.json());
           } catch (e) {
             console.error(e);
           }
@@ -98,31 +93,12 @@ export const authOptions: AuthOptions = {
           ...(typeof me?.user?.id !== 'undefined' && {
             internalUserId: me.user.id,
           }),
-          // isAdmin,
+          isAdmin: true,
         });
       }
       return session;
     },
   },
-  // callbacks: {
-  //   async jwt({ token, user, account, profile }) {
-  //     if (account?.access_token) {
-  //       token.access_token = account.access_token;
-  //     }
-  //     return token;
-  //   },
-  // },
-  // callbacks: {
-  //   async signIn({ account, profile }) {
-  //     if (account?.provider === 'google') {
-  //       return (
-  //         (profile as any)?.email_verified &&
-  //         profile?.email?.endsWith('@tretton37.com')
-  //       );
-  //     }
-  //     return true; // Do different verification for other providers that don't have `email_verified`
-  //   },
-  // },
 };
 const handler = NextAuth(authOptions);
 
