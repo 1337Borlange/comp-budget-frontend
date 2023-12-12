@@ -17,13 +17,9 @@ export type SelectProps = {
   disabled?: boolean;
   errorBox?: boolean;
   name?: string;
-  //
 };
 
-const Select = forwardRef<
-  HTMLSelectElement,
-  SelectProps & React.HTMLAttributes<HTMLSelectElement>
->(
+const Select = forwardRef<HTMLSelectElement, SelectProps & React.HTMLAttributes<HTMLSelectElement>>(
   (
     {
       children,
@@ -38,16 +34,14 @@ const Select = forwardRef<
       name,
       ...rest
     },
-    ref?: React.Ref<HTMLSelectElement>
+    ref?: React.Ref<HTMLSelectElement>,
   ) => {
     return (
       <FormControl fullWidth={fullWidth}>
         {!hideLabel && (
           <Label htmlFor={id}>
             {label}
-            {required && (
-              <span className="required-symbol">{requiredText}</span>
-            )}
+            {required && <span className="required-symbol">{requiredText}</span>}
           </Label>
         )}
         <div className="select-wrapper">
@@ -57,13 +51,11 @@ const Select = forwardRef<
           <span className="focus"></span>
         </div>
         {error && error.length > 0 && (
-          <div className={`base-form-input-error ${errorBox ? 'fill' : ''}`}>
-            {error}
-          </div>
+          <div className={`base-form-input-error ${errorBox ? 'fill' : ''}`}>{error}</div>
         )}
       </FormControl>
     );
-  }
+  },
 );
 
 Select.displayName = 'Select';

@@ -1,196 +1,175 @@
-@import "../variables.scss";
+@import '../variables.scss';
 .button,
 a.button {
-    --color-button-primary-hover: #08090d;
-    --color-button-secondary-background: #eee;
-    --color-button-secondary-color: #000;
-    --color-button-secondary-hover: #ddd;
-    --color-button-tertiary-background: transparent;
-    --color-button-tertiary-color: var(--colors-primarybuttonbg);
-    --color-button-tertiary-hover: transparent;
-    --size-button-default: 3rem;
-    --button-radius: 1.5rem;
-    --ripple-background: #010101;
-    --color-button-outline-background: transparent;
-    --color-button-outline-color: var(--colors-primarybuttonbg);
-    --color-button-outline-border: var(--colors-primarybuttonbg);
-    --color-button-outline-hover: var(--colors-silver);
-    text-decoration: none;
-    font-family: inherit;
-    background-color: var(--colors-primarybuttonbg);
-    color: var(--colors-primarybuttoncolor);
-    height: var(--size-button-default);
-    border-radius: var(--button-radius);
-    padding: 0 1rem;
-    border-width: 0;
-    font-size: 0.875rem;
-    font-weight: bold;
-    display: inline-flex;
-    justify-content: center;
-    line-height: 100%;
-    cursor: pointer;
-    align-items: center;
-    transition: all 0.2s ease;
-    svg {
-        path {
-            fill: currentColor;
-        }
+  --color-button-primary-hover: #08090d;
+  --color-button-secondary-background: #eee;
+  --color-button-secondary-color: #000;
+  --color-button-secondary-hover: #ddd;
+  --color-button-tertiary-background: transparent;
+  --color-button-tertiary-color: var(--colors-primarybuttonbg);
+  --color-button-tertiary-hover: transparent;
+  --size-button-default: 3rem;
+  --button-radius: 1.5rem;
+  --ripple-background: #010101;
+  --color-button-outline-background: transparent;
+  --color-button-outline-color: var(--colors-primarybuttonbg);
+  --color-button-outline-border: var(--colors-primarybuttonbg);
+  --color-button-outline-hover: var(--colors-silver);
+  text-decoration: none;
+  font-family: inherit;
+  background-color: var(--colors-primarybuttonbg);
+  color: var(--colors-primarybuttoncolor);
+  height: var(--size-button-default);
+  border-radius: var(--button-radius);
+  padding: 0 1rem;
+  border-width: 0;
+  font-size: 0.875rem;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 100%;
+  cursor: pointer;
+  align-items: center;
+  transition: all 0.2s ease;
+  svg {
+    path {
+      fill: currentColor;
     }
+  }
+
+  &:hover {
+    background-color: var(--colors-primarybuttonbg-hover);
+  }
+  &:disabled {
+    background-color: var(--color-button-primary-disabled);
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  @media screen and (max-width: 600px) {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      display: none;
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+
+      width: 100px;
+      height: 100px;
+      margin-top: -50px;
+      margin-left: -50px;
+
+      background-color: var(--ripple-background);
+
+      /* Center the ripple */
+      top: 50%;
+      left: 50%;
+
+      animation: ripple 1s;
+      opacity: 0;
+    }
+
+    &:focus:not(:active)::after {
+      display: block;
+    }
+
+    @keyframes ripple {
+      from {
+        opacity: 0.7;
+        transform: scale(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(10);
+      }
+    }
+  }
+
+  &.icon-left svg {
+    margin-left: 0;
+    margin-right: var(--spacing-xs);
+  }
+
+  &.icon-right svg {
+    margin-right: 0;
+    margin-left: var(--spacing-xs);
+  }
+
+  &.small-text {
+    font-size: 12px;
+  }
+
+  &.icon-only {
+    svg {
+      margin: 0;
+    }
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &.secondary {
+    background-color: var(--color-button-secondary-background);
+    color: var(--color-button-secondary-color);
 
     &:hover {
-        background-color: var(--colors-primarybuttonbg-hover);
-        // @media screen and (min-width: 601px) {
-        // }
+      @media screen and (min-width: 601px) {
+        background-color: var(--color-button-secondary-hover);
+      }
     }
+
     &:disabled {
-        background-color: var(--color-button-primary-disabled);
-        cursor: default;
-        opacity: 0.5;
+      background-color: var(--color-button-secondary-disabled);
+    }
+  }
+
+  &.tertiary {
+    padding: 0;
+    background-color: var(--color-button-tertiary-background);
+    color: var(--color-button-tertiary-color);
+
+    &:hover {
+      @media screen and (min-width: 601px) {
+        background-color: var(--color-button-tertiary-hover);
+      }
     }
 
-    @media screen and (max-width: 600px) {
-        position: relative;
-        overflow: hidden;
+    &:disabled {
+      background-color: var(--color-button-tertiary-disabled);
+    }
+  }
 
-        &::after {
-            display: none;
-            content: "";
-            position: absolute;
-            border-radius: 50%;
+  &.outline {
+    background-color: var(--color-button-outline-background);
+    color: var(--color-button-outline-color);
+    border: 1px solid var(--color-button-outline-border);
 
-            width: 100px;
-            height: 100px;
-            margin-top: -50px;
-            margin-left: -50px;
-
-            background-color: var(--ripple-background);
-
-            /* Center the ripple */
-            top: 50%;
-            left: 50%;
-
-            animation: ripple 1s;
-            opacity: 0;
-        }
-
-        &:focus:not(:active)::after {
-            display: block;
-        }
-
-        @keyframes ripple {
-            from {
-                opacity: 0.7;
-                transform: scale(0);
-            }
-
-            to {
-                opacity: 0;
-                transform: scale(10);
-            }
-        }
+    &:hover {
+      @media screen and (min-width: 601px) {
+        background-color: var(--color-button-outline-hover);
+      }
     }
 
-    &.icon-left svg {
-        margin-left: 0;
-        margin-right: var(--spacing-xs);
+    &:disabled {
+      background-color: var(--color-button-outline-disabled);
+    }
+  }
+  &.critical {
+    background-color: var(--color-button-outline-background);
+    color: var(--colors-error);
+    border: 1px solid var(--colors-error);
+
+    &:hover {
+      @media screen and (min-width: 601px) {
+        background-color: var(--color-button-outline-hover);
+      }
     }
 
-    &.icon-right svg {
-        margin-right: 0;
-        margin-left: var(--spacing-xs);
+    &:disabled {
+      background-color: var(--color-button-outline-disabled);
     }
-
-    &.small-text {
-        font-size: 12px;
-    }
-
-    &.icon-only {
-        svg {
-            margin: 0;
-        }
-        &:hover {
-            transform: scale(1.05);
-        }
-    }
-
-    &.secondary {
-        background-color: var(--color-button-secondary-background);
-        color: var(--color-button-secondary-color);
-
-        &:hover {
-            @media screen and (min-width: 601px) {
-                background-color: var(--color-button-secondary-hover);
-            }
-        }
-
-        &:disabled {
-            background-color: var(--color-button-secondary-disabled);
-        }
-    }
-
-    &.tertiary {
-        padding: 0;
-        background-color: var(--color-button-tertiary-background);
-        color: var(--color-button-tertiary-color);
-
-        &:hover {
-            @media screen and (min-width: 601px) {
-                background-color: var(--color-button-tertiary-hover);
-            }
-        }
-
-        &:disabled {
-            background-color: var(--color-button-tertiary-disabled);
-        }
-    }
-
-    &.outline {
-        background-color: var(--color-button-outline-background);
-        color: var(--color-button-outline-color);
-        border: 1px solid var(--color-button-outline-border);
-
-        &:hover {
-            @media screen and (min-width: 601px) {
-                background-color: var(--color-button-outline-hover);
-            }
-        }
-
-        &:disabled {
-            background-color: var(--color-button-outline-disabled);
-            // color: var(--colors-button-tertiary-disabled-color);
-        }
-    }
-    &.critical {
-        background-color: var(--color-button-outline-background);
-        color: var(--colors-error);
-        border: 1px solid var(--colors-error);
-
-        &:hover {
-            @media screen and (min-width: 601px) {
-                background-color: var(--color-button-outline-hover);
-            }
-        }
-
-        &:disabled {
-            background-color: var(--color-button-outline-disabled);
-            // color: var(--colors-button-tertiary-disabled-color);
-        }
-    }
-    // &.critical {
-    //     background-color: var(--colors-error);
-    //     color: #fff;
-
-    //     &:hover {
-    //         background-color: lighten($error-color, 10%);
-    //     }
-
-    //     &:disabled {
-    //         background-color: var(--color-button-outline-disabled);
-    //         // color: var(--colors-button-tertiary-disabled-color);
-    //     }
-
-    //     svg path {
-    //         fill: currentColor;
-    //     }
-    // }
+  }
 }

@@ -39,6 +39,7 @@ type UpdateUserProps = {
 export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const router = useRouter();
+
   async function clientSaveAction(formData: FormData) {
     const result = await updateUser(formData);
 
@@ -63,36 +64,21 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
       }, 2000);
     }
   }
+
   return (
     <div>
       <Grid spacing="m">
-        <Column lg="8" md="8" sm="8" xs="12">
+        <Column xs="12">
           <h2>Update user</h2>
-        </Column>
-        <Column lg="4" md="4" sm="4" xs="12">
-          <Button
-            priority="critical"
-            onClick={() => setShowConfirmDelete(true)}
-            iconLeft
-          >
-            <DeleteIcon /> Delete user
-          </Button>
         </Column>
       </Grid>
       <ConfirmDialog
         id="confirm-delete-user-dialog"
         visible={showConfirmDelete}
         onClose={() => setShowConfirmDelete(false)}
-        // onConfirm={() => {
-        //   if (expenseToDelete?.id) {
-        //     deleteExpense(expenseToDelete?.id);
-        //   }
-        //   setShowConfirmDelete(false);
-        // }}
         width="30rem"
         action={clientDeleteAction}
-        title="Delete user"
-      >
+        title="Delete user">
         <p>
           <strong>This action is permanent.</strong>
         </p>
@@ -101,139 +87,148 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
         <input type="hidden" name="userId" id="userId" value={user?.id} />
       </ConfirmDialog>
       <Divider spacing="m" color="transparent" />
-
-      <>
-        <form action={clientSaveAction}>
-          <input type="hidden" name="userId" value={user?.id} />
-          <input type="hidden" name="name" value={user?.name} />
-
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Employee number"
-                name="employeeNumber"
-                id="employeeNumber"
-                key={`employeenr-${user?.id}`}
-                defaultValue={user?.employeeNumber}
-              />
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Department number"
-                name="departmentNumber"
-                id="departmentNumber"
-                key={`departmentnr-${user?.id}`}
-                defaultValue={user?.departmentNumber}
-              />
-            </Column>
-          </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Personal number (six digits, eg. XXXXXX)"
-                name="personalNumber"
-                id="personalNumber"
-                type="number"
-                key={`personalnr-${user?.id}`}
-                defaultValue={user?.personalNumber}
-              />
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Phone number"
-                name="phoneNumber"
-                id="phoneNumber"
-                key={`phonenr-${user?.id}`}
-                type="tel"
-                defaultValue={user?.phoneNumber}
-              />
-            </Column>
-          </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Address"
-                name="address"
-                id="address"
-                key={`address-${user?.id}`}
-                defaultValue={user?.address}
-              />
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Email"
-                name="email"
-                id="email"
-                type="email"
-                key={`email-${user?.id}`}
-                defaultValue={user?.email}
-              />
-            </Column>
-          </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <Select
-                label="Shirt size"
-                name="shirtSize"
-                key={`shirtsize-${user?.id}`}
-                defaultValue={user?.shirtSize}
-              >
-                {shirtSizes.map((size) => (
-                  <option key={size} value={size}>
-                    {size}
-                  </option>
-                ))}
-              </Select>
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              <TextField
-                label="Allergies"
-                name="allergies"
-                id="allergies"
-                key={`allergies-${user?.id}`}
-                defaultValue={user?.allergies}
-              />
-            </Column>
-          </Grid>
-          <Divider spacing="s" />
-          <Grid spacing="l">
-            <Column lg="6" md="6" sm="6" xs="12">
-              <Select
-                label="Office"
-                name="office"
-                key={`office-${user?.id}`}
-                defaultValue={user?.office}
-              >
-                {offices.map((office) => (
-                  <option key={office} value={office}>
-                    {office}
-                  </option>
-                ))}
-              </Select>
-            </Column>
-            <Column lg="6" md="6" sm="6" xs="12">
-              {/* <TextField label="Manager" name="manager" id="manager" /> */}
-              <ComboBox
-                fullWidth
-                label="Select manager"
-                name="manager"
-                defaultValue={user?.manager}
-                key={`manager-${user?.id}`}
-                data={allUsers.map((user) => ({
-                  id: user.id,
-                  title: user.name,
-                }))}
-              />
-            </Column>
-          </Grid>
-          <Box topSpacing="l" alignItems="flex-end">
-            <Button type="submit">Update user</Button>
-          </Box>
-        </form>
-      </>
+      <form action={clientSaveAction}>
+        <input type="hidden" name="userId" value={user?.id} />
+        <Grid spacing="l">
+          <Column xs="12">
+            <TextField
+              label="Name"
+              name="name"
+              id="name"
+              key={`name-${user?.id}`}
+              defaultValue={user?.name ?? ''}
+            />
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Employee number"
+              name="employeeNumber"
+              id="employeeNumber"
+              key={`employeenr-${user?.id}`}
+              defaultValue={user?.employeeNumber ?? ''}
+            />
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Department number"
+              name="departmentNumber"
+              id="departmentNumber"
+              key={`departmentnr-${user?.id}`}
+              defaultValue={user?.departmentNumber ?? ''}
+            />
+          </Column>
+        </Grid>
+        <Divider spacing="s" />
+        <Grid spacing="l">
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Personal number (six digits, eg. XXXXXX)"
+              name="personalNumber"
+              id="personalNumber"
+              type="number"
+              key={`personalnr-${user?.id}`}
+              defaultValue={user?.personalNumber ?? ''}
+            />
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Phone number"
+              name="phoneNumber"
+              id="phoneNumber"
+              key={`phonenr-${user?.id}`}
+              type="tel"
+              defaultValue={user?.phoneNumber ?? ''}
+            />
+          </Column>
+        </Grid>
+        <Divider spacing="s" />
+        <Grid spacing="l">
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Address"
+              name="address"
+              id="address"
+              key={`address-${user?.id}`}
+              defaultValue={user?.address ?? ''}
+            />
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Email"
+              name="email"
+              id="email"
+              type="email"
+              key={`email-${user?.id}`}
+              defaultValue={user?.email ?? ''}
+            />
+          </Column>
+        </Grid>
+        <Divider spacing="s" />
+        <Grid spacing="l">
+          <Column lg="6" md="6" sm="6" xs="12">
+            <Select
+              label="Shirt size"
+              name="shirtSize"
+              key={`shirtsize-${user?.id}`}
+              defaultValue={user?.shirtSize}>
+              {shirtSizes.map((size) => (
+                <option key={size} value={size}>
+                  {size}
+                </option>
+              ))}
+            </Select>
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <TextField
+              label="Allergies"
+              name="allergies"
+              id="allergies"
+              key={`allergies-${user?.id}`}
+              defaultValue={user?.allergies ?? ''}
+            />
+          </Column>
+        </Grid>
+        <Divider spacing="s" />
+        <Grid spacing="l">
+          <Column lg="6" md="6" sm="6" xs="12">
+            <Select
+              label="Office"
+              name="office"
+              key={`office-${user?.id}`}
+              defaultValue={user?.office}>
+              {offices.map((office) => (
+                <option key={office} value={office}>
+                  {office}
+                </option>
+              ))}
+            </Select>
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <ComboBox
+              fullWidth
+              label="Select manager"
+              name="manager"
+              defaultValue={user?.manager}
+              key={`manager-${user?.id}`}
+              data={allUsers.map((user) => ({
+                id: user.id,
+                title: user.name,
+              }))}
+            />
+          </Column>
+        </Grid>
+        <Box topSpacing="l" alignItems="flex-end">
+          <Button type="submit">Update user</Button>
+        </Box>
+      </form>
+      <Divider spacing="m" color="var(--colors-silver)" />
+      <Grid spacing="m">
+        <Column lg="4" md="4" sm="4" xs="12">
+          <Button priority="critical" onClick={() => setShowConfirmDelete(true)} iconLeft>
+            <DeleteIcon /> Delete user
+          </Button>
+        </Column>
+      </Grid>
     </div>
   );
 };

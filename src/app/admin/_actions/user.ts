@@ -17,14 +17,10 @@ export async function updateUser(formData: FormData) {
   });
 
   try {
-    const res = await apiFetch(
-      (session as any)?.id_token,
-      `${apiUrl}/adm/users`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(responseBody),
-      }
-    );
+    const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/users`, {
+      method: 'PUT',
+      body: JSON.stringify(responseBody),
+    });
     const data = await res.json();
     revalidatePath('/admin');
     return {
@@ -37,8 +33,6 @@ export async function updateUser(formData: FormData) {
       error,
     };
   }
-
-  // redirect('/admin');
 }
 
 export async function deleteUser(formData: FormData) {
@@ -46,13 +40,9 @@ export async function deleteUser(formData: FormData) {
   const id = formData.get('userId') as string;
 
   try {
-    const res = await apiFetch(
-      (session as any)?.id_token,
-      `${apiUrl}/adm/users?userId=${id}`,
-      {
-        method: 'DELETE',
-      }
-    );
+    const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/users?userId=${id}`, {
+      method: 'DELETE',
+    });
     const data = res.json();
     revalidatePath('/admin');
     return {
@@ -79,14 +69,10 @@ export async function addUser(formData: FormData) {
   });
 
   try {
-    const res = await apiFetch(
-      (session as any)?.id_token,
-      `${apiUrl}/adm/users`,
-      {
-        method: 'POST',
-        body: JSON.stringify(responseBody),
-      }
-    );
+    const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/users`, {
+      method: 'POST',
+      body: JSON.stringify(responseBody),
+    });
     const data = await res.json();
     revalidatePath('/admin');
     return {

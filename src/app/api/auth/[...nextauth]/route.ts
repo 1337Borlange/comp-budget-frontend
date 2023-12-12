@@ -75,7 +75,6 @@ export const authOptions: AuthOptions = {
     },
     async session(data) {
       let { session, token } = data;
-      console.log(token);
       if (session && typeof (session as any)?.isAdmin !== 'boolean') {
         let me = undefined;
         if (token?.id_token) {

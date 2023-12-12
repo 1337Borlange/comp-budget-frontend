@@ -6,13 +6,15 @@ import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
   users: User[];
+  selectedUser?: User;
 };
 
-const UserSelection = ({ users }: UserSelectionProps) => {
+const UserSelection = ({ users, selectedUser }: UserSelectionProps) => {
   const router = useRouter();
   return (
     <ComboBox
       fullWidth
+      defaultValue={selectedUser?.name}
       label="Select user"
       data={users.map((user) => ({
         id: user.id,

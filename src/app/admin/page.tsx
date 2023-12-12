@@ -38,10 +38,7 @@ async function getUserExpenses(token: string, id?: string): Promise<Expense[]> {
     return [];
   }
 }
-async function getUserBudget(
-  token: string,
-  id?: string
-): Promise<Budget | undefined> {
+async function getUserBudget(token: string, id?: string): Promise<Budget | undefined> {
   if (!id) {
     return Promise.resolve(undefined);
   }
@@ -85,6 +82,7 @@ export default async function Admin({
   let users: User[] = [];
   let selectedUser = undefined;
   let categories: Category[] = [];
+
   try {
     users = await getUsers((session as any).id_token);
     categories = await getCategories((session as any).id_token);
@@ -95,12 +93,7 @@ export default async function Admin({
 
   return (
     <div>
-      <Box
-        topSpacing="m"
-        leftSpacing="l"
-        rightSpacing="l"
-        alignItems="flex-end"
-      >
+      <Box topSpacing="m" leftSpacing="l" rightSpacing="l" alignItems="flex-end">
         <Link className="button icon-right" href="/admin/stats">
           Show statistics <StatsIcon />
         </Link>
@@ -109,14 +102,10 @@ export default async function Admin({
       <Box spacing="l">
         <Grid spacing="l">
           <Column lg="6" md="6" sm="6" xs="12" alignItems="flex-start">
-            <UserSelection users={users} />
+            <UserSelection users={users} selectedUser={selectedUser} />
           </Column>
           <Column lg="6" md="6" sm="6" xs="12">
-            <UserCard
-              user={selectedUser}
-              budget={userBudget}
-              expenses={userExpenses}
-            />
+            <UserCard user={selectedUser} budget={userBudget} expenses={userExpenses} />
           </Column>
         </Grid>
       </Box>

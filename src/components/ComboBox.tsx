@@ -73,36 +73,24 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
     }
   }, [data, items]);
 
+  const inputProps = getInputProps();
+  const val = inputProps.value ? inputProps.value : selectedItem?.title ?? '';
+  inputProps.value = val;
+
   return (
     <FormControl fullWidth={fullWidth}>
-      {!hideLabel && (
-        <Label {...getLabelProps()}>
-          {label}
-          {/* {required && (
-              <span className="required-symbol">{requiredText}</span>
-            )} */}
-        </Label>
-      )}
+      {!hideLabel && <Label {...getLabelProps()}>{label}</Label>}
       <div className={`combobox ${disabled && 'disabled'}`}>
-        <input
-          name={name}
-          placeholder={label}
-          {...getInputProps()}
-          disabled={disabled}
-        />
+        <input name={name} placeholder={label} {...inputProps} disabled={disabled} />
         <button
           aria-label="toggle menu"
           className={`${isOpen && 'open'}`}
           disabled={disabled}
           type="button"
-          {...getToggleButtonProps()}
-        >
+          {...getToggleButtonProps()}>
           <AngleDownIcon />
         </button>
-        <ul
-          className={`${!(isOpen && items.length) && 'hidden'}`}
-          {...getMenuProps()}
-        >
+        <ul className={`${!(isOpen && items.length) && 'hidden'}`} {...getMenuProps()}>
           {isOpen &&
             items.map((item, index) => (
               <li
@@ -111,8 +99,7 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
                   ${selectedItem === item && 'selected'}
                   `}
                 key={`${item.id}${index}`}
-                {...getItemProps({ item, index })}
-              >
+                {...getItemProps({ item, index })}>
                 <span>{item.title}</span>
               </li>
             ))}

@@ -2,9 +2,6 @@
 const path = require('path');
 // https://i.1337co.de/wallofleet
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
   images: {
     remotePatterns: [
       {
