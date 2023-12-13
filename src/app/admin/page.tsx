@@ -18,6 +18,12 @@ export const metadata: Metadata = {
   title: 'Admin',
 };
 
+async function getMe(token: string): Promise<User | undefined> {
+  return apiFetch(token, `${apiUrl}/me`).then((res) => {
+    return res.json();
+  });
+}
+
 async function getUsers(token: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/adm/users`).then((res) => {
     return res.json();
@@ -79,11 +85,13 @@ export default async function Admin({
   const userBudget = await getUserBudget(token, userId as string);
   const categoryTypes = await getCategoryTypes(token);
 
+  let me: User | undefined = undefined;
   let users: User[] = [];
   let selectedUser = undefined;
   let categories: Category[] = [];
 
   try {
+    me = await getMe((session as any).id_token);
     users = await getUsers((session as any).id_token);
     categories = await getCategories((session as any).id_token);
     selectedUser = users.find((u) => `${u.id}` === userId);
@@ -112,6 +120,7 @@ export default async function Admin({
       <Divider spacing="m" color="var(--colors-silver)" />
       <Box spacing="l" alignItems="stretch">
         <UserTabs
+          me={me}
           categoryTypes={categoryTypes}
           categories={categories}
           user={selectedUser}

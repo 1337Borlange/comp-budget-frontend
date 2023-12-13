@@ -6,6 +6,7 @@ import { Budget, Category, CategoryType, User } from '@/lib/types';
 import { UpdateUser } from './UpdateUser';
 
 type UserTabsProps = {
+  me?: User;
   categories: Category[];
   user?: User;
   allUsers?: User[];
@@ -14,6 +15,7 @@ type UserTabsProps = {
 };
 
 const UserTabs = ({
+  me,
   categories,
   user,
   budget,
@@ -34,7 +36,7 @@ const UserTabs = ({
         <UpdateBudget budget={budget} user={user} allUsers={allUsers} />
       </TabItem>
       <TabItem eventKey="updateuser" title="Update user">
-        <UpdateUser user={user} allUsers={allUsers} />
+        <UpdateUser me={me} user={user} allUsers={allUsers} />
       </TabItem>
     </Tabs>
   ) : (

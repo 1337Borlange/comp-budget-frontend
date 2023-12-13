@@ -17,8 +17,10 @@ import { deleteUser, updateUser } from '../_actions/user';
 import { getErrorMessage } from '@/lib/helpers';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import ToggleSwitch from '@/components/ToggleSwitch';
 
 type UpdateUserProps = {
+  me?: User;
   user?: User;
   allUsers: User[];
 };
@@ -36,9 +38,13 @@ type UpdateUserProps = {
 
 */
 
-export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
+export const UpdateUser = ({ user, me, allUsers }: UpdateUserProps) => {
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const router = useRouter();
+
+  const deleteIsHidden = user?.id !== me?.id;
+
+  console.log({ user, me, deleteIsHidden });
 
   async function clientSaveAction(formData: FormData) {
     const result = await updateUser(formData);
@@ -216,19 +222,31 @@ export const UpdateUser = ({ user, allUsers }: UpdateUserProps) => {
               }))}
             />
           </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <ToggleSwitch
+              label="Is admin"
+              id="is-admin"
+              name="isAdmin"
+              defaultChecked={(user as any)?.isAdmin ?? false} // TODO: User isAdmin does not exist on user
+            />
+          </Column>
         </Grid>
         <Box topSpacing="l" alignItems="flex-end">
           <Button type="submit">Update user</Button>
         </Box>
       </form>
-      <Divider spacing="m" color="var(--colors-silver)" />
-      <Grid spacing="m">
-        <Column lg="4" md="4" sm="4" xs="12">
-          <Button priority="critical" onClick={() => setShowConfirmDelete(true)} iconLeft>
-            <DeleteIcon /> Delete user
-          </Button>
-        </Column>
-      </Grid>
+      {deleteIsHidden && (
+        <>
+          <Divider spacing="m" color="var(--colors-silver)" />
+          <Grid spacing="m">
+            <Column lg="4" md="4" sm="4" xs="12">
+              <Button priority="critical" onClick={() => setShowConfirmDelete(true)} iconLeft>
+                <DeleteIcon /> Delete user
+              </Button>
+            </Column>
+          </Grid>
+        </>
+      )}
     </div>
   );
 };
