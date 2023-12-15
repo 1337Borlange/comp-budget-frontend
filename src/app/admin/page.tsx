@@ -78,7 +78,7 @@ export default async function Admin({
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const session = await getServerSession(authOptions);
-  const token = (session as any).id_token;
+  const token = (session as any)?.id_token;
   const { userId } = searchParams;
 
   const userExpenses = await getUserExpenses(token, userId as string);

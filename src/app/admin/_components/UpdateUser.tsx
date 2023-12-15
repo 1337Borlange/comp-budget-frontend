@@ -44,8 +44,6 @@ export const UpdateUser = ({ user, me, allUsers }: UpdateUserProps) => {
 
   const deleteIsHidden = user?.id !== me?.id;
 
-  console.log({ user, me, deleteIsHidden });
-
   async function clientSaveAction(formData: FormData) {
     const result = await updateUser(formData);
 

@@ -9,6 +9,7 @@ import { revalidatePath } from 'next/cache';
 export async function updateUser(formData: FormData) {
   const responseBody = {} as any; // User request body
   const session = await getServerSession(authOptions);
+
   formData.forEach((value, property: string) => {
     if (typeof value !== 'undefined') {
       const newVal = getFormValue(value);
@@ -54,8 +55,6 @@ export async function deleteUser(formData: FormData) {
       error,
     };
   }
-
-  //   apiFetch()
 }
 
 export async function addUser(formData: FormData) {
