@@ -51,7 +51,7 @@ export const UpdateUser = ({ user, me, allUsers }: UpdateUserProps) => {
       const msg = getErrorMessage(result.error);
       toast.error(msg);
     } else {
-      toast.success(`User has been updated!´}`);
+      toast.success(`User has been updated!`);
     }
   }
 
@@ -222,10 +222,18 @@ export const UpdateUser = ({ user, me, allUsers }: UpdateUserProps) => {
           </Column>
           <Column lg="6" md="6" sm="6" xs="12">
             <ToggleSwitch
+              label="Is manager"
+              id="is-manager"
+              name="isManager"
+              defaultChecked={user?.isManager ?? false}
+            />
+          </Column>
+          <Column lg="6" md="6" sm="6" xs="12">
+            <ToggleSwitch
               label="Is admin"
               id="is-admin"
               name="isAdmin"
-              defaultChecked={(user as any)?.isAdmin ?? false} // TODO: User isAdmin does not exist on user
+              defaultChecked={user?.isAdmin ?? false}
             />
           </Column>
         </Grid>
