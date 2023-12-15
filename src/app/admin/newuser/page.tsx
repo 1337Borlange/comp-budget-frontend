@@ -5,15 +5,10 @@ import { apiUrl, offices, shirtSizes } from '@/lib/settings';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { Metadata } from 'next';
-import Grid from '@/components/Grid';
-import Column from '@/components/Column';
-import TextField from '@/components/Textfield';
-import Select from '@/components/Select';
-import ComboBox from '@/components/ComboBox';
-import Button from '@/components/Button';
 import { User } from '@/lib/types';
-import { addUser } from '../_actions/user';
 import NewUserForm from '../_components/NewUserForm';
+import Link from 'next/link';
+import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
 
 export const metadata: Metadata = {
   title: 'Add a new user',
@@ -37,10 +32,19 @@ export default async function NewUser() {
   }
 
   return (
-    <Box spacing="l" alignItems="stretch">
-      <h2>Add a new user</h2>
-      <Divider spacing="m" color="transparent" />
-      <NewUserForm allUsers={allUsers} />
-    </Box>
+    <div>
+      <Box topSpacing="m" leftSpacing="l" rightSpacing="l" bottomSpacing="m">
+        <Link className="button outline icon-left" href="/admin">
+          <ArrowLeftIcon /> Back
+        </Link>
+      </Box>
+      <Divider spacing="none" color="var(--colors-silver)" />
+      <Box spacing="l" alignItems="stretch">
+        <Divider spacing="none" color="var(--colors-silver)" />
+        <h2>Add a new user</h2>
+        <Divider spacing="m" color="transparent" />
+        <NewUserForm allUsers={allUsers} />
+      </Box>
+    </div>
   );
 }

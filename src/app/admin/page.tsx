@@ -13,6 +13,7 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
 import { Metadata } from 'next';
+import { UserIcon } from '@/components/Icons/UserIcon';
 
 export const metadata: Metadata = {
   title: 'Admin',
@@ -101,9 +102,17 @@ export default async function Admin({
 
   return (
     <div>
-      <Box topSpacing="m" leftSpacing="l" rightSpacing="l" alignItems="flex-end">
-        <Link className="button icon-right" href="/admin/stats">
+      <Box
+        topSpacing="m"
+        leftSpacing="l"
+        rightSpacing="l"
+        justifyContent="space-between"
+        flexDirection="row">
+        <Link className="button outline icon-right" href="/admin/stats">
           Show statistics <StatsIcon />
+        </Link>
+        <Link className="button outline icon-right" href="/admin/newuser">
+          Add user <UserIcon />
         </Link>
       </Box>
       <Divider spacing="m" color="var(--colors-silver)" />

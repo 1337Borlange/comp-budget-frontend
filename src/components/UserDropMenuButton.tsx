@@ -23,7 +23,6 @@ const UserDropMenuButton = () => {
         <>
           <Link href="/admin">Admin</Link>
           <Link href="/admin/stats">Stats</Link>
-          <Link href="/admin/newuser">Add user</Link>
         </>
       ) : null}
 
