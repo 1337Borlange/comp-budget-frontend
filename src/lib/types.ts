@@ -8,12 +8,7 @@ export type Justify =
   | 'space-around'
   | 'space-evenly';
 
-export type AlignItems =
-  | 'flex-start'
-  | 'center'
-  | 'flex-end'
-  | 'stretch'
-  | 'baseline';
+export type AlignItems = 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
 
 export type Spacings =
   | 'none'
@@ -44,12 +39,7 @@ export type TypographyVariants =
   | 'body-text'
   | 'body-text-special';
 
-export type TypographyAlign =
-  | 'inherit'
-  | 'left'
-  | 'center'
-  | 'right'
-  | 'justify';
+export type TypographyAlign = 'inherit' | 'left' | 'center' | 'right' | 'justify';
 
 export type FontWeight =
   | 'normal'
@@ -64,29 +54,12 @@ export type FontWeight =
   | '700'
   | '800';
 
-export type ColumnSize =
-  | '1'
-  | '2'
-  | '3'
-  | '4'
-  | '5'
-  | '6'
-  | '7'
-  | '8'
-  | '9'
-  | '10'
-  | '11'
-  | '12';
+export type ColumnSize = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11' | '12';
 
 export type Severity = 'success' | 'warning' | 'error' | 'info';
 
 export type FlexGrow = '1' | '0';
 
-// export type User = {
-//   name: string;
-//   userId: string;
-//   email: string;
-// };
 export type Budget = {
   name: string;
   userId: string;
@@ -128,14 +101,7 @@ export type Expense = {
 };
 export type NewExpense = Pick<
   Expense,
-  | 'userId'
-  | 'type'
-  | 'date'
-  | 'sum'
-  | 'name'
-  | 'isHardware'
-  | 'comment'
-  | 'category'
+  'userId' | 'type' | 'date' | 'sum' | 'name' | 'isHardware' | 'comment' | 'category'
 >;
 
 export type CategoryType = {
@@ -209,6 +175,8 @@ export type User = {
   allergies?: string;
   office?: string;
   manager?: string;
+  isAdmin?: boolean;
+  isManager?: boolean;
 };
 
 export interface formDataType {
