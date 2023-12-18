@@ -31,7 +31,7 @@ export const UserCard: React.FunctionComponent<UserCardProps> = ({ budget, user,
           <div>
             <ValueHeader>Total money balance</ValueHeader>
             <strong>
-              {budget?.currentMoneyBalance} | {budget?.openingBalanceMoney}
+              {budget?.currentMoneyBalance} / {budget?.openingBalanceMoney}
             </strong>
           </div>
         </Column>
@@ -39,7 +39,7 @@ export const UserCard: React.FunctionComponent<UserCardProps> = ({ budget, user,
           <div>
             <ValueHeader>Hardware balance</ValueHeader>
             <strong>
-              {budget?.currentHardwareBalance} | {budget?.hardwareBudget}
+              {budget?.currentHardwareBalance} / {budget?.hardwareBudget}
             </strong>
           </div>
         </Column>
