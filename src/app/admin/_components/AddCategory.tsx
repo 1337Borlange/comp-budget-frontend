@@ -22,8 +22,7 @@ const AddCategory = () => {
         id="add-category-modal"
         blur
         visible={showAddCategory}
-        onClose={() => setShowAddCategory(false)}
-      >
+        onClose={() => setShowAddCategory(false)}>
         <h2>Add a new category</h2>
         <Divider spacing="l" />
         <form action={saveCategory}>
@@ -33,18 +32,8 @@ const AddCategory = () => {
             <Label>Category belongs to type *</Label>
           </Box>
           <InlineStack spacing="l">
-            <Checkbox
-              id="time-cat"
-              name="categoryType"
-              label="Time"
-              value="time"
-            />
-            <Checkbox
-              id="money-cat"
-              name="categoryType"
-              label="Money"
-              value="money"
-            />
+            <Checkbox id="time-cat" name="categoryType" label="Time" value="time" />
+            <Checkbox id="money-cat" name="categoryType" label="Money" value="money" />
           </InlineStack>
           <Divider spacing="l" />
           <Box alignItems="flex-end">

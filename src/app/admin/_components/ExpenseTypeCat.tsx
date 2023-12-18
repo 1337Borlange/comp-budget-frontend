@@ -1,10 +1,12 @@
 'use client';
+import Button from '@/components/Button';
 import Column from '@/components/Column';
 import ComboBox from '@/components/ComboBox';
 import Grid from '@/components/Grid';
 import Select from '@/components/Select';
 import { Category, CategoryType, Expense } from '@/lib/types';
 import { useMemo, useState } from 'react';
+import AddCategory from './AddCategory';
 
 type ExpenseTypeCatProps = {
   expense?: Expense;
@@ -14,34 +16,25 @@ type ExpenseTypeCatProps = {
 
 // const expenseTypes = ['time', 'money'];
 
-const ExpenseTypeCat = ({
-  expense,
-  categories,
-  categoryTypes,
-}: ExpenseTypeCatProps) => {
-  const [expenseType, setExpenseType] = useState<string | undefined>(
-    expense?.type ?? undefined
-  );
+const ExpenseTypeCat = ({ expense, categories, categoryTypes }: ExpenseTypeCatProps) => {
+  const [expenseType, setExpenseType] = useState<string | undefined>(expense?.type ?? undefined);
 
   const filteredCategories = useMemo(() => {
     if (expenseType) {
-      return categories.filter((cat) =>
-        cat.categoryTypes.some((c) => c.name === expenseType)
-      );
+      return categories.filter((cat) => cat.categoryTypes.some((c) => c.name === expenseType));
     }
     return [];
   }, [expenseType, categories]);
   return (
     <Grid spacing="l">
-      <Column lg="6" md="6" sm="6" xs="12">
+      <Column xs="12">
         <Select
           required
           id="expense-type"
           name="type"
-          label="Expsense type"
+          label="Expense type"
           defaultValue={expense?.type}
-          onChange={(e) => setExpenseType(e.currentTarget.value)}
-        >
+          onChange={(e) => setExpenseType(e.currentTarget.value)}>
           <option value="-1">- Select expense type -</option>
           {categoryTypes.map((t) => (
             <option value={t.name} key={t.id}>
@@ -50,6 +43,7 @@ const ExpenseTypeCat = ({
           ))}
         </Select>
       </Column>
+
       <Column lg="6" md="6" sm="6" xs="12">
         <ComboBox
           fullWidth
@@ -63,6 +57,9 @@ const ExpenseTypeCat = ({
           }))}
           handleChange={(val) => console.log(val?.id || '')}
         />
+      </Column>
+      <Column lg="6" md="6" sm="6" xs="12" alignItems="baseline" justifyContent="flex-end">
+        <AddCategory />
       </Column>
     </Grid>
   );

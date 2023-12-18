@@ -1,24 +1,26 @@
 .react-datepicker__input-container {
-    input {
-        height: 3rem;
-        width: 100%;
-        background-color: var(--colors-inputbg);
-        color: var(--colors-text);
-        padding: 0 var(--spacing-s);
-        border: 1px solid #000;
-    }
+  input {
+    height: 3rem;
+    width: 100%;
+    background-color: var(--colors-inputbg);
+    color: var(--colors-text);
+    padding: 0 var(--spacing-s);
+    border: 1px solid var(--color-border);
+  }
 }
 
 .react-datepicker__tab-loop {
-    z-index: 2;
+  z-index: 2;
 }
-.react-datepicker__tab-loop .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle {
-    margin-left: -8px;
+.react-datepicker__tab-loop
+  .react-datepicker-popper[data-placement^='bottom']
+  .react-datepicker__triangle {
+  margin-left: -8px;
 }
 
 textarea {
-    background-color: var(--colors-inputbg);
-    color: var(--colors-text);
-    padding: var(--spacing-s);
-    border: 1px solid #000;
+  background-color: var(--colors-inputbg);
+  color: var(--colors-text);
+  padding: var(--spacing-s);
+  border: 1px solid var(--color-border);
 }

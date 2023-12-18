@@ -1,11 +1,19 @@
 .user-card {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    background-color: var(--colors-silver);
-    h4 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: var(--colors-text);
+  padding: 1rem;
+  background-color: var(--colors-silver);
+
+  h4 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--colors-text);
+  }
+
+  @media screen and (max-width: 600px) {
+    .row {
+      .col {
+        align-items: flex-start;
+      }
     }
+  }
 }

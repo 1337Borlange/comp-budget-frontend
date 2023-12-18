@@ -118,10 +118,10 @@ export default async function Admin({
       <Divider spacing="m" color="var(--colors-silver)" />
       <Box spacing="l">
         <Grid spacing="l">
-          <Column lg="6" md="6" sm="6" xs="12" alignItems="flex-start">
+          <Column xs="12" alignItems="flex-start">
             <UserSelection users={users} selectedUser={selectedUser} />
           </Column>
-          <Column lg="6" md="6" sm="6" xs="12">
+          <Column xs="12">
             <UserCard user={selectedUser} budget={userBudget} expenses={userExpenses} />
           </Column>
         </Grid>

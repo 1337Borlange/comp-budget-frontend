@@ -71,11 +71,6 @@ export const UpdateUser = ({ user, me, allUsers }: UpdateUserProps) => {
 
   return (
     <div>
-      <Grid spacing="m">
-        <Column xs="12">
-          <h2>Update user</h2>
-        </Column>
-      </Grid>
       <ConfirmDialog
         id="confirm-delete-user-dialog"
         visible={showConfirmDelete}

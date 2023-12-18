@@ -1,28 +1,22 @@
-"use client";
-import { FormControl } from "../../../components/FormControl/FormControl";
-import { Label } from "../../../components/FormControl/Label";
-import {
-  Category,
-  CategoryType,
-  CreateUpdateDeleteType,
-  User,
-  Expense,
-} from "@/lib/types";
-import Divider from "../../../components/Divider";
-import Grid from "../../../components/Grid";
-import Column from "../../../components/Column";
-import TextField from "../../../components/Textfield";
-import Box from "../../../components/Box";
-import Button from "../../../components/Button";
-import ToggleSwitch from "../../../components/ToggleSwitch";
-import DatePickerWrapper from "./DatePickerWrapper";
-import AddCategory from "./AddCategory";
-import ExpenseTypeCat from "./ExpenseTypeCat";
-import { saveExpense } from "../_actions/expense";
-import toast from "react-hot-toast";
-import { useRef } from "react";
-import { getErrorMessage } from "@/lib/helpers";
-import { redirect, useRouter } from "next/navigation";
+'use client';
+import { FormControl } from '../../../components/FormControl/FormControl';
+import { Label } from '../../../components/FormControl/Label';
+import { Category, CategoryType, CreateUpdateDeleteType, User, Expense } from '@/lib/types';
+import Divider from '../../../components/Divider';
+import Grid from '../../../components/Grid';
+import Column from '../../../components/Column';
+import TextField from '../../../components/Textfield';
+import Box from '../../../components/Box';
+import Button from '../../../components/Button';
+import ToggleSwitch from '../../../components/ToggleSwitch';
+import DatePickerWrapper from './DatePickerWrapper';
+import AddCategory from './AddCategory';
+import ExpenseTypeCat from './ExpenseTypeCat';
+import { saveExpense } from '../_actions/expense';
+import toast from 'react-hot-toast';
+import { useRef } from 'react';
+import { getErrorMessage } from '@/lib/helpers';
+import { redirect, useRouter } from 'next/navigation';
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
@@ -50,11 +44,11 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
     } else {
       toast.success(
         `Expense succesfully ${reqType}d! ${
-          reqType === "update" ? "Redirecting to admin in 2 seconds." : ""
-        }`
+          reqType === 'update' ? 'Redirecting to admin in 2 seconds.' : ''
+        }`,
       );
 
-      if (reqType === "update") {
+      if (reqType === 'update') {
         setTimeout(() => {
           router.push(`/admin?userId=${expense?.userId}`);
         }, 2000);
@@ -65,26 +59,10 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   }
   return (
     <>
-      <Grid spacing="m">
-        <Column lg="9" md="9" sm="9" xs="6">
-          <h2>{reqType === "update" ? "Update" : "Add"} expense</h2>
-        </Column>
-        <Column lg="3" md="3" sm="3" xs="6">
-          <AddCategory />
-        </Column>
-      </Grid>
       <Divider spacing="m" color="transparent" />
       <form action={clientAction} ref={formRef}>
-        <input
-          type="hidden"
-          name="reqType"
-          value={reqType === "update" ? "PUT" : "POST"}
-        />
-        <input
-          type="hidden"
-          name="userId"
-          value={expense?.userId || user?.id}
-        />
+        <input type="hidden" name="reqType" value={reqType === 'update' ? 'PUT' : 'POST'} />
+        <input type="hidden" name="userId" value={expense?.userId || user?.id} />
         {expense && <input type="hidden" name="id" value={expense?.id} />}
         <Grid spacing="l">
           <Column lg="6" md="6" sm="6" xs="12">
@@ -105,11 +83,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
           </Column>
         </Grid>
         <Divider spacing="m" />
-        <ExpenseTypeCat
-          expense={expense}
-          categories={categories}
-          categoryTypes={categoryTypes}
-        />
+        <ExpenseTypeCat expense={expense} categories={categories} categoryTypes={categoryTypes} />
         <Divider spacing="m" />
         <Divider spacing="m" />
         <Grid spacing="l">
@@ -123,27 +97,21 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
             />
           </Column>
           <Column lg="6" md="6" sm="6" xs="12" justifyContent="center">
-            <div>
-              <ToggleSwitch
-                id="is-hardware"
-                name="isHardware"
-                defaultChecked={expense?.isHardware ?? false}
-              />
-              <Label htmlFor="is-hardware">Is hardware</Label>
-            </div>
+            <Label htmlFor="is-hardware">Is hardware</Label>
+            <ToggleSwitch
+              id="is-hardware"
+              name="isHardware"
+              defaultChecked={expense?.isHardware ?? false}
+            />
           </Column>
         </Grid>
         <Divider spacing="m" />
         <FormControl fullWidth>
           <Label htmlFor="comment">Comment</Label>
-          <textarea
-            id="comment"
-            name="comment"
-            defaultValue={expense?.comment}
-          ></textarea>
+          <textarea id="comment" name="comment" defaultValue={expense?.comment}></textarea>
         </FormControl>
         <Box topSpacing="l" alignItems="flex-end">
-          <Button type="submit">Save expense</Button>
+          <Button type="submit">{reqType === 'update' ? 'Update' : 'Add'} expense</Button>
         </Box>
       </form>
     </>
