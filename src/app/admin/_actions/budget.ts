@@ -10,6 +10,7 @@ import { revalidatePath } from 'next/cache';
 export async function updateBudget(formData: FormData) {
   const responseBody = {} as BudgetRequestBody;
   const session = await getServerSession(authOptions);
+
   formData.forEach((value, property: string) => {
     if (typeof value !== 'undefined') {
       const newVal = getFormValue(value);
@@ -18,14 +19,10 @@ export async function updateBudget(formData: FormData) {
   });
 
   try {
-    const res = await apiFetch(
-      (session as any)?.id_token,
-      `${apiUrl}/adm/budgets`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(responseBody),
-      }
-    );
+    const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/budgets`, {
+      method: 'PUT',
+      body: JSON.stringify(responseBody),
+    });
 
     const data = res.json();
 
@@ -40,6 +37,4 @@ export async function updateBudget(formData: FormData) {
       data: {},
     };
   }
-
-  //   redirect('/admin');
 }

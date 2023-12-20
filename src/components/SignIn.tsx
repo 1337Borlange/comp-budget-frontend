@@ -6,7 +6,7 @@ import '../styles/components/button.scss';
 const SignIn = () => {
   const { data: session } = useSession();
   if (session && session?.user) {
-    redirect('/mybudget');
+    redirect('/budget');
   }
   return (
     <a className="button primary" href="/api/auth/signin">

@@ -1,62 +1,61 @@
-@import "../utils.scss";
+@import '../utils.scss';
 
 header {
-    padding: 2rem;
-    border-bottom: 1px solid var(--colors-silver);
-    h1 a {
-        color: var(--colors-primary);
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        img {
-            max-width: 60px;
-            margin-right: 0.5rem;
-            display: inline-flex;
-        }
+  border-bottom: 1px solid var(--colors-silver);
+  h1 a {
+    color: var(--colors-primary);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    img {
+      max-width: 60px;
+      margin-right: 0.5rem;
+      display: inline-flex;
     }
-    @media screen and (min-width: 0) and (max-width: $breakpoint-mobile-max) {
-        h1 {
-            font-size: 1.3rem;
-            a img {
-                max-width: 50px;
-            }
-        }
-        .logo-col {
-            align-items: center;
-            justify-content: center;
-        }
+  }
+  @media screen and (min-width: 0) and (max-width: $breakpoint-mobile-max) {
+    h1 {
+      font-size: 1.3rem;
+      a img {
+        max-width: 50px;
+      }
     }
+    .logo-col {
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }
 
 .profile-wrapper {
+  display: flex;
+  gap: 1rem;
+  > div {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+  }
+  @media screen and (min-width: 0) and (max-width: $breakpoint-mobile-max) {
+    flex-direction: column;
+    width: 100%;
     > div {
-        display: flex;
-        align-items: center;
+      justify-content: center;
     }
-    @media screen and (min-width: 0) and (max-width: $breakpoint-mobile-max) {
-        flex-direction: column;
-        width: 100%;
-        > div {
-            justify-content: center;
-        }
-    }
+  }
 }
 
 .user-button {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 .user-name {
-    display: inline-block;
-    margin-right: 0.5rem;
-    font-weight: bold;
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-weight: bold;
 }
 .list-switch {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: var(--spacing-xs) 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-xs) 0;
 }
