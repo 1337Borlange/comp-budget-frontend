@@ -2,8 +2,8 @@
 
 import ComboBox from '@/components/ComboBox';
 import { User } from '@/lib/types';
-import { usePathname, useRouter } from 'next/navigation';
-import { useLocalStorage } from '@/lib/hooks';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
   users: User[];
@@ -11,21 +11,17 @@ type UserSelectionProps = {
 };
 
 const UserSelection = ({ users, selectedUser }: UserSelectionProps) => {
-  const [storedValue, setValue] = useLocalStorage('selectedUser', selectedUser?.id);
   const router = useRouter();
-  const path = usePathname();
-  const isOnBudgetPage = path === '/budget';
-
-  if (!isOnBudgetPage && storedValue) {
-    selectedUser = users.find((user: User) => user.id === storedValue);
-  }
-
-  console.log({ isOnBudgetPage, selectedUser });
+  const { data: session } = useSession();
+  const internalUserId = (session as any)?.internalUserId;
+  const defaultSelectedUser = internalUserId
+    ? users.find((user) => String(user.id) === internalUserId)
+    : selectedUser;
 
   return (
     <ComboBox
       fullWidth
-      defaultValue={selectedUser?.name}
+      defaultValue={defaultSelectedUser?.name}
       label="Select user"
       data={users.map((user) => ({
         id: user.id,
@@ -33,7 +29,6 @@ const UserSelection = ({ users, selectedUser }: UserSelectionProps) => {
       }))}
       handleChange={(val) => {
         router.push(`/budget/user?id=${val?.id ?? ''}`);
-        setValue(val?.id);
       }}
     />
   );

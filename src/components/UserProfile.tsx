@@ -85,7 +85,15 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
         </Column>
       </Grid>
       <Divider spacing="l" color="var(--colors-silver)" />
-      <h3>Expenses</h3>
+      <Grid spacing="s">
+        <Column lg="6" md="6" sm="6" xs="12">
+          <h3>Expenses</h3>
+        </Column>
+        <Column lg="6" md="6" sm="6" xs="12" justifyContent="flex-end" alignItems="flex-end">
+          Add expense
+        </Column>
+      </Grid>
+
       <Divider spacing="l" color="var(--colors-silver)" />
       {expenses && <Timeline expenses={expenses} showEdit={showEdit} />}
     </Box>

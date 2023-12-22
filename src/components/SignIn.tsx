@@ -1,13 +1,23 @@
-'use client';
-import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import '../styles/components/button.scss';
+import { User, getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getMe } from '@/app/budget/actions';
 
-const SignIn = () => {
-  const { data: session } = useSession();
-  if (session && session?.user) {
-    redirect('/budget');
+const SignIn = async () => {
+  const session = await getServerSession(authOptions);
+  let me: User | undefined = undefined;
+
+  try {
+    me = await getMe((session as any).id_token);
+  } catch (e) {
+    console.error(e);
   }
+
+  if (session && me?.id) {
+    redirect(`/budget/user?id=${me?.id}`);
+  }
+
   return (
     <a className="button primary" href="/api/auth/signin">
       Sign in

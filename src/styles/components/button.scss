@@ -40,7 +40,9 @@ a.button {
   &:hover {
     background-color: var(--colors-primarybuttonbg-hover);
   }
-  &:disabled {
+
+  &:disabled,
+  &[aria-disabled='true'] {
     background-color: var(--color-button-primary-disabled);
     cursor: default;
     opacity: 0.5;
@@ -147,7 +149,7 @@ a.button {
     color: var(--color-button-outline-color);
     border: 1px solid var(--color-button-outline-border);
 
-    &:hover {
+    &:hover:not(:disabled, &[aria-disabled='true']) {
       @media screen and (min-width: 601px) {
         background-color: var(--color-button-outline-hover);
       }

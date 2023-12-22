@@ -50,19 +50,10 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
       <Divider spacing="s" />
       <Grid spacing="l">
         <Column lg="6" md="6" sm="6" xs="12">
-          <TextField
-            label="Employee number"
-            name="employeeNumber"
-            id="employeeNumber"
-            required
-          />
+          <TextField label="Employee number" name="employeeNumber" id="employeeNumber" required />
         </Column>
         <Column lg="6" md="6" sm="6" xs="12">
-          <TextField
-            label="Department number"
-            name="departmentNumber"
-            id="departmentNumber"
-          />
+          <TextField label="Department number" name="departmentNumber" id="departmentNumber" />
         </Column>
       </Grid>
       <Divider spacing="s" />
@@ -77,12 +68,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
           />
         </Column>
         <Column lg="6" md="6" sm="6" xs="12">
-          <TextField
-            label="Phone number"
-            name="phoneNumber"
-            id="phoneNumber"
-            type="tel"
-          />
+          <TextField label="Phone number" name="phoneNumber" id="phoneNumber" type="tel" />
         </Column>
       </Grid>
       <Divider spacing="s" />
@@ -132,7 +118,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
         </Column>
       </Grid>
       <Box topSpacing="l" alignItems="flex-end">
-        <Button type="submit">Save user</Button>
+        <Button type="submit">Add user</Button>
       </Box>
     </form>
   );

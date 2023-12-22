@@ -1,5 +1,6 @@
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
+import { User } from '@/lib/types';
 
 /**
  * Retrieves expenses for a specific user.
@@ -21,6 +22,17 @@ export async function getExpenses(token: string, id: string): Promise<any> {
  */
 export async function getBudget(token: string, id: string): Promise<any> {
   return apiFetch(token, `${apiUrl}/budgets?userId=${id}`).then((res) => {
+    return res.json();
+  });
+}
+
+/**
+ * Retrieves user information.
+ * @param token - The authentication token.
+ * @returns A Promise that resolves to a User object.
+ */
+export async function getMe(token: string): Promise<User> {
+  return apiFetch(token, `${apiUrl}/me`).then((res) => {
     return res.json();
   });
 }

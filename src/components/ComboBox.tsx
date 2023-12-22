@@ -45,7 +45,6 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
   handleChange,
 }) => {
   const [items, setItems] = React.useState<ComboOption[]>(data);
-  const [selected, setSelected] = React.useState<ComboOption | null | undefined>(null);
 
   const {
     isOpen,
@@ -66,17 +65,9 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
       return item ? item.title : '';
     },
     onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
-      setSelected(newSelectedItem);
       typeof handleChange === 'function' ? handleChange(newSelectedItem) : null;
     },
   });
-
-  useEffect(() => {
-    const defaultItem = data.find((item) => item.title === defaultValue);
-    if (defaultItem && defaultItem !== selected) {
-      setSelected(defaultItem);
-    }
-  }, [defaultValue, data, selected]);
 
   useEffect(() => {
     if (!data.every((d) => items.includes(d))) {

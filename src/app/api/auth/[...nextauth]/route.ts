@@ -1,7 +1,15 @@
-import NextAuth, { AuthOptions, TokenSet } from 'next-auth';
+import NextAuth, { AuthOptions, Session, TokenSet } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { apiFetch, getUserId } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
+
+interface ExtendedSession extends Session {
+  access_token: string;
+  id_token: string;
+  userId: string;
+  internalUserId?: string;
+  isAdmin: boolean;
+}
 
 export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -75,30 +83,35 @@ export const authOptions: AuthOptions = {
     },
     async session(data) {
       let { session, token } = data;
+      let extendedSession: ExtendedSession = {} as ExtendedSession;
+
       if (session && typeof (session as any)?.isAdmin !== 'boolean') {
         let me = undefined;
+
         if (token?.id_token) {
           try {
             me = await apiFetch(token.id_token as string, `${apiUrl}/me`).then((res) => res.json());
+
+            extendedSession = {
+              ...session,
+              access_token: String(token.access_token),
+              id_token: String(token.id_token),
+              userId: getUserId(token.id_token as string),
+              internalUserId: me?.id ? String(me.id) : undefined,
+              // isAdmin: me?.isAdmin ?? false,
+              isAdmin: true, // isAdmin is not set in the API yet
+            };
           } catch (e) {
             console.error(e);
           }
         }
-        session = Object.assign({}, session, {
-          access_token: token.access_token,
-          id_token: token.id_token,
-          userId: getUserId(token.id_token as string),
-          ...(typeof me?.isAdmin === 'boolean' && { isAdmin: me.isAdmin }),
-          ...(typeof me?.user?.id !== 'undefined' && {
-            internalUserId: me.user.id,
-          }),
-          isAdmin: true,
-        });
       }
-      return session;
+
+      return extendedSession;
     },
   },
 };
+
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
