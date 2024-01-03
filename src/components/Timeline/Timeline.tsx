@@ -1,28 +1,28 @@
 'use client';
 
-import { HardwareIcon } from './Icons/HardwareIcon';
-import { TimeIcon } from './Icons/TimeIcon';
-import { MoneyIcon } from './Icons/MoneyIcon';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { PenIcon } from './Icons/PenIcon';
-import { DeleteIcon } from './Icons/DeleteIcon';
+import Link from 'next/link';
 import format from 'date-fns/format';
-import { ConfirmDialog } from './ConfirmDialog';
-
 import { AnimatePresence, motion, useAnimation, useInView } from 'framer-motion';
 
-import '../styles/components/timeline.scss';
-import Grid from './Grid';
-import Column from './Column';
-import Divider from './Divider';
-import Button from './Button';
-import { Expense } from '@/lib/types';
-import { InlineStack } from './InlineStack';
 import { getExpenseType } from '@/lib/helpers';
-import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { deleteExpense } from '@/app/admin/_actions/expense';
+import { Expense } from '@/lib/types';
+
+import { DeleteIcon } from '../Icons/DeleteIcon';
+import { HardwareIcon } from '../Icons/HardwareIcon';
+import { MoneyIcon } from '../Icons/MoneyIcon';
+import { PenIcon } from '../Icons/PenIcon';
+import { TimeIcon } from '../Icons/TimeIcon';
+
+import Button from '../Button';
+import Column from '../Column';
+import Divider from '../Divider';
+import Grid from '../Grid';
+import { deleteExpense } from './actions';
+import { InlineStack } from '../InlineStack';
+import { ConfirmDialog } from '../ConfirmDialog';
+
+import '../../styles/components/timeline.scss';
 
 const getIcon = (type: string) => {
   switch (type) {
@@ -125,8 +125,6 @@ const sortByDate = (a: Expense, b: Expense) => {
 };
 
 export const Timeline: React.FunctionComponent<TimelineProps> = ({ expenses, showEdit }) => {
-  const session = useSession();
-  const router = useRouter();
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [expenseToDelete, setExpenseToDelete] = useState<Expense | undefined>();
@@ -140,11 +138,6 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({ expenses, sho
     }, []);
   }, [sortedExpenses]);
 
-  // const deleteExpense = (id: string) => {
-  //   fetch(`/api/admin/expense?id=${id}`, { method: 'DELETE' })
-  //     .then(() => router.push('/admin'))
-  //     .catch(console.error);
-  // };
   const filteredExpenses = useMemo(() => {
     return sortedExpenses.filter((exp) => new Date(exp.date).getFullYear() === selectedYear);
   }, [selectedYear, sortedExpenses]);
@@ -180,12 +173,6 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({ expenses, sho
         id="confirm-delete-dialog"
         visible={showConfirmDelete}
         onClose={() => setShowConfirmDelete(false)}
-        // onConfirm={() => {
-        //   if (expenseToDelete?.id) {
-        //     deleteExpense(expenseToDelete?.id);
-        //   }
-        //   setShowConfirmDelete(false);
-        // }}
         width="30rem"
         action={deleteExpense}
         title="Delete expense">

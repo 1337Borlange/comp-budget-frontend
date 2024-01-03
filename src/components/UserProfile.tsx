@@ -1,5 +1,5 @@
 import { Budget, Expense, User } from '@/lib/types';
-import { Timeline } from './Timeline';
+import { Timeline } from './Timeline/Timeline';
 import Box from './Box';
 import Divider from './Divider';
 import Grid from './Grid';

@@ -1,9 +1,9 @@
 import { TabItem, Tabs } from '@/components/Tabs';
-import { AddExpense } from './AddExpense';
+import { AddExpense } from './AddExpense/AddExpense';
 import { UserIcon } from '@/components/Icons/UserIcon';
-import { UpdateBudget } from './UpdateBudget';
+import { UpdateBudget } from './UpdateBudget/UpdateBudget';
 import { Budget, Category, CategoryType, User } from '@/lib/types';
-import { UpdateUser } from './UpdateUser';
+import { UpdateUser } from './UpdateUser/UpdateUser';
 
 type UserTabsProps = {
   me?: User;

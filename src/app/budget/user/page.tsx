@@ -13,12 +13,12 @@ import {
 } from './actions';
 import { UserProfile } from '@/components/UserProfile';
 import Modal from '@/components/Modal';
-import NewUserForm from '../_components/NewUserForm';
+import NewUserForm from '../_components/NewUserForm/NewUserForm';
 import { getMe } from '../_actions/actions';
 
-import { UpdateUser } from '@/app/budget/_components/UpdateUser';
+import { UpdateUser } from '@/app/budget/_components/UpdateUser/UpdateUser';
 import Stats from '@/app/budget/_components/Stats';
-import { AddExpense } from '@/app/budget/_components/AddExpense';
+import { AddExpense } from '@/app/budget/_components/AddExpense/AddExpense';
 
 type SearchParams = Record<string, string> | null | undefined;
 

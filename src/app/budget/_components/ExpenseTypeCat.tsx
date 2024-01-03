@@ -6,7 +6,7 @@ import Grid from '@/components/Grid';
 import Select from '@/components/Select';
 import { Category, CategoryType, Expense } from '@/lib/types';
 import { useMemo, useState } from 'react';
-import AddCategory from './AddCategory';
+import AddCategory from './AddCategory/AddCategory';
 
 type ExpenseTypeCatProps = {
   expense?: Expense;

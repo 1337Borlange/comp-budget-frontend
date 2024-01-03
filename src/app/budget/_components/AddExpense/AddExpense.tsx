@@ -7,19 +7,19 @@ import toast from 'react-hot-toast';
 import { Category, CategoryType, CreateUpdateDeleteType, User, Expense } from '@/lib/types';
 import { getErrorMessage } from '@/lib/helpers';
 
-import Box from '../../../components/Box';
-import Button from '../../../components/Button';
-import Column from '../../../components/Column';
-import Divider from '../../../components/Divider';
-import Grid from '../../../components/Grid';
-import TextField from '../../../components/Textfield';
-import ToggleSwitch from '../../../components/ToggleSwitch';
-import { FormControl } from '../../../components/FormControl/FormControl';
-import { Label } from '../../../components/FormControl/Label';
+import Box from '../../../../components/Box';
+import Button from '../../../../components/Button';
+import Column from '../../../../components/Column';
+import Divider from '../../../../components/Divider';
+import Grid from '../../../../components/Grid';
+import TextField from '../../../../components/Textfield';
+import ToggleSwitch from '../../../../components/ToggleSwitch';
+import { FormControl } from '../../../../components/FormControl/FormControl';
+import { Label } from '../../../../components/FormControl/Label';
 
-import { saveExpense } from '../../admin/_actions/expense';
-import ExpenseTypeCat from './ExpenseTypeCat';
-import DatePickerWrapper from './DatePickerWrapper';
+import ExpenseTypeCat from '../ExpenseTypeCat';
+import DatePickerWrapper from '../DatePickerWrapper';
+import { saveExpense } from './actions';
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;

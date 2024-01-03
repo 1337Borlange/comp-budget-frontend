@@ -13,11 +13,11 @@ import { offices, shirtSizes } from '@/lib/settings';
 import { ConfirmDialog } from '@/components/ConfirmDialog';
 import { useState } from 'react';
 import { DeleteIcon } from '@/components/Icons/DeleteIcon';
-import { deleteUser, updateUser } from '../../admin/_actions/user';
 import { getErrorMessage } from '@/lib/helpers';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 import ToggleSwitch from '@/components/ToggleSwitch';
+import { deleteUser, updateUser } from './actions';
 
 type UpdateUserProps = {
   me?: User;

@@ -11,7 +11,7 @@ import TextField from '@/components/Textfield';
 import { InlineStack } from '@/components/InlineStack';
 import { Label } from '@/components/FormControl/Label';
 
-import { saveCategory } from '../../admin/_actions/category';
+import { saveCategory } from './actions';
 
 const AddCategory = () => {
   const [showAddCategory, setShowAddCategory] = useState(false);

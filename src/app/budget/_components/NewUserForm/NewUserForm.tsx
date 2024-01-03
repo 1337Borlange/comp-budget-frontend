@@ -14,7 +14,7 @@ import { offices, shirtSizes } from '@/lib/settings';
 import ComboBox from '@/components/ComboBox';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import { addUser } from '../user/actions';
+import { addUser } from './actions';
 
 type NewUserFormProps = {
   allUsers: User[];

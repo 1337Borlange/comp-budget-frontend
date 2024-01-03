@@ -8,10 +8,10 @@ import { Label } from '@/components/FormControl/Label';
 import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
-import DatePickerWrapper from './DatePickerWrapper';
-import { updateBudget } from '../../admin/_actions/budget';
+import DatePickerWrapper from '../DatePickerWrapper';
 import { getErrorMessage } from '@/lib/helpers';
 import toast from 'react-hot-toast';
+import { updateBudget } from './actions';
 
 type UpdateBudgetProps = {
   user?: User;
