@@ -5,9 +5,7 @@ type InfoBoxProps = {
   children: React.ReactNode;
 };
 
-export const InfoBox: React.FunctionComponent<InfoBoxProps> = ({
-  children,
-}) => {
+export const InfoBox: React.FunctionComponent<InfoBoxProps> = ({ children }) => {
   return (
     <div className="info-box">
       <InfoIcon />

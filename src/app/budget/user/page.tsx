@@ -1,14 +1,24 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Budget, Expense, User } from '@/lib/types';
+import { Budget, Category, Expense, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
-import { getUsers } from './actions';
+import {
+  getUsers,
+  getCategories,
+  getCategoryTypes,
+  getUserBudget,
+  getUserExpenses,
+  getBudget,
+  getExpenses,
+} from './actions';
 import { UserProfile } from '@/components/UserProfile';
-import { getBudget, getExpenses, getMe } from '../actions';
 import Modal from '@/components/Modal';
-import NewUserForm from '@/app/admin/_components/NewUserForm';
-import { UpdateUser } from '@/app/admin/_components/UpdateUser';
-import Stats from '@/app/admin/_components/Stats';
+import NewUserForm from '../_components/NewUserForm';
+import { getMe } from '../_actions/actions';
+
+import { UpdateUser } from '@/app/budget/_components/UpdateUser';
+import Stats from '@/app/budget/_components/Stats';
+import { AddExpense } from '@/app/budget/_components/AddExpense';
 
 type SearchParams = Record<string, string> | null | undefined;
 
@@ -21,6 +31,7 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   const showAddUser = searchParams?.showAddUser === 'true';
   const showEditUser = searchParams?.showEditUser === 'true';
   const showStatistics = searchParams?.showStatistics === 'true';
+  const showAddExpense = searchParams?.showAddExpense === 'true';
   const session = await getServerSession(authOptions);
   const isAdmin = session && (session as any).isAdmin;
 
@@ -29,21 +40,29 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   }
 
   let users: User[] = [];
-  let me: User | undefined;
+  let me = {} as User;
   let selectedUser: User | undefined = undefined;
   let budget: Budget | undefined = undefined;
   let expenses: Expense[] = [];
+  let userExpenses: Expense[] = [];
+  let userBudget: Budget | undefined = undefined;
+  let categoryTypes;
+  let categories: Category[] = [];
 
   if (!id) {
     return <>No user found.</>;
   }
 
   try {
-    users = await getUsers((session as any).id_token);
-    me = await getMe((session as any).id_token);
+    users = await getUsers();
+    me = await getMe();
     selectedUser = users.find((user: User) => String(user.id) === id);
-    budget = await getBudget((session as any).id_token, id);
-    expenses = await getExpenses((session as any).id_token, id);
+    budget = await getBudget(id);
+    expenses = await getExpenses(id);
+    userExpenses = await getUserExpenses(id);
+    userBudget = await getUserBudget(id);
+    categoryTypes = await getCategoryTypes();
+    categories = await getCategories();
   } catch (e) {
     console.error(e);
   }
@@ -73,6 +92,17 @@ export default async function Page({ searchParams }: BudgetPageProps) {
       {showStatistics && (
         <Modal id="statistics-modal" blur visible={true}>
           <Stats />
+        </Modal>
+      )}
+
+      {showAddExpense && (
+        <Modal id="statistics-modal" blur visible={true}>
+          <AddExpense
+            categoryTypes={categoryTypes}
+            reqType="create"
+            categories={categories}
+            user={selectedUser}
+          />
         </Modal>
       )}
     </>

@@ -1,22 +1,25 @@
 'use client';
-import { FormControl } from '../../../components/FormControl/FormControl';
-import { Label } from '../../../components/FormControl/Label';
+
+import { useRef } from 'react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
+
 import { Category, CategoryType, CreateUpdateDeleteType, User, Expense } from '@/lib/types';
-import Divider from '../../../components/Divider';
-import Grid from '../../../components/Grid';
-import Column from '../../../components/Column';
-import TextField from '../../../components/Textfield';
+import { getErrorMessage } from '@/lib/helpers';
+
 import Box from '../../../components/Box';
 import Button from '../../../components/Button';
+import Column from '../../../components/Column';
+import Divider from '../../../components/Divider';
+import Grid from '../../../components/Grid';
+import TextField from '../../../components/Textfield';
 import ToggleSwitch from '../../../components/ToggleSwitch';
-import DatePickerWrapper from './DatePickerWrapper';
-import AddCategory from './AddCategory';
+import { FormControl } from '../../../components/FormControl/FormControl';
+import { Label } from '../../../components/FormControl/Label';
+
+import { saveExpense } from '../../admin/_actions/expense';
 import ExpenseTypeCat from './ExpenseTypeCat';
-import { saveExpense } from '../_actions/expense';
-import toast from 'react-hot-toast';
-import { useRef } from 'react';
-import { getErrorMessage } from '@/lib/helpers';
-import { redirect, useRouter } from 'next/navigation';
+import DatePickerWrapper from './DatePickerWrapper';
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
@@ -57,6 +60,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
       }
     }
   }
+
   return (
     <>
       <Divider spacing="m" color="transparent" />

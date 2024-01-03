@@ -19,13 +19,6 @@ const UserDropMenuButton = () => {
           <UserImage url={(data as any)?.user?.image} size={50} alt={(data as any)?.user?.name} />
         </div>
       }>
-      {(data as any)?.isAdmin ? (
-        <>
-          <Link href="/admin">Admin</Link>
-          <Link href="/admin/stats">Stats</Link>
-        </>
-      ) : null}
-
       <ToggleDarkMode />
       <a href="/api/auth/signout">Sign out</a>
     </DropMenuButton>

@@ -20,7 +20,7 @@ const Header = ({ isAdmin }: HeaderProps) => {
         <Grid spacing="l">
           <Column lg="6" md="6" sm="6" xs="12" className="logo-col">
             <h1>
-              <Link href="/budget">
+              <Link href="/">
                 <Image src="/comp-logo.svg" alt="Competence budget" width="60" height="60" />
                 Competence budget
               </Link>

@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
 import Divider from '@/components/Divider';
-import { AddExpense } from '../../_components/AddExpense';
+import { AddExpense } from '../../../budget/_components/AddExpense';
 import Box from '@/components/Box';
 import Link from 'next/link';
 import { apiFetch } from '@/lib/helpers';
@@ -24,11 +24,9 @@ async function getCategoryTypes(token: string): Promise<any> {
   });
 }
 async function getExpense(token: string, id: string): Promise<any> {
-  return apiFetch(token, `${apiUrl}/adm/expenses?expenseId=${id}`).then(
-    (res) => {
-      return res.json();
-    }
-  );
+  return apiFetch(token, `${apiUrl}/adm/expenses?expenseId=${id}`).then((res) => {
+    return res.json();
+  });
 }
 
 export default async function Edit({ params }: { params: { id: string } }) {
@@ -42,8 +40,7 @@ export default async function Edit({ params }: { params: { id: string } }) {
       <Box topSpacing="m" leftSpacing="m" rightSpacing="m">
         <Link
           className="button outline icon-left"
-          href={`/admin${expense?.userId ? `?userId=${expense.userId}` : ''}`}
-        >
+          href={`/admin${expense?.userId ? `?userId=${expense.userId}` : ''}`}>
           <ArrowLeftIcon /> Back
         </Link>
       </Box>

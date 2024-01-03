@@ -13,12 +13,7 @@ export default function Home() {
   return (
     <main>
       <div className="signin">
-        <Image
-          src="/comp-logo.svg"
-          alt="Competence budget"
-          width="200"
-          height="200"
-        />
+        <Image src="/comp-logo.svg" alt="Competence budget" width="200" height="200" />
         <Divider spacing="s" color="transparent" />
         <h1>My competence budget</h1>
         <Divider spacing="l" color="transparent" />

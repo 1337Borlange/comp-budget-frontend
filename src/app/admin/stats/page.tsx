@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowLeftIcon } from '@/components/Icons/ArrowLeftIcon';
 import Divider from '@/components/Divider';
 import Link from 'next/link';
-import Stats from '../_components/Stats';
+import Stats from '../../budget/_components/Stats';
 import Box from '@/components/Box';
 import { Metadata } from 'next';
 

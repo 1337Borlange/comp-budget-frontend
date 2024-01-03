@@ -33,17 +33,13 @@ const Checkbox = forwardRef<
       name = '',
       ...rest
     },
-    ref?: React.Ref<HTMLInputElement>
+    ref?: React.Ref<HTMLInputElement>,
   ) => {
     const classes = getClasses({
       'full-width': fullWidth,
     });
     return (
-      <FormControl
-        className={`checkbox-wrapper ${classes} ${
-          className ? ` ${className}` : ''
-        }`}
-      >
+      <FormControl className={`checkbox-wrapper ${classes} ${className ? ` ${className}` : ''}`}>
         <Label htmlFor={id} tabIndex={0}>
           <input
             type="checkbox"
@@ -59,7 +55,7 @@ const Checkbox = forwardRef<
         </Label>
       </FormControl>
     );
-  }
+  },
 );
 
 Checkbox.displayName = 'Checkbox';

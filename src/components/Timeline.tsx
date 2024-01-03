@@ -9,12 +9,7 @@ import { DeleteIcon } from './Icons/DeleteIcon';
 import format from 'date-fns/format';
 import { ConfirmDialog } from './ConfirmDialog';
 
-import {
-  AnimatePresence,
-  motion,
-  useAnimation,
-  useInView,
-} from 'framer-motion';
+import { AnimatePresence, motion, useAnimation, useInView } from 'framer-motion';
 
 import '../styles/components/timeline.scss';
 import Grid from './Grid';
@@ -72,13 +67,7 @@ const TimeLineItem = ({
   }, [controls, inView]);
 
   return (
-    <motion.li
-      ref={ref}
-      initial="initial"
-      animate={controls}
-      exit="exit"
-      variants={listItem}
-    >
+    <motion.li ref={ref} initial="initial" animate={controls} exit="exit" variants={listItem}>
       <div className="expense-wrapper">
         <div className="expense-icon">{getIcon(getExpenseType(exp))}</div>
         <div className="expense-content">
@@ -110,10 +99,7 @@ const TimeLineItem = ({
           {/* {isAdmin && path.includes('admin') && ( */}
           {showEdit && (
             <div className="expense-buttons">
-              <Link
-                className="button outline icon-only"
-                href={`/admin/edit/${exp.id}`}
-              >
+              <Link className="button outline icon-only" href={`/admin/edit/${exp.id}`}>
                 <PenIcon />
               </Link>
               <Button
@@ -122,8 +108,7 @@ const TimeLineItem = ({
                   setShowConfirmDelete(true);
                   setExpenseToDelete(exp);
                 }}
-                iconOnly
-              >
+                iconOnly>
                 <DeleteIcon />
               </Button>
             </div>
@@ -139,15 +124,10 @@ const sortByDate = (a: Expense, b: Expense) => {
   return new Date(b.date).valueOf() - new Date(a.date).valueOf();
 };
 
-export const Timeline: React.FunctionComponent<TimelineProps> = ({
-  expenses,
-  showEdit,
-}) => {
+export const Timeline: React.FunctionComponent<TimelineProps> = ({ expenses, showEdit }) => {
   const session = useSession();
   const router = useRouter();
-  const [selectedYear, setSelectedYear] = useState<number>(
-    new Date().getFullYear()
-  );
+  const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
   const [expenseToDelete, setExpenseToDelete] = useState<Expense | undefined>();
 
@@ -166,9 +146,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
   //     .catch(console.error);
   // };
   const filteredExpenses = useMemo(() => {
-    return sortedExpenses.filter(
-      (exp) => new Date(exp.date).getFullYear() === selectedYear
-    );
+    return sortedExpenses.filter((exp) => new Date(exp.date).getFullYear() === selectedYear);
   }, [selectedYear, sortedExpenses]);
 
   return (
@@ -180,8 +158,7 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
           <Button
             key={`filter-year-${year}`}
             priority={`${year === selectedYear ? 'primary' : 'outline'}`}
-            onClick={() => setSelectedYear(year)}
-          >
+            onClick={() => setSelectedYear(year)}>
             {year}
           </Button>
         ))}
@@ -211,15 +188,9 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({
         // }}
         width="30rem"
         action={deleteExpense}
-        title="Delete expense"
-      >
+        title="Delete expense">
         <p>Are you sure you want to delete this expense?</p>
-        <input
-          type="hidden"
-          name="expenseId"
-          id="expenseId"
-          value={expenseToDelete?.id}
-        />
+        <input type="hidden" name="expenseId" id="expenseId" value={expenseToDelete?.id} />
       </ConfirmDialog>
     </>
   );

@@ -1,19 +1,7 @@
 'use client';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AngleDownIcon } from './Icons/AngleDownIcon';
-import {
-  AnimatePresence,
-  MotionConfig,
-  MotionProps,
-  Variants,
-  motion,
-} from 'framer-motion';
+import { AnimatePresence, MotionConfig, MotionProps, Variants, motion } from 'framer-motion';
 import Button from './Button';
 import '../styles/components/dropmenu.scss';
 
@@ -98,7 +86,7 @@ const DropMenuButton: React.FunctionComponent<
     () => ({
       ['--dropmenu-max-height']: `${dropMaxHeight}px`,
     }),
-    [dropMaxHeight]
+    [dropMaxHeight],
   );
 
   useEffect(() => {
@@ -119,8 +107,7 @@ const DropMenuButton: React.FunctionComponent<
         className={`dropmenu-wrapper ${fromRight ? 'from-right' : ''} ${
           fromTop ? 'from-top' : 'from-bottom'
         }`}
-        style={inlineStyle}
-      >
+        style={inlineStyle}>
         {typeof label === 'string' ? (
           <Button
             type="button"
@@ -129,8 +116,7 @@ const DropMenuButton: React.FunctionComponent<
             aria-controls={id}
             onClick={() => setExpanded(!expanded)}
             ref={buttonRef}
-            {...rest}
-          >
+            {...rest}>
             {label}
           </Button>
         ) : (
@@ -143,8 +129,7 @@ const DropMenuButton: React.FunctionComponent<
             onClick={() => {
               setExpanded(!expanded);
             }}
-            ref={buttonRef}
-          >
+            ref={buttonRef}>
             <AngleDownIcon className={`${expanded ? 'expanded' : ''}`} />
             {label}
           </div>
@@ -159,8 +144,7 @@ const DropMenuButton: React.FunctionComponent<
             role="menu"
             id={id}
             aria-label={typeof label === 'string' ? label : id}
-            ref={dropMenuRef}
-          >
+            ref={dropMenuRef}>
             {React.Children.map(children, (child) => {
               if (!child) return null;
               return <motion.li {...item}>{child}</motion.li>;

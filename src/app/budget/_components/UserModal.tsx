@@ -23,8 +23,7 @@ const UserModal = ({ user, budget, expenses }: UserModalProps) => {
         id="user-profile-modal"
         blur
         onClose={() => setShowUserModal(false)}
-        visible={showUserModal}
-      >
+        visible={showUserModal}>
         <UserProfile
           budget={budget}
           title={user?.name ?? ''}

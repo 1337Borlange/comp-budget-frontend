@@ -1,15 +1,17 @@
 'use client';
 
-import Button from '@/components/Button';
-import Modal from '@/components/Modal';
 import { useState } from 'react';
-import Divider from '@/components/Divider';
-import TextField from '@/components/Textfield';
+
 import Box from '@/components/Box';
-import { Label } from '@/components/FormControl/Label';
-import { InlineStack } from '@/components/InlineStack';
+import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
-import { saveCategory } from '../_actions/category';
+import Divider from '@/components/Divider';
+import Modal from '@/components/Modal';
+import TextField from '@/components/Textfield';
+import { InlineStack } from '@/components/InlineStack';
+import { Label } from '@/components/FormControl/Label';
+
+import { saveCategory } from '../../admin/_actions/category';
 
 const AddCategory = () => {
   const [showAddCategory, setShowAddCategory] = useState(false);

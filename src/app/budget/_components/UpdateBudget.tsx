@@ -9,7 +9,7 @@ import TextField from '@/components/Textfield';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
 import DatePickerWrapper from './DatePickerWrapper';
-import { updateBudget } from '../_actions/budget';
+import { updateBudget } from '../../admin/_actions/budget';
 import { getErrorMessage } from '@/lib/helpers';
 import toast from 'react-hot-toast';
 

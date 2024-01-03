@@ -1,17 +1,17 @@
-import UserSelection from '@/app/admin/_components/UserSelection';
+import UserSelection from '@/app/budget/_components/UserSelection';
 import '../../styles/components/adminArea.scss';
 import Box from '../Box';
 import { User } from '@/lib/types';
-import { getMe, getUsers } from './actions';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Grid from '../Grid';
 import Column from '../Column';
-import Link from 'next/link';
 import { StatsIcon } from '../Icons/StatsIcon';
 import { PenIcon } from '../Icons/PenIcon';
 import { ModalButton } from '../ModalButton';
 import { UserIcon } from '../Icons/UserIcon';
+import { getMe } from '@/app/budget/_actions/actions';
+import { getUsers } from '@/app/budget/user/actions';
 
 interface AdminAreaProps {
   isAdmin: boolean;
@@ -28,8 +28,8 @@ export const AdminArea = async ({ isAdmin, defaultUserId }: AdminAreaProps) => {
   let userName: string | undefined;
 
   try {
-    me = await getMe((session as any).id_token);
-    users = await getUsers((session as any).id_token);
+    me = await getMe();
+    users = await getUsers();
     selectedUser = users.find((user: User) => user.id === (defaultUserId ?? me?.id));
     userName = selectedUser?.name.split(' ')[0];
   } catch (e) {

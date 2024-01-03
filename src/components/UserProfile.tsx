@@ -9,6 +9,8 @@ import Counter from './Counter';
 import UserImage from './UserImage';
 import { leetImgUrl } from '@/lib/settings';
 import { getValueStatus } from '@/lib/helpers';
+import { ModalButton } from './ModalButton';
+import { PenIcon } from './Icons/PenIcon';
 
 type UserProfileProps = {
   user?: User;
@@ -90,7 +92,7 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
           <h3>Expenses</h3>
         </Column>
         <Column lg="6" md="6" sm="6" xs="12" justifyContent="flex-end" alignItems="flex-end">
-          Add expense
+          <ModalButton text="Add expense" icon={<PenIcon />} modalName="showAddExpense" />
         </Column>
       </Grid>
 

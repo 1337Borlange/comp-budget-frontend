@@ -18,10 +18,7 @@ export type BoxProps = {
   flexDirection?: Direction;
 };
 
-const Box = forwardRef<
-  HTMLDivElement,
-  BoxProps & React.HTMLAttributes<HTMLDivElement>
->(
+const Box = forwardRef<HTMLDivElement, BoxProps & React.HTMLAttributes<HTMLDivElement>>(
   (
     {
       width,
@@ -39,7 +36,7 @@ const Box = forwardRef<
       className,
       ...rest
     },
-    ref?: React.Ref<HTMLDivElement>
+    ref?: React.Ref<HTMLDivElement>,
   ) => {
     const classes = getClasses({
       [`flex-align-${alignItems}`]: !!alignItems,
@@ -63,7 +60,7 @@ const Box = forwardRef<
         {...rest}
       />
     );
-  }
+  },
 );
 
 Box.displayName = 'Box';
