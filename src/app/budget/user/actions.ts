@@ -1,7 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
-import { Budget, Expense, User } from '@/lib/types';
+import { Budget, CategoryDTO, Expense, ExpenseDTO, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 
 /**
@@ -22,7 +22,7 @@ export async function getUsers(): Promise<any> {
  * @param {string} id - The user ID.
  * @returns {Promise<any>} - A promise that resolves to the expenses data.
  */
-export async function getExpenses(id: string): Promise<any> {
+export async function getExpenses(id: string): Promise<ExpenseDTO[]> {
   const session = await getServerSession(authOptions);
   const token = (session as any)?.id_token;
 
@@ -46,11 +46,10 @@ export async function getBudget(id: string): Promise<any> {
 }
 
 /**
- * Retrieves the categories from the API.
- * @param token - The authentication token.
- * @returns A Promise that resolves to the categories data.
+ * Retrieves the categories from the server.
+ * @returns A promise that resolves to an array of CategoryDTO objects.
  */
-export async function getCategories(): Promise<any> {
+export async function getCategories(): Promise<CategoryDTO[]> {
   const session = await getServerSession(authOptions);
   const token = (session as any)?.id_token;
 

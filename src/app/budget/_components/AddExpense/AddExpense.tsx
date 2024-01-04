@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-import { Category, CategoryType, CreateUpdateDeleteType, User, Expense } from '@/lib/types';
+import { CategoryType, CreateUpdateDeleteType, User, Expense, CategoryDTO } from '@/lib/types';
 import { getErrorMessage } from '@/lib/helpers';
 
 import Box from '../../../../components/Box';
@@ -23,7 +23,7 @@ import { saveExpense } from './actions';
 
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
-  categories: Category[];
+  categories: CategoryDTO[];
   categoryTypes: CategoryType[];
   expense?: Expense;
   user?: User;
@@ -36,6 +36,7 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   expense,
   user,
 }) => {
+  console.log('categories: ', categories);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();

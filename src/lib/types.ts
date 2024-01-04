@@ -115,6 +115,35 @@ export type Category = {
   categoryTypes: CategoryType[];
 };
 
+export enum ExpenseTypes {
+  Expense,
+  Refill,
+  YearlyRefill,
+  Start,
+}
+
+export enum CategoryUnit {
+  Monetary,
+  Time,
+}
+
+export interface ExpenseDTO {
+  id: number;
+  sum: number;
+  comment: string;
+  expenseType: ExpenseTypes;
+  categoryId: number;
+  userId: string;
+  date: string;
+}
+
+export interface CategoryDTO {
+  id: number;
+  name: string;
+  unit: CategoryUnit;
+  isHardware: boolean;
+}
+
 export type GoogleProfile = {
   sub: string;
   name: string;

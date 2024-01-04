@@ -1,5 +1,5 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Budget, Category, Expense, User } from '@/lib/types';
+import { Budget, CategoryDTO, Expense, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import {
@@ -47,7 +47,7 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   let userExpenses: Expense[] = [];
   let userBudget: Budget | undefined = undefined;
   let categoryTypes;
-  let categories: Category[] = [];
+  let categories: CategoryDTO[] = [];
 
   if (!id) {
     return <>No user found.</>;
@@ -69,6 +69,7 @@ export default async function Page({ searchParams }: BudgetPageProps) {
 
   return (
     <>
+      {categories}
       <UserProfile
         user={selectedUser}
         showEdit={false}

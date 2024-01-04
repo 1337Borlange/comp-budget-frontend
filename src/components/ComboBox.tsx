@@ -6,7 +6,7 @@ import { FormControl } from './FormControl/FormControl';
 import { AngleDownIcon } from './Icons/AngleDownIcon';
 import '../styles/components/combobox.scss';
 
-type ComboOption = {
+export type ComboOption = {
   id: string;
   title: string;
 };
