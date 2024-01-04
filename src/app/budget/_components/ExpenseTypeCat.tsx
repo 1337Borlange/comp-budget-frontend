@@ -1,5 +1,4 @@
 'use client';
-import Button from '@/components/Button';
 import Column from '@/components/Column';
 import ComboBox from '@/components/ComboBox';
 import Grid from '@/components/Grid';
@@ -13,8 +12,6 @@ type ExpenseTypeCatProps = {
   categories: Category[];
   categoryTypes: CategoryType[];
 };
-
-// const expenseTypes = ['time', 'money'];
 
 const ExpenseTypeCat = ({ expense, categories, categoryTypes }: ExpenseTypeCatProps) => {
   const [expenseType, setExpenseType] = useState<string | undefined>(expense?.type ?? undefined);
@@ -36,7 +33,7 @@ const ExpenseTypeCat = ({ expense, categories, categoryTypes }: ExpenseTypeCatPr
           defaultValue={expense?.type}
           onChange={(e) => setExpenseType(e.currentTarget.value)}>
           <option value="-1">- Select expense type -</option>
-          {categoryTypes.map((t) => (
+          {categoryTypes?.map((t) => (
             <option value={t.name} key={t.id}>
               {t.name}
             </option>

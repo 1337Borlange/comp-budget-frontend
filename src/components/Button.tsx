@@ -3,6 +3,7 @@
 import { getClasses } from '@/lib/style-helpers';
 import React, { forwardRef } from 'react';
 import '../styles/components/button.scss';
+import { LoadingIcon } from './Icons/LoadingIcon';
 
 export type ButtonProps = {
   priority?: 'primary' | 'secondary' | 'tertiary' | 'outline' | 'critical';
@@ -14,12 +15,10 @@ export type ButtonProps = {
   smallText?: boolean;
   iconLeft?: boolean;
   iconOnly?: boolean;
+  loading?: boolean;
 };
 
-const Button = forwardRef<
-  HTMLButtonElement,
-  ButtonProps & React.HTMLAttributes<HTMLButtonElement>
->(
+const Button = forwardRef<HTMLButtonElement, ButtonProps & React.HTMLAttributes<HTMLButtonElement>>(
   (
     {
       children,
@@ -31,10 +30,11 @@ const Button = forwardRef<
       smallText = false,
       iconLeft = false,
       iconOnly = false,
+      loading = false,
       className,
       ...rest
     },
-    ref?: React.Ref<HTMLButtonElement>
+    ref?: React.Ref<HTMLButtonElement>,
   ) => {
     const classes = getClasses({
       'full-width': fullWidth,
@@ -52,18 +52,16 @@ const Button = forwardRef<
       <button
         style={inlineStyle}
         aria-label={type}
-        className={`button ${priority} ${classes} ${
-          className ? ` ${className}` : ''
-        }`}
+        className={`button ${priority} ${classes} ${className ? ` ${className}` : ''}`}
         type={type}
-        disabled={disabled}
+        disabled={disabled || loading}
         ref={ref}
-        {...rest}
-      >
-        {children}
+        {...rest}>
+        {loading ? 'Loading...' : children}
+        {loading && <LoadingIcon />}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = 'Button';

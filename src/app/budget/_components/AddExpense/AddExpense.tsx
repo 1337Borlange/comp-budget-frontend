@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -36,28 +36,20 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   expense,
   user,
 }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
   async function clientAction(formData: FormData) {
+    setIsLoading(true);
     const result = await saveExpense(formData);
+    setIsLoading(false);
 
     if (result?.error) {
       const msg = getErrorMessage(result.error);
       toast.error(msg);
     } else {
-      toast.success(
-        `Expense succesfully ${reqType}d! ${
-          reqType === 'update' ? 'Redirecting to admin in 2 seconds.' : ''
-        }`,
-      );
-
-      if (reqType === 'update') {
-        setTimeout(() => {
-          router.push(`/admin?userId=${expense?.userId}`);
-        }, 2000);
-      } else {
-        formRef?.current?.reset();
-      }
+      toast.success(`Expense succesfully ${reqType}d!`);
+      router.push(`/budget/user?id=${user?.id}`);
     }
   }
 
@@ -115,7 +107,9 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
           <textarea id="comment" name="comment" defaultValue={expense?.comment}></textarea>
         </FormControl>
         <Box topSpacing="l" alignItems="flex-end">
-          <Button type="submit">{reqType === 'update' ? 'Update' : 'Add'} expense</Button>
+          <Button type="submit" loading={isLoading}>
+            {reqType === 'update' ? 'Update' : 'Add'} expense
+          </Button>
         </Box>
       </form>
     </>

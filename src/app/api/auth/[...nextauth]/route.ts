@@ -98,8 +98,7 @@ export const authOptions: AuthOptions = {
               id_token: String(token.id_token),
               userId: getUserId(token.id_token as string),
               internalUserId: me?.id ? String(me.id) : undefined,
-              // isAdmin: me?.isAdmin ?? false,
-              isAdmin: true, // isAdmin is not set in the API yet
+              isAdmin: me?.isAdmin ?? false,
             };
           } catch (e) {
             console.error(e);

@@ -2,6 +2,8 @@
 .button,
 a.button {
   --color-button-primary-hover: #08090d;
+  --color-button-primary-disabled: #213747;
+  --color-button-primary-disabled-text: rgba(255, 255, 255, 0.5);
   --color-button-secondary-background: #eee;
   --color-button-secondary-color: #000;
   --color-button-secondary-hover: #ddd;
@@ -37,15 +39,15 @@ a.button {
     }
   }
 
-  &:hover {
+  &:hover:not(:disabled, &[aria-disabled='true']) {
     background-color: var(--colors-primarybuttonbg-hover);
   }
 
   &:disabled,
   &[aria-disabled='true'] {
-    background-color: var(--color-button-primary-disabled);
+    background: var(--color-button-primary-disabled);
+    color: var(--color-button-primary-disabled-text);
     cursor: default;
-    opacity: 0.5;
   }
 
   @media screen and (max-width: 600px) {

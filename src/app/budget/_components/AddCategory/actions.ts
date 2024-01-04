@@ -31,7 +31,7 @@ export async function saveCategory(formData: FormData) {
       body: JSON.stringify(postBody),
     });
     const data = await res.json();
-    revalidatePath('/admin');
+    revalidatePath('/budget');
     return {
       status: res.status,
       data,
