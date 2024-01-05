@@ -115,6 +115,8 @@ export type Category = {
   categoryTypes: CategoryType[];
 };
 
+// New stuff
+
 export enum ExpenseTypes {
   Expense,
   Refill,
@@ -143,6 +145,12 @@ export interface CategoryDTO {
   unit: CategoryUnit;
   isHardware: boolean;
 }
+
+export interface ExpenseWithCategory extends ExpenseDTO {
+  category: CategoryDTO;
+}
+
+//
 
 export type GoogleProfile = {
   sub: string;

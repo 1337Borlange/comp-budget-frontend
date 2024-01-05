@@ -2,8 +2,6 @@ import UserSelection from '@/app/budget/_components/UserSelection';
 import '../../styles/components/adminArea.scss';
 import Box from '../Box';
 import { User } from '@/lib/types';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import Grid from '../Grid';
 import Column from '../Column';
 import { StatsIcon } from '../Icons/StatsIcon';
@@ -21,7 +19,6 @@ interface AdminAreaProps {
 export const AdminArea = async ({ isAdmin, defaultUserId }: AdminAreaProps) => {
   if (!isAdmin) return null;
 
-  const session = await getServerSession(authOptions);
   let users: User[] = [];
   let me: User | undefined;
   let selectedUser: User | undefined;

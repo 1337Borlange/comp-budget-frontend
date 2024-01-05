@@ -26,7 +26,7 @@ export async function updateBudget(formData: FormData) {
 
     const data = res.json();
 
-    revalidatePath('/admin');
+    revalidatePath('/budget');
     return {
       status: res.status,
       data,

@@ -1,4 +1,4 @@
-import { Budget, Expense, User } from '@/lib/types';
+import { Budget, Expense, ExpenseDTO, User } from '@/lib/types';
 import { Timeline } from './Timeline/Timeline';
 import Box from './Box';
 import Divider from './Divider';
@@ -15,7 +15,7 @@ import { PenIcon } from './Icons/PenIcon';
 type UserProfileProps = {
   user?: User;
   budget?: Budget;
-  expenses: Expense[];
+  expenses: ExpenseDTO[];
   title: string;
   showEdit: boolean;
 };

@@ -1,11 +1,18 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { Budget, CategoryDTO, Expense, User } from '@/lib/types';
+import {
+  Budget,
+  CategoryDTO,
+  CategoryType,
+  Expense,
+  ExpenseDTO,
+  ExpenseWithCategory,
+  User,
+} from '@/lib/types';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
 import {
   getUsers,
   getCategories,
-  getCategoryTypes,
   getUserBudget,
   getUserExpenses,
   getBudget,
@@ -19,6 +26,7 @@ import { getMe } from '../_actions/actions';
 import { UpdateUser } from '@/app/budget/_components/UpdateUser/UpdateUser';
 import Stats from '@/app/budget/_components/Stats';
 import { AddExpense } from '@/app/budget/_components/AddExpense/AddExpense';
+import { getExpensesWithCategories } from '@/lib/helpers';
 
 type SearchParams = Record<string, string> | null | undefined;
 
@@ -43,10 +51,10 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   let me = {} as User;
   let selectedUser: User | undefined = undefined;
   let budget: Budget | undefined = undefined;
-  let expenses: Expense[] = [];
+  let expenses: ExpenseDTO[] = [];
   let userExpenses: Expense[] = [];
   let userBudget: Budget | undefined = undefined;
-  let categoryTypes;
+  let categoryTypes: CategoryType[] = [];
   let categories: CategoryDTO[] = [];
 
   if (!id) {
@@ -61,15 +69,16 @@ export default async function Page({ searchParams }: BudgetPageProps) {
     expenses = await getExpenses(id);
     userExpenses = await getUserExpenses(id);
     userBudget = await getUserBudget(id);
-    categoryTypes = await getCategoryTypes();
     categories = await getCategories();
   } catch (e) {
     console.error(e);
   }
 
+  const expensesWithCategory = getExpensesWithCategories(expenses, categories);
+  console.log({ expensesWithCategory });
+
   return (
     <>
-      {categories}
       <UserProfile
         user={selectedUser}
         showEdit={false}

@@ -59,19 +59,6 @@ export async function getCategories(): Promise<CategoryDTO[]> {
 }
 
 /**
- * Fetches the category types from the API.
- * @returns A Promise that resolves to the category types.
- */
-export async function getCategoryTypes(): Promise<any> {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
-
-  return apiFetch(token, `${apiUrl}/categories/types`).then((res) => {
-    return res.json();
-  });
-}
-
-/**
  * Retrieves the expenses of a user.
  * @param id - The ID of the user. If not provided, an empty array will be returned.
  * @returns A promise that resolves to an array of expenses.

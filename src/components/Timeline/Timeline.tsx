@@ -6,7 +6,7 @@ import format from 'date-fns/format';
 import { AnimatePresence, motion, useAnimation, useInView } from 'framer-motion';
 
 import { getExpenseType } from '@/lib/helpers';
-import { Expense } from '@/lib/types';
+import { Expense, ExpenseDTO } from '@/lib/types';
 
 import { DeleteIcon } from '../Icons/DeleteIcon';
 import { HardwareIcon } from '../Icons/HardwareIcon';
@@ -36,7 +36,7 @@ const getIcon = (type: string) => {
 };
 
 type TimelineProps = {
-  expenses: Expense[];
+  expenses: ExpenseDTO[];
   showEdit: boolean;
 };
 
@@ -47,14 +47,14 @@ const listItem = {
 };
 
 const TimeLineItem = ({
-  exp,
+  expense,
   setShowConfirmDelete,
   setExpenseToDelete,
   showEdit,
 }: {
-  exp: Expense;
+  expense: ExpenseDTO;
   setShowConfirmDelete: React.Dispatch<React.SetStateAction<boolean>>;
-  setExpenseToDelete: React.Dispatch<React.SetStateAction<Expense | undefined>>;
+  setExpenseToDelete: React.Dispatch<React.SetStateAction<ExpenseDTO | undefined>>;
   showEdit: boolean;
 }) => {
   const controls = useAnimation();
@@ -69,44 +69,43 @@ const TimeLineItem = ({
   return (
     <motion.li ref={ref} initial="initial" animate={controls} exit="exit" variants={listItem}>
       <div className="expense-wrapper">
-        <div className="expense-icon">{getIcon(getExpenseType(exp))}</div>
+        {/* //TODO: */}
+        {/* <div className="expense-icon">{getIcon(getExpenseType(expense))}</div> */}
         <div className="expense-content">
           <Grid spacing="l">
             <Column lg="8" md="8" sm="8" xs="12">
               <div>
-                <strong>{format(new Date(exp.date), 'yyyy-MM-dd')}</strong>
+                <strong>{format(new Date(expense.date), 'yyyy-MM-dd')}</strong>
               </div>
               <Divider spacing="s" color="transparent" />
               <div>
-                <strong>Type: </strong> {getExpenseType(exp)}
+                <strong>Type: </strong> expenseType
               </div>
               <div>
-                <strong>Category: </strong> {exp.category}
+                <strong>Category: </strong> expenseCategory
               </div>
               <div>
-                <strong>Name: </strong> {exp.name}
+                <strong>Name: </strong> expenseName
               </div>
               <div>
-                <strong>Comment: </strong> {exp.comment}
+                <strong>Comment: </strong> {expense.comment}
               </div>
             </Column>
             <Column lg="4" md="4" sm="4" xs="12" alignItems="flex-end">
-              <span className="expense-sum">
-                {exp.sum} {exp.type === 'time' ? 'h' : 'SEK'}
-              </span>
+              <span className="expense-sum">{expense.sum} value (hour/currency)</span>
             </Column>
           </Grid>
           {/* {isAdmin && path.includes('admin') && ( */}
           {showEdit && (
             <div className="expense-buttons">
-              <Link className="button outline icon-only" href={`/admin/edit/${exp.id}`}>
+              <Link className="button outline icon-only" href={`/admin/edit/${expense.id}`}>
                 <PenIcon />
               </Link>
               <Button
                 priority="outline"
                 onClick={() => {
                   setShowConfirmDelete(true);
-                  setExpenseToDelete(exp);
+                  setExpenseToDelete(expense);
                 }}
                 iconOnly>
                 <DeleteIcon />
@@ -120,19 +119,19 @@ const TimeLineItem = ({
   );
 };
 
-const sortByDate = (a: Expense, b: Expense) => {
+const sortByDate = (a: ExpenseDTO, b: ExpenseDTO) => {
   return new Date(b.date).valueOf() - new Date(a.date).valueOf();
 };
 
 export const Timeline: React.FunctionComponent<TimelineProps> = ({ expenses, showEdit }) => {
   const [selectedYear, setSelectedYear] = useState<number>(new Date().getFullYear());
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
-  const [expenseToDelete, setExpenseToDelete] = useState<Expense | undefined>();
+  const [expenseToDelete, setExpenseToDelete] = useState<ExpenseDTO | undefined>();
 
   const sortedExpenses = expenses.sort(sortByDate);
 
   const allYears: number[] = useMemo(() => {
-    return sortedExpenses.reduce((acc: number[], curr: Expense) => {
+    return sortedExpenses.reduce((acc: number[], curr: ExpenseDTO) => {
       const year = new Date(curr.date).getFullYear();
       return [...new Set([...acc, year])];
     }, []);
@@ -158,11 +157,11 @@ export const Timeline: React.FunctionComponent<TimelineProps> = ({ expenses, sho
       </InlineStack>
       <ul className="timeline-wrapper">
         <AnimatePresence>
-          {filteredExpenses.map((exp) => (
+          {filteredExpenses.map((expense) => (
             <TimeLineItem
-              key={exp.id}
+              key={expense.id}
               setExpenseToDelete={setExpenseToDelete}
-              exp={exp}
+              expense={expense}
               showEdit={showEdit}
               setShowConfirmDelete={setShowConfirmDelete}
             />

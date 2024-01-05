@@ -32,7 +32,7 @@ export async function updateUser(formData: FormData) {
       body: JSON.stringify(updatedUser),
     });
     const data = await res.json();
-    revalidatePath('/admin');
+    revalidatePath('/budget');
     return {
       status: res.status,
       data,
@@ -54,7 +54,7 @@ export async function deleteUser(formData: FormData) {
       method: 'DELETE',
     });
     const data = res.json();
-    revalidatePath('/admin');
+    revalidatePath('/budget');
     return {
       status: res.status,
       data,

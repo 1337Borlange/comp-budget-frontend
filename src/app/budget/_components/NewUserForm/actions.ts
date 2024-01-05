@@ -28,7 +28,7 @@ export async function addUser(formData: FormData) {
       body: JSON.stringify(responseBody),
     });
     const data = await res.json();
-    revalidatePath('/user');
+    revalidatePath('/budget');
     return {
       status: res.status,
       data,
