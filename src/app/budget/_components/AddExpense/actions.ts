@@ -11,34 +11,26 @@ import { NewExpense } from '@/lib/types';
 export async function saveExpense(formData: FormData) {
   const responseBody = {} as NewExpense;
   const session = await getServerSession(authOptions);
-  const method = formData.get('reqType') as string;
-
-  formData.delete('reqType');
-  formData.forEach((value, property: string) => {
-    if (typeof value !== 'undefined') {
-      const newVal = getFormValue(value);
-      responseBody[property as keyof NewExpense] = newVal as never;
-    }
-  });
 
   try {
     const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/expenses`, {
-      method,
+      method: 'POST',
       body: JSON.stringify(responseBody),
     });
     if (res.status !== 200) {
       throw new Error(res.statusText);
     }
     const data = res.json();
-    revalidatePath('/budget');
+    revalidatePath('/categories');
     return {
       status: res.status,
       data,
     };
   } catch (error) {
+    console.error(error);
     return {
-      error,
-      data: {},
+      status: 500,
+      message: (error as any)?.message ?? 'Something went wrong',
     };
   }
 }

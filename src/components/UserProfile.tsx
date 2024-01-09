@@ -92,7 +92,9 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
           <h3>Expenses</h3>
         </Column>
         <Column lg="6" md="6" sm="6" xs="12" justifyContent="flex-end" alignItems="flex-end">
-          <ModalButton text="Add expense" icon={<PenIcon />} modalName="showAddExpense" />
+          {user?.isAdmin && (
+            <ModalButton text="Add expense" icon={<PenIcon />} modalName="showAddExpense" />
+          )}
         </Column>
       </Grid>
 

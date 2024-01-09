@@ -1,12 +1,10 @@
 import { redirect } from 'next/navigation';
 import '../styles/components/button.scss';
-import { User, getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { User } from 'next-auth';
 import { getMe } from '@/app/budget/_actions/actions';
 
 const SignIn = async () => {
-  const session = await getServerSession(authOptions);
-  let me: User | undefined = undefined;
+  let me: User | undefined;
 
   try {
     me = await getMe();
@@ -14,7 +12,7 @@ const SignIn = async () => {
     console.error(e);
   }
 
-  if (session && me?.id) {
+  if (me?.id) {
     redirect(`/budget/user?id=${me?.id}`);
   }
 

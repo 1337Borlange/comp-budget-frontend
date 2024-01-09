@@ -7,8 +7,8 @@ interface ExtendedSession extends Session {
   access_token: string;
   id_token: string;
   userId: string;
-  internalUserId?: string;
-  isAdmin: boolean;
+  // internalUserId?: string;
+  // isAdmin: boolean;
 }
 
 export const authOptions: AuthOptions = {
@@ -97,8 +97,8 @@ export const authOptions: AuthOptions = {
               access_token: String(token.access_token),
               id_token: String(token.id_token),
               userId: getUserId(token.id_token as string),
-              internalUserId: me?.id ? String(me.id) : undefined,
-              isAdmin: me?.isAdmin ?? false,
+              // internalUserId: me?.id ? String(me.id) : undefined,
+              // isAdmin: me?.isAdmin ?? false,
             };
           } catch (e) {
             console.error(e);

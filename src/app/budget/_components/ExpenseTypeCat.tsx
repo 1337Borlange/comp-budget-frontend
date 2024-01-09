@@ -3,7 +3,7 @@ import Column from '@/components/Column';
 import ComboBox, { ComboOption } from '@/components/ComboBox';
 import Grid from '@/components/Grid';
 import Select from '@/components/Select';
-import { Category, CategoryDTO, CategoryType, Expense } from '@/lib/types';
+import { CategoryDTO, CategoryType, CategoryUnit, Expense } from '@/lib/types';
 import { useMemo, useState } from 'react';
 import AddCategory from './AddCategory/AddCategory';
 
@@ -13,8 +13,12 @@ type ExpenseTypeCatProps = {
   categoryTypes: CategoryType[];
 };
 
-const ExpenseTypeCat = ({ expense, categories, categoryTypes }: ExpenseTypeCatProps) => {
+const ExpenseTypeCat = ({ expense, categories }: ExpenseTypeCatProps) => {
   const [expenseType, setExpenseType] = useState<string | undefined>(expense?.type ?? undefined);
+
+  const expenseTypes = Object.keys(CategoryUnit)
+    .filter((key) => isNaN(Number(key)))
+    .map((key) => ({ key: CategoryUnit[key as keyof typeof CategoryUnit], value: key }));
 
   const data: ComboOption[] = useMemo(() => {
     return categories.map((category: CategoryDTO) => ({
@@ -34,9 +38,9 @@ const ExpenseTypeCat = ({ expense, categories, categoryTypes }: ExpenseTypeCatPr
           defaultValue={expense?.type}
           onChange={(e) => setExpenseType(e.currentTarget.value)}>
           <option value="-1">- Select expense type -</option>
-          {categoryTypes?.map((t) => (
-            <option value={t.name} key={t.id}>
-              {t.name}
+          {expenseTypes?.map((type) => (
+            <option value={type.value} key={type.key}>
+              {type.value}
             </option>
           ))}
         </Select>
@@ -50,7 +54,6 @@ const ExpenseTypeCat = ({ expense, categories, categoryTypes }: ExpenseTypeCatPr
           defaultValue={expense?.category}
           name="category"
           data={data}
-          handleChange={(val) => console.log(val?.id || '')}
         />
       </Column>
       <Column lg="6" md="6" sm="6" xs="12" alignItems="baseline" justifyContent="flex-end">

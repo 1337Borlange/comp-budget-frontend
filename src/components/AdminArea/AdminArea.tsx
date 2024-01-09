@@ -68,7 +68,7 @@ export const AdminArea = async ({ isAdmin, defaultUserId }: AdminAreaProps) => {
           </Grid>
         </Column>
         <Column lg="10" md="9" sm="8" xs="12" flexGrow="1" justifyContent="flex-end">
-          <UserSelection users={users} selectedUser={selectedUser} />
+          <UserSelection me={me} users={users} selectedUser={selectedUser} />
         </Column>
         <Column lg="2" md="3" sm="4" xs="12" className="col" flexGrow="0" justifyContent="flex-end">
           <ModalButton text="Edit user" icon={<PenIcon />} modalName="showEditUser" />

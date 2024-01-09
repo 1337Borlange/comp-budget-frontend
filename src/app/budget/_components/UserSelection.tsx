@@ -2,20 +2,18 @@
 
 import ComboBox from '@/components/ComboBox';
 import { User } from '@/lib/types';
-import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
   users: User[];
   selectedUser?: User;
+  me: User | undefined;
 };
 
-const UserSelection = ({ users, selectedUser }: UserSelectionProps) => {
+const UserSelection = ({ users, selectedUser, me }: UserSelectionProps) => {
   const router = useRouter();
-  const { data: session } = useSession();
-  const internalUserId = (session as any)?.internalUserId;
-  const defaultSelectedUser = internalUserId
-    ? users.find((user) => String(user.id) === internalUserId)
+  const defaultSelectedUser = me
+    ? users.find((user) => String(user.id) === String(me.id))
     : selectedUser;
 
   return (

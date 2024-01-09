@@ -36,22 +36,23 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   expense,
   user,
 }) => {
-  console.log('categories: ', categories);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
   async function clientAction(formData: FormData) {
     setIsLoading(true);
     const result = await saveExpense(formData);
-    setIsLoading(false);
 
-    if (result?.error) {
-      const msg = getErrorMessage(result.error);
-      toast.error(msg);
-    } else {
+    if (result?.status === 200) {
       toast.success(`Expense succesfully ${reqType}d!`);
       router.push(`/budget/user?id=${user?.id}`);
+    } else {
+      console.error(result.message);
+      toast.error(result.message);
     }
+
+    setIsLoading(false);
   }
 
   return (

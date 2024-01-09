@@ -1,15 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import {
-  Budget,
-  CategoryDTO,
-  CategoryType,
-  Expense,
-  ExpenseDTO,
-  ExpenseWithCategory,
-  User,
-} from '@/lib/types';
-import { getServerSession } from 'next-auth';
-import { notFound } from 'next/navigation';
+import { Budget, CategoryDTO, CategoryType, Expense, ExpenseDTO, User } from '@/lib/types';
 import {
   getUsers,
   getCategories,
@@ -40,12 +29,6 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   const showEditUser = searchParams?.showEditUser === 'true';
   const showStatistics = searchParams?.showStatistics === 'true';
   const showAddExpense = searchParams?.showAddExpense === 'true';
-  const session = await getServerSession(authOptions);
-  const isAdmin = session && (session as any).isAdmin;
-
-  if (!isAdmin) {
-    notFound();
-  }
 
   let users: User[] = [];
   let me = {} as User;
@@ -75,7 +58,6 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   }
 
   const expensesWithCategory = getExpensesWithCategories(expenses, categories);
-  console.log({ expensesWithCategory });
 
   return (
     <>

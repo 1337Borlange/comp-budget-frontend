@@ -57,7 +57,6 @@ const Modal: React.FunctionComponent<ModalProps & React.HTMLAttributes<HTMLDivEl
   className,
   ...rest
 }) => {
-  if (!visible) return null;
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -127,6 +126,11 @@ const Modal: React.FunctionComponent<ModalProps & React.HTMLAttributes<HTMLDivEl
       router.push(fullUrl);
     }
   };
+
+  if (!visible) {
+    return null;
+  }
+
   return (
     <AnimatePresence>
       <Overlay

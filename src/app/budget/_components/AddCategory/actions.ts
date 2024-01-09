@@ -11,30 +11,34 @@ import { formDataType } from '@/lib/types';
 export async function saveCategory(formData: FormData) {
   const postBody: formDataType = {};
   const session = await getServerSession(authOptions);
-  const chk = formData.getAll('categoryType');
-  if (chk.length === 0) {
-    return {
-      status: 500,
-      data: 'Please select at least one category type.',
-    };
-  } else {
-    formData.forEach((value, property: string) => {
-      if (typeof postBody[property] !== 'undefined') {
-        postBody[property] = formData.getAll(property);
-      } else {
-        postBody[property] = value;
-      }
-    });
 
+  formData.forEach((value, property: string) => {
+    if (typeof postBody[property] !== 'undefined') {
+      postBody[property] = formData.getAll(property);
+    } else {
+      postBody[property] = value;
+    }
+  });
+
+  console.log('postBody', postBody);
+
+  try {
     const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/categories`, {
       method: 'POST',
       body: JSON.stringify(postBody),
     });
+
     const data = await res.json();
-    revalidatePath('/budget');
+    revalidatePath('/categories');
     return {
       status: res.status,
       data,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      title: 'Error',
+      message: (error as any)?.message ?? 'Something went wrong',
     };
   }
 }
