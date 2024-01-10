@@ -76,45 +76,6 @@ export type Budget = {
   currentHardwareBalance: number;
 };
 
-export type BudgetRequestBody = Pick<
-  Budget,
-  | 'userId'
-  | 'id'
-  | 'start'
-  | 'hardwareBudget'
-  | 'openingBalanceMoney'
-  | 'openingBalanceTime'
-  | 'yearlyRefill'
-  | 'comment'
->;
-
-export type Expense = {
-  id: string;
-  userId: string;
-  type: string;
-  date: string;
-  sum: number;
-  name?: string;
-  isHardware: boolean;
-  comment: string;
-  category: string;
-};
-export type NewExpense = Pick<
-  Expense,
-  'userId' | 'type' | 'date' | 'sum' | 'name' | 'isHardware' | 'comment' | 'category'
->;
-
-export type CategoryType = {
-  id: number;
-  name: string;
-};
-
-export type Category = {
-  id: string;
-  name: string;
-  categoryTypes: CategoryType[];
-};
-
 // New stuff
 
 export enum ExpenseTypes {

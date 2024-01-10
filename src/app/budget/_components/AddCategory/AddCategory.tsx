@@ -37,7 +37,7 @@ const AddCategory = () => {
 
   return (
     <>
-      <Button priority="outline" onClick={() => setShowAddCategory(true)}>
+      <Button priority="outline" onClick={() => setShowAddCategory(true)} fullWidth={true}>
         Add new category
       </Button>
       <Modal

@@ -35,10 +35,11 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
+        console.log(account);
         token = Object.assign({}, token, {
           access_token: account.access_token,
           id_token: account.id_token,
-          expires_at: Math.floor(Date.now() / 1000 + Number(account.expires_in)),
+          expires_at: Number(account.expires_at) + 28800, // Adding 8 hours to the token expiration time
           refresh_token: account.refresh_token,
         });
       } else if (Date.now() < Number(token.expires_at) * 1000) {

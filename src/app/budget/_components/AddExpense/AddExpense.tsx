@@ -4,8 +4,7 @@ import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
-import { CategoryType, CreateUpdateDeleteType, User, Expense, CategoryDTO } from '@/lib/types';
-import { getErrorMessage } from '@/lib/helpers';
+import { CreateUpdateDeleteType, User, CategoryDTO, ExpenseTypes, ExpenseDTO } from '@/lib/types';
 
 import Box from '../../../../components/Box';
 import Button from '../../../../components/Button';
@@ -13,7 +12,6 @@ import Column from '../../../../components/Column';
 import Divider from '../../../../components/Divider';
 import Grid from '../../../../components/Grid';
 import TextField from '../../../../components/Textfield';
-import ToggleSwitch from '../../../../components/ToggleSwitch';
 import { FormControl } from '../../../../components/FormControl/FormControl';
 import { Label } from '../../../../components/FormControl/Label';
 
@@ -24,16 +22,12 @@ import { saveExpense } from './actions';
 type AddExpenseType = {
   reqType: CreateUpdateDeleteType;
   categories: CategoryDTO[];
-  categoryTypes: CategoryType[];
-  expense?: Expense;
   user?: User;
 };
 
 export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
   reqType,
   categories,
-  categoryTypes,
-  expense,
   user,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -42,7 +36,19 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
 
   async function clientAction(formData: FormData) {
     setIsLoading(true);
-    const result = await saveExpense(formData);
+
+    const newExpense: ExpenseDTO = {
+      id: Number(formData.get('id')),
+      date: formData.get('date') as string,
+      sum: Number(formData.get('sum')),
+      comment: formData.get('comment') as string,
+      userId: formData.get('userId') as string,
+      categoryId:
+        categories.find((cat) => cat.name && cat.name === formData.get('category'))?.id ?? NaN,
+      expenseType: ExpenseTypes.Expense,
+    };
+
+    const result = await saveExpense(newExpense);
 
     if (result?.status === 200) {
       toast.success(`Expense succesfully ${reqType}d!`);
@@ -60,53 +66,30 @@ export const AddExpense: React.FunctionComponent<AddExpenseType> = ({
       <Divider spacing="m" color="transparent" />
       <form action={clientAction} ref={formRef}>
         <input type="hidden" name="reqType" value={reqType === 'update' ? 'PUT' : 'POST'} />
-        <input type="hidden" name="userId" value={expense?.userId || user?.id} />
-        {expense && <input type="hidden" name="id" value={expense?.id} />}
+        <input type="hidden" name="userId" value={user?.id} />
+        <input type="hidden" name="expenseType" value={ExpenseTypes.Expense} />
         <Grid spacing="l">
           <Column lg="6" md="6" sm="6" xs="12">
             <FormControl fullWidth>
               <Label htmlFor="date">Date of expense *</Label>
-              <DatePickerWrapper name="date" id="date" date={expense?.date} />
+              <DatePickerWrapper name="date" id="date" />
             </FormControl>
           </Column>
           <Column lg="6" md="6" sm="6" xs="12">
-            <TextField
-              required
-              label="Amount"
-              id="sum"
-              name="sum"
-              type="number"
-              defaultValue={expense?.sum}
-            />
+            <TextField required label="Amount" id="sum" name="sum" type="number" />
           </Column>
         </Grid>
         <Divider spacing="m" />
-        <ExpenseTypeCat expense={expense} categories={categories} categoryTypes={categoryTypes} />
+        <ExpenseTypeCat categories={categories} />
         <Divider spacing="m" />
-        <Divider spacing="m" />
-        <Grid spacing="l">
-          <Column lg="6" md="6" sm="6" xs="12">
-            <TextField
-              label="Name"
-              name="name"
-              id="name"
-              type="text"
-              defaultValue={expense?.name}
-            />
-          </Column>
-          <Column lg="6" md="6" sm="6" xs="12" justifyContent="center">
-            <Label htmlFor="is-hardware">Is hardware</Label>
-            <ToggleSwitch
-              id="is-hardware"
-              name="isHardware"
-              defaultChecked={expense?.isHardware ?? false}
-            />
-          </Column>
-        </Grid>
+        <FormControl fullWidth>
+          <TextField label="Name" name="name" id="name" type="text" />
+        </FormControl>
+
         <Divider spacing="m" />
         <FormControl fullWidth>
           <Label htmlFor="comment">Comment</Label>
-          <textarea id="comment" name="comment" defaultValue={expense?.comment}></textarea>
+          <textarea id="comment" name="comment"></textarea>
         </FormControl>
         <Box topSpacing="l" alignItems="flex-end">
           <Button type="submit" loading={isLoading}>

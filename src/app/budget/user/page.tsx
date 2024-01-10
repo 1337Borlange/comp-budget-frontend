@@ -1,4 +1,4 @@
-import { Budget, CategoryDTO, CategoryType, Expense, ExpenseDTO, User } from '@/lib/types';
+import { Budget, CategoryDTO, ExpenseDTO, User } from '@/lib/types';
 import {
   getUsers,
   getCategories,
@@ -15,7 +15,6 @@ import { getMe } from '../_actions/actions';
 import { UpdateUser } from '@/app/budget/_components/UpdateUser/UpdateUser';
 import Stats from '@/app/budget/_components/Stats';
 import { AddExpense } from '@/app/budget/_components/AddExpense/AddExpense';
-import { getExpensesWithCategories } from '@/lib/helpers';
 
 type SearchParams = Record<string, string> | null | undefined;
 
@@ -35,9 +34,8 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   let selectedUser: User | undefined = undefined;
   let budget: Budget | undefined = undefined;
   let expenses: ExpenseDTO[] = [];
-  let userExpenses: Expense[] = [];
   let userBudget: Budget | undefined = undefined;
-  let categoryTypes: CategoryType[] = [];
+  let userExpenses: ExpenseDTO[] = [];
   let categories: CategoryDTO[] = [];
 
   if (!id) {
@@ -56,8 +54,6 @@ export default async function Page({ searchParams }: BudgetPageProps) {
   } catch (e) {
     console.error(e);
   }
-
-  const expensesWithCategory = getExpensesWithCategories(expenses, categories);
 
   return (
     <>
@@ -89,12 +85,7 @@ export default async function Page({ searchParams }: BudgetPageProps) {
 
       {showAddExpense && (
         <Modal id="statistics-modal" blur visible={true}>
-          <AddExpense
-            categoryTypes={categoryTypes}
-            reqType="create"
-            categories={categories}
-            user={selectedUser}
-          />
+          <AddExpense reqType="create" categories={categories} user={selectedUser} />
         </Modal>
       )}
     </>

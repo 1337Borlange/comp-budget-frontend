@@ -5,8 +5,7 @@ import Link from 'next/link';
 import format from 'date-fns/format';
 import { AnimatePresence, motion, useAnimation, useInView } from 'framer-motion';
 
-import { getExpenseType } from '@/lib/helpers';
-import { Expense, ExpenseDTO } from '@/lib/types';
+import { ExpenseDTO } from '@/lib/types';
 
 import { DeleteIcon } from '../Icons/DeleteIcon';
 import { HardwareIcon } from '../Icons/HardwareIcon';
@@ -95,7 +94,6 @@ const TimeLineItem = ({
               <span className="expense-sum">{expense.sum} value (hour/currency)</span>
             </Column>
           </Grid>
-          {/* {isAdmin && path.includes('admin') && ( */}
           {showEdit && (
             <div className="expense-buttons">
               <Link className="button outline icon-only" href={`/admin/edit/${expense.id}`}>
@@ -112,7 +110,6 @@ const TimeLineItem = ({
               </Button>
             </div>
           )}
-          {/* )} */}
         </div>
       </div>
     </motion.li>

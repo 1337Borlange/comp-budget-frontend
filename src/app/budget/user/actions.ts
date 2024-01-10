@@ -1,7 +1,7 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
-import { Budget, CategoryDTO, Expense, ExpenseDTO, User } from '@/lib/types';
+import { Budget, CategoryDTO, ExpenseDTO, User } from '@/lib/types';
 import { getServerSession } from 'next-auth';
 
 /**
@@ -63,7 +63,7 @@ export async function getCategories(): Promise<CategoryDTO[]> {
  * @param id - The ID of the user. If not provided, an empty array will be returned.
  * @returns A promise that resolves to an array of expenses.
  */
-export async function getUserExpenses(id?: string): Promise<Expense[]> {
+export async function getUserExpenses(id?: string): Promise<ExpenseDTO[]> {
   if (!id) {
     return Promise.resolve([]);
   }

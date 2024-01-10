@@ -1,4 +1,4 @@
-import { Budget, Expense, ExpenseDTO, User } from '@/lib/types';
+import { Budget, ExpenseDTO, User } from '@/lib/types';
 import { Timeline } from './Timeline/Timeline';
 import Box from './Box';
 import Divider from './Divider';

@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
+
 import ComboBox from '@/components/ComboBox';
 import { User } from '@/lib/types';
-import { useRouter } from 'next/navigation';
 
 type UserSelectionProps = {
   users: User[];
@@ -12,14 +14,17 @@ type UserSelectionProps = {
 
 const UserSelection = ({ users, selectedUser, me }: UserSelectionProps) => {
   const router = useRouter();
-  const defaultSelectedUser = me
-    ? users.find((user) => String(user.id) === String(me.id))
-    : selectedUser;
+
+  const defaultValue = useMemo(() => {
+    return selectedUser
+      ? selectedUser.name
+      : users.find((user) => String(user.id) === String(me?.id))?.name;
+  }, [me, users, selectedUser]);
 
   return (
     <ComboBox
       fullWidth
-      defaultValue={defaultSelectedUser?.name}
+      defaultValue={defaultValue}
       label="Select user"
       data={users.map((user) => ({
         id: user.id,

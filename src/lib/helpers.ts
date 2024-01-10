@@ -1,41 +1,9 @@
-import { CategoryDTO, Expense, ExpenseDTO, ExpenseWithCategory, GoogleJWTProfile } from './types';
+import { CategoryDTO, ExpenseDTO, ExpenseWithCategory, GoogleJWTProfile } from './types';
 import jwt_decode from 'jwt-decode';
-
-export const getExpensesWithCategories = (
-  expenses: ExpenseDTO[],
-  categories: CategoryDTO[],
-): ExpenseWithCategory[] => {
-  if (!expenses || !categories) {
-    return [];
-  }
-
-  const expensesWithCategories: ExpenseWithCategory[] = expenses.reduce(
-    (acc: ExpenseWithCategory[], exp: ExpenseDTO) => {
-      const category = categories.find((cat: CategoryDTO) => cat.id === exp.categoryId);
-      if (category) {
-        acc.push({ ...exp, category });
-      }
-      return acc;
-    },
-    [],
-  );
-
-  return expensesWithCategories;
-};
-
-export const getExpenseType = (exp: Expense): string => (exp.type ? 'hardware' : exp.type);
-
-const isNumber = (val: unknown) => {
-  const pattern = /^\d+\.?\d*$/;
-  return pattern.test(val as string);
-};
 
 export const getFormValue = (
   val: FormDataEntryValue,
 ): string | boolean | number | FormDataEntryValue => {
-  // if (isNumber(val)) {
-  //   return Number(val);
-  // } else
   if (val === 'on') {
     return true;
   } else if (val === 'off') {
