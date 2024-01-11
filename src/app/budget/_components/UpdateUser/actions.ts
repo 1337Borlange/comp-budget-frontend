@@ -1,23 +1,25 @@
 import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
-
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+
 import { apiFetch } from '@/lib/helpers';
 import { apiUrl } from '@/lib/settings';
 import { User } from '@/lib/types';
 
 export async function updateUser(formData: FormData) {
+  console.log('updateUser');
   const session = await getServerSession(authOptions);
+  const id = String(formData.get('userId'));
 
   const updatedUser: User = {
-    id: String(formData.get('userId')),
+    id,
     name: String(formData.get('name')),
-    email: String(formData.get('email')),
     employeeNumber: String(formData.get('employeeNumber')),
     departmentNumber: String(formData.get('departmentNumber')),
     personalNumber: String(formData.get('personalNumber')),
     phoneNumber: String(formData.get('phoneNumber')),
     address: String(formData.get('address')),
+    email: String(formData.get('email')),
     shirtSize: String(formData.get('shirtSize')),
     allergies: String(formData.get('allergies')),
     office: String(formData.get('office')),
@@ -31,8 +33,9 @@ export async function updateUser(formData: FormData) {
       method: 'PUT',
       body: JSON.stringify(updatedUser),
     });
+    console.log(res);
     const data = await res.json();
-    revalidatePath('/budget');
+    revalidatePath(`/budget/user?id=${id}`);
     return {
       status: res.status,
       data,

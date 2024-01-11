@@ -4,7 +4,7 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import { ValueContent, ValueHeader } from '@/components/Values';
 import { apiFetch, barColors } from '@/lib/helpers';
-import { Category, Expense, User } from '@/lib/types';
+import { CategoryDTO, CategoryUnit, ExpenseDTO, User } from '@/lib/types';
 import BarChart from './BarChart';
 import addDays from 'date-fns/addDays';
 import { getServerSession } from 'next-auth';
@@ -29,28 +29,27 @@ async function getUsers(token: string): Promise<any> {
     return res.json();
   });
 }
-async function getExpenses(token: string): Promise<any> {
+async function getExpenses(token: string): Promise<ExpenseDTO[]> {
   return apiFetch(token, `${apiUrl}/adm/expenses`).then((res) => {
     return res.json();
   });
 }
-async function getCategories(token: string): Promise<any> {
+async function getCategories(token: string): Promise<CategoryDTO[]> {
   return apiFetch(token, `${apiUrl}/categories`).then((res) => {
     return res.json();
   });
 }
 
-const compDate = addDays(new Date(), -365);
+const thisYear = new Date().getFullYear();
 
-const lastYearFilter = (exp: Expense) => new Date(exp.date) > compDate;
+const lastYearFilter = (exp: ExpenseDTO) => new Date(exp.date).getFullYear() < thisYear;
 
 const Stats = async () => {
   const session = await getServerSession(authOptions);
   const token = (session as any).id_token;
-
   let allUsers: User[] = [];
-  let allExpenses: Expense[] = [];
-  let categories: Category[] = [];
+  let allExpenses: ExpenseDTO[] = [];
+  let categories: CategoryDTO[] = [];
 
   try {
     allUsers = await getUsers(token);
@@ -60,11 +59,15 @@ const Stats = async () => {
     console.error(e);
   }
 
-  const timeExpenses = allExpenses?.filter((exp) => exp.type === 'time') || [];
+  const categoriesWithTimeUnit = categories?.filter((cat) => cat.unit === CategoryUnit.Time) || [];
+  const timeExpenses =
+    allExpenses?.filter((exp) => categoriesWithTimeUnit.some((cat) => cat.id === exp.categoryId)) ||
+    [];
+  const moneyExpenses =
+    allExpenses?.filter((exp) => categoriesWithTimeUnit.some((cat) => cat.id !== exp.categoryId)) ||
+    [];
 
-  const moneyExpenses = allExpenses?.filter((exp) => exp.type === 'money') || [];
-
-  const getAverageValue = (expenseArr: Expense[]) => {
+  const getAverageValue = (expenseArr: ExpenseDTO[]) => {
     const noUsers = Array.isArray(allUsers) ? allUsers?.length : 0;
     const totalValue = expenseArr?.reduce((acc, curr) => {
       return (acc += curr.sum);
@@ -76,13 +79,16 @@ const Stats = async () => {
   const averageTimePerUser = getAverageValue(timeExpenses.filter(lastYearFilter));
 
   const averageMoneyPerUser = getAverageValue(moneyExpenses.filter(lastYearFilter));
+  const categoriesWithHardwareUnit = categories?.filter((cat) => cat.isHardware) || [];
   const averageHardwarePerUser = getAverageValue(
-    moneyExpenses.filter(lastYearFilter).filter((exp) => exp.isHardware),
+    moneyExpenses
+      .filter(lastYearFilter)
+      .filter((exp) => categoriesWithHardwareUnit.some((cat) => cat.id === exp.categoryId)),
   );
 
-  const getCategoryByExpenseType = (expenseArr: Expense[]) => {
+  const getNumberOfExpensesByCategory = (expenseArr: ExpenseDTO[]) => {
     const numOfInstances = categories?.map(
-      (c) => expenseArr?.filter((exp) => exp.category === c.name).length,
+      (cat) => expenseArr?.filter((exp) => exp.categoryId === cat.id).length,
     );
     return numOfInstances;
   };
@@ -92,7 +98,7 @@ const Stats = async () => {
     datasets: [
       {
         label: 'Time expenses by category',
-        data: getCategoryByExpenseType(timeExpenses) || [],
+        data: getNumberOfExpensesByCategory(timeExpenses),
         backgroundColor: barColors,
         borderWidth: 1,
       },
@@ -104,7 +110,7 @@ const Stats = async () => {
     datasets: [
       {
         label: 'Money expenses by category',
-        data: getCategoryByExpenseType(moneyExpenses) || [],
+        data: getNumberOfExpensesByCategory(moneyExpenses) || [],
         backgroundColor: barColors,
         borderWidth: 1,
       },
