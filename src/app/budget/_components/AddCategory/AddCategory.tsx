@@ -23,8 +23,6 @@ const AddCategory = () => {
   async function clientAction(formData: FormData) {
     const result = await saveCategory(formData);
 
-    console.log(result);
-
     if (result?.status === 200) {
       toast.success(`Category added succesfully!`);
     } else {

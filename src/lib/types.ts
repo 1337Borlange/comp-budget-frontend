@@ -60,6 +60,8 @@ export type Severity = 'success' | 'warning' | 'error' | 'info';
 
 export type FlexGrow = '1' | '0';
 
+export type SearchParams = Record<string, string> | null | undefined;
+
 export type Budget = {
   name: string;
   userId: string;

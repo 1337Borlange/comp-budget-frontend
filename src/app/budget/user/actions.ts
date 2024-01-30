@@ -1,20 +1,40 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { apiFetch } from '@/lib/helpers';
+import { apiFetch } from '@/lib/apiFetch';
 import { apiUrl } from '@/lib/settings';
 import { Budget, CategoryDTO, ExpenseDTO, User } from '@/lib/types';
-import { getServerSession } from 'next-auth';
+
+export async function getUser(id: string | undefined): Promise<User | undefined> {
+  if (!id) {
+    return Promise.resolve(undefined);
+  }
+
+  try {
+    const response = await apiFetch(`${apiUrl}/users?userId=${id}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Error fetching user with ID ${id}. Error: ${error}`);
+    return;
+  }
+}
 
 /**
  * Retrieves the list of users from the server.
  * @returns A Promise that resolves to the list of users.
  */
-export async function getUsers(): Promise<any> {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+export async function getUsers(): Promise<User[] | undefined> {
+  try {
+    const response = await apiFetch(`${apiUrl}/adm/users`);
 
-  return apiFetch(token, `${apiUrl}/adm/users`).then((res) => {
-    return res.json();
-  });
+    if (!response.ok) {
+      throw new Error('Error fetching users');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching users. Error: ', error);
+    return [] as User[];
+  }
 }
 
 /**
@@ -22,13 +42,24 @@ export async function getUsers(): Promise<any> {
  * @param {string} id - The user ID.
  * @returns {Promise<any>} - A promise that resolves to the expenses data.
  */
-export async function getExpenses(id: string): Promise<ExpenseDTO[]> {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+export async function getExpenses(id?: string): Promise<ExpenseDTO[] | undefined> {
+  if (!id) {
+    return Promise.resolve(undefined);
+  }
 
-  return apiFetch(token, `${apiUrl}/expenses?userId=${id}`).then((res) => {
-    return res.json();
-  });
+  try {
+    const response = await apiFetch(`${apiUrl}/expenses?userId=${id}`);
+
+    if (!response.ok) {
+      throw new Error('Error fetching expenses');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching expenses. Error: ', error);
+    return [] as ExpenseDTO[];
+  }
 }
 
 /**
@@ -36,13 +67,24 @@ export async function getExpenses(id: string): Promise<ExpenseDTO[]> {
  * @param id - The user ID.
  * @returns A Promise that resolves to the budget data.
  */
-export async function getBudget(id: string): Promise<any> {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+export async function getBudget(id?: string): Promise<Budget | undefined> {
+  if (!id) {
+    return Promise.resolve(undefined);
+  }
 
-  return apiFetch(token, `${apiUrl}/budgets?userId=${id}`).then((res) => {
-    return res.json();
-  });
+  try {
+    const response = await apiFetch(`${apiUrl}/budgets?userId=${id}`);
+
+    if (!response.ok) {
+      throw new Error('Error fetching budget');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching budget. Error: ', error);
+    return;
+  }
 }
 
 /**
@@ -50,35 +92,18 @@ export async function getBudget(id: string): Promise<any> {
  * @returns A promise that resolves to an array of CategoryDTO objects.
  */
 export async function getCategories(): Promise<CategoryDTO[]> {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
-
-  return apiFetch(token, `${apiUrl}/categories`).then((res) => {
-    return res.json();
-  });
-}
-
-/**
- * Retrieves the expenses of a user.
- * @param id - The ID of the user. If not provided, an empty array will be returned.
- * @returns A promise that resolves to an array of expenses.
- */
-export async function getUserExpenses(id?: string): Promise<ExpenseDTO[]> {
-  if (!id) {
-    return Promise.resolve([]);
-  }
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
-
   try {
-    const result = await apiFetch(token, `${apiUrl}/adm/expenses?userId=${id}`);
-    if (result.ok) {
-      const data = await result.json();
-      return data;
+    const response = await apiFetch(`${apiUrl}/categories`);
+
+    if (!response.ok) {
+      throw new Error('Error fetching categories');
     }
-    return [];
+
+    const data = await response.json();
+    return data;
   } catch (error) {
-    return [];
+    console.error(error);
+    return [] as CategoryDTO[];
   }
 }
 
@@ -92,17 +117,17 @@ export async function getUserBudget(id?: string): Promise<Budget | undefined> {
     return Promise.resolve(undefined);
   }
 
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
-
   try {
-    const result = await apiFetch(token, `${apiUrl}/budgets?userId=${id}`);
-    if (result.ok) {
-      const data = await result.json();
-      return data;
+    const response = await apiFetch(`${apiUrl}/budgets?userId=${id}`);
+
+    if (!response.ok) {
+      throw new Error('Error fetching budget');
     }
-    return;
+
+    const data = await response.json();
+    return data;
   } catch (error) {
+    console.error('Error fetching budget. Error: ', error);
     return;
   }
 }

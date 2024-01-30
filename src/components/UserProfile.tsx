@@ -11,36 +11,43 @@ import { leetImgUrl } from '@/lib/settings';
 import { getValueStatus } from '@/lib/helpers';
 import { ModalButton } from './ModalButton';
 import { PenIcon } from './Icons/PenIcon';
+import { getBudget, getExpenses, getUser } from '@/app/budget/user/actions';
 
 type UserProfileProps = {
-  user?: User;
-  budget?: Budget;
-  expenses: ExpenseDTO[];
-  title: string;
+  selectedUserId?: string;
   showEdit: boolean;
 };
 
-export const UserProfile: React.FunctionComponent<UserProfileProps> = ({
-  title,
-  budget,
-  expenses,
+export const UserProfile: React.FunctionComponent<UserProfileProps> = async ({
   showEdit,
-  user,
+  selectedUserId,
 }) => {
+  let user: User | undefined;
+  let budget: Budget | undefined;
+  let expenses: ExpenseDTO[] | undefined;
+
+  try {
+    user = await getUser(selectedUserId);
+    budget = await getBudget(selectedUserId);
+    expenses = await getExpenses(selectedUserId);
+  } catch (error) {
+    console.error('Could not fetch user profile. Error:  ', error);
+  }
+
   return (
     <Box spacing="l" alignItems="stretch">
       <Box topSpacing="l" leftSpacing="l" rightSpacing="l" alignItems="center" width="100%">
-        {user && (
+        {user?.name && (
           <UserImage
             size={100}
             width={490}
             height={653}
-            url={`${leetImgUrl}/${user.name.toLocaleLowerCase().replace(' ', '-')}`}
+            url={`${leetImgUrl}/${user?.name?.toLocaleLowerCase().replace(' ', '-')}`}
             alt={user.name}
           />
         )}
         <Divider spacing="xs" color="transparent" />
-        <h3>{title}</h3>
+        <h3>{user?.name ?? 'User'}</h3>
       </Box>
       <Divider spacing="l" color="var(--colors-silver)" />
       <h3>Balance</h3>

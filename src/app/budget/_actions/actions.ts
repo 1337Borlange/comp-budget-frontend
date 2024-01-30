@@ -1,18 +1,24 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { apiFetch } from '@/lib/helpers';
+import { apiFetch } from '@/lib/apiFetch';
 import { apiUrl } from '@/lib/settings';
 import { User } from '@/lib/types';
-import { getServerSession } from 'next-auth';
 
 /**
  * Retrieves user information.
  * @returns A Promise that resolves to a User object.
  */
 export async function getMe(): Promise<User> {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+  try {
+    const response = await apiFetch(`${apiUrl}/me`);
+    const data = await response.json();
 
-  return apiFetch(token, `${apiUrl}/me`).then((res) => {
-    return res.json();
-  });
+    if (!response.ok) {
+      throw new Error('Error fetching me');
+    }
+
+    return data;
+  } catch (error) {
+    const message = (error as any)?.message || 'Error fetching me';
+    console.error('Error fetching me:', message);
+    return {} as User;
+  }
 }

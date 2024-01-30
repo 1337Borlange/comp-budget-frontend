@@ -1,16 +1,12 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { apiUrl } from '@/lib/settings';
-import { apiFetch } from '@/lib/helpers';
+import { apiFetch } from '@/lib/apiFetch';
 import { ExpenseDTO } from '@/lib/types';
 
 export async function saveExpense(expense: ExpenseDTO) {
-  const session = await getServerSession(authOptions);
-
   if (!expense.categoryId) {
     return {
       status: 400,
@@ -19,7 +15,7 @@ export async function saveExpense(expense: ExpenseDTO) {
   }
 
   try {
-    const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/expenses`, {
+    const res = await apiFetch(`${apiUrl}/adm/expenses`, {
       method: 'POST',
       body: JSON.stringify(expense),
     });

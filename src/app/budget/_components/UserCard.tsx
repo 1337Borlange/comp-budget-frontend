@@ -2,7 +2,7 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import Column from '@/components/Column';
 import { ValueHeader } from '@/components/Values';
-import { Budget, User, Expense } from '@/lib/types';
+import { Budget, ExpenseDTO, User } from '@/lib/types';
 import UserModal from './UserModal';
 import '../../../styles/components/usercard.scss';
 import Box from '@/components/Box';
@@ -10,10 +10,11 @@ import Box from '@/components/Box';
 type UserCardProps = {
   budget?: Budget;
   user?: User;
-  expenses?: Expense[];
+  expenses?: ExpenseDTO[];
 };
 
 export const UserCard: React.FunctionComponent<UserCardProps> = ({ budget, user, expenses }) => {
+  console.log('userCard: ', user);
   if (!budget) return null;
 
   return (

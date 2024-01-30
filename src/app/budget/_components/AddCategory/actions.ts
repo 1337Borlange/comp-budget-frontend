@@ -1,16 +1,13 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { getServerSession } from 'next-auth';
 
-import { apiFetch } from '@/lib/helpers';
+import { apiFetch } from '@/lib/apiFetch';
 import { apiUrl } from '@/lib/settings';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { formDataType } from '@/lib/types';
 
 export async function saveCategory(formData: FormData) {
   const postBody: formDataType = {};
-  const session = await getServerSession(authOptions);
 
   formData.forEach((value, property: string) => {
     if (typeof postBody[property] !== 'undefined') {
@@ -20,10 +17,8 @@ export async function saveCategory(formData: FormData) {
     }
   });
 
-  console.log('postBody', postBody);
-
   try {
-    const res = await apiFetch((session as any)?.id_token, `${apiUrl}/adm/categories`, {
+    const res = await apiFetch(`${apiUrl}/adm/categories`, {
       method: 'POST',
       body: JSON.stringify(postBody),
     });

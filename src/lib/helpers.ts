@@ -12,22 +12,6 @@ export const getFormValue = (
   return val;
 };
 
-export const apiFetch = async (
-  token: string,
-  url: string,
-  options: RequestInit = { headers: {} },
-): Promise<Response> => {
-  const _options = {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-      ...options.headers,
-    },
-  };
-  return fetch(url, _options);
-};
-
 export const getUserId = (id_token: string) => {
   const dec = jwt_decode(id_token) as GoogleJWTProfile;
   return dec?.sub;

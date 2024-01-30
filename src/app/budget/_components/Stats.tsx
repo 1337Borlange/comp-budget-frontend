@@ -3,13 +3,10 @@ import Column from '@/components/Column';
 import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import { ValueContent, ValueHeader } from '@/components/Values';
-import { apiFetch, barColors } from '@/lib/helpers';
+import { barColors } from '@/lib/helpers';
 import { CategoryDTO, CategoryUnit, ExpenseDTO, User } from '@/lib/types';
 import BarChart from './BarChart';
-import addDays from 'date-fns/addDays';
-import { getServerSession } from 'next-auth';
-import { apiUrl } from '@/lib/settings';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getCategories, getExpenses, getUsers } from '../user/actions';
 
 const options = {
   responsive: true,
@@ -24,37 +21,18 @@ const options = {
   },
 };
 
-async function getUsers(token: string): Promise<any> {
-  return apiFetch(token, `${apiUrl}/adm/users`).then((res) => {
-    return res.json();
-  });
-}
-async function getExpenses(token: string): Promise<ExpenseDTO[]> {
-  return apiFetch(token, `${apiUrl}/adm/expenses`).then((res) => {
-    return res.json();
-  });
-}
-async function getCategories(token: string): Promise<CategoryDTO[]> {
-  return apiFetch(token, `${apiUrl}/categories`).then((res) => {
-    return res.json();
-  });
-}
-
 const thisYear = new Date().getFullYear();
-
 const lastYearFilter = (exp: ExpenseDTO) => new Date(exp.date).getFullYear() < thisYear;
 
 const Stats = async () => {
-  const session = await getServerSession(authOptions);
-  const token = (session as any).id_token;
-  let allUsers: User[] = [];
-  let allExpenses: ExpenseDTO[] = [];
+  let allUsers: User[] | undefined = [];
+  let allExpenses: ExpenseDTO[] | undefined = [];
   let categories: CategoryDTO[] = [];
 
   try {
-    allUsers = await getUsers(token);
-    allExpenses = await getExpenses(token);
-    categories = await getCategories(token);
+    allUsers = await getUsers();
+    allExpenses = await getExpenses();
+    categories = await getCategories();
   } catch (e) {
     console.error(e);
   }

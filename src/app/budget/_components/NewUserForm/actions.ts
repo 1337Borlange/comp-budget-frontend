@@ -1,7 +1,6 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
-import { apiFetch, getFormValue } from '@/lib/helpers';
+import { getFormValue } from '@/lib/helpers';
+import { apiFetch } from '@/lib/apiFetch';
 import { apiUrl } from '@/lib/settings';
-import { getServerSession } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 
 /**
@@ -12,8 +11,6 @@ import { revalidatePath } from 'next/cache';
  */
 export async function addUser(formData: FormData) {
   const responseBody = {} as any; // User request body
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
 
   formData.forEach((value, property: string) => {
     if (typeof value !== 'undefined') {
@@ -23,7 +20,7 @@ export async function addUser(formData: FormData) {
   });
 
   try {
-    const res = await apiFetch(token, `${apiUrl}/adm/users`, {
+    const res = await apiFetch(`${apiUrl}/adm/users`, {
       method: 'POST',
       body: JSON.stringify(responseBody),
     });

@@ -1,14 +1,13 @@
 import NextAuth, { AuthOptions, Session, TokenSet } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { apiFetch, getUserId } from '@/lib/helpers';
+import { getUserId } from '@/lib/helpers';
+import { apiFetch } from '@/lib/apiFetch';
 import { apiUrl } from '@/lib/settings';
 
 interface ExtendedSession extends Session {
   access_token: string;
   id_token: string;
   userId: string;
-  // internalUserId?: string;
-  // isAdmin: boolean;
 }
 
 export const authOptions: AuthOptions = {
@@ -35,7 +34,6 @@ export const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
-        console.log(account);
         token = Object.assign({}, token, {
           access_token: account.access_token,
           id_token: account.id_token,
@@ -87,19 +85,13 @@ export const authOptions: AuthOptions = {
       let extendedSession: ExtendedSession = {} as ExtendedSession;
 
       if (session && typeof (session as any)?.isAdmin !== 'boolean') {
-        let me = undefined;
-
         if (token?.id_token) {
           try {
-            me = await apiFetch(token.id_token as string, `${apiUrl}/me`).then((res) => res.json());
-
             extendedSession = {
               ...session,
               access_token: String(token.access_token),
               id_token: String(token.id_token),
               userId: getUserId(token.id_token as string),
-              // internalUserId: me?.id ? String(me.id) : undefined,
-              // isAdmin: me?.isAdmin ?? false,
             };
           } catch (e) {
             console.error(e);

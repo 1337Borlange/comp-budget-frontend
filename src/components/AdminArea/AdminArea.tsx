@@ -19,7 +19,7 @@ interface AdminAreaProps {
 export const AdminArea = async ({ isAdmin, defaultUserId }: AdminAreaProps) => {
   if (!isAdmin) return null;
 
-  let users: User[] = [];
+  let users: User[] | undefined = [] as User[];
   let me: User | undefined;
   let selectedUser: User | undefined;
   let userName: string | undefined;
@@ -27,7 +27,7 @@ export const AdminArea = async ({ isAdmin, defaultUserId }: AdminAreaProps) => {
   try {
     me = await getMe();
     users = await getUsers();
-    selectedUser = users.find((user: User) => user.id === (defaultUserId ?? me?.id));
+    selectedUser = users?.find((user: User) => user.id === (defaultUserId ?? me?.id));
     userName = selectedUser?.name.split(' ')[0];
   } catch (e) {
     console.error(e);
@@ -68,7 +68,7 @@ export const AdminArea = async ({ isAdmin, defaultUserId }: AdminAreaProps) => {
           </Grid>
         </Column>
         <Column lg="10" md="9" sm="8" xs="12" flexGrow="1" justifyContent="flex-end">
-          <UserSelection me={me} users={users} selectedUser={selectedUser} />
+          <UserSelection me={me} users={users} />
         </Column>
         <Column lg="2" md="3" sm="4" xs="12" className="col" flexGrow="0" justifyContent="flex-end">
           <ModalButton text="Edit user" icon={<PenIcon />} modalName="showEditUser" />

@@ -19,7 +19,7 @@ export default async function Layout({ children }: LayoutProps) {
   return (
     <>
       <div className="page-wrapper">
-        <Header isAdmin={(session as any)?.isAdmin ?? false} />
+        <Header isAdmin={me.isAdmin ?? false} />
         {me?.isAdmin && <AdminArea isAdmin={me?.isAdmin} />}
         {children}
       </div>

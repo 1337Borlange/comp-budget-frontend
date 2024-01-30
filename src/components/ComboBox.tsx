@@ -30,7 +30,7 @@ const filterOptions = (inputValue?: string) => {
       !inputValue ||
       !lowerCasedInputValue ||
       item.title.toLowerCase().includes(lowerCasedInputValue) ||
-      item.id.toString().toLowerCase().includes(lowerCasedInputValue)
+      item.id?.toString().toLowerCase().includes(lowerCasedInputValue)
     );
   };
 };

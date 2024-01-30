@@ -2,7 +2,7 @@
 
 import { getErrorMessage } from '@/lib/helpers';
 import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { User } from '@/lib/types';
 import Grid from '@/components/Grid';
@@ -15,14 +15,24 @@ import ComboBox from '@/components/ComboBox';
 import Box from '@/components/Box';
 import Button from '@/components/Button';
 import { addUser } from './actions';
+import { getUsers } from '../../user/actions';
 
-type NewUserFormProps = {
-  allUsers: User[];
-};
-
-const NewUserForm = ({ allUsers }: NewUserFormProps) => {
+const NewUserForm = () => {
+  const [users, setUsers] = useState<User[]>([]);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const users = await getUsers();
+      if (users) {
+        setUsers(users);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   async function clientSaveUserAction(formData: FormData) {
     const result = await addUser(formData);
 
@@ -37,6 +47,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
       }, 2000);
     }
   }
+
   return (
     <form action={clientSaveUserAction} ref={formRef}>
       <Grid spacing="l">
@@ -110,7 +121,7 @@ const NewUserForm = ({ allUsers }: NewUserFormProps) => {
             fullWidth
             label="Select manager"
             name="manager"
-            data={allUsers.map((user) => ({
+            data={users.map((user) => ({
               id: user.id,
               title: user.name,
             }))}
