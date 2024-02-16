@@ -1,7 +1,7 @@
 import { getFormValue } from '@/lib/helpers';
-import { apiFetch } from '@/lib/apiFetch';
+import { apiFetchForClientComponents} from '@/lib/apiFetch';
 import { apiUrl } from '@/lib/settings';
-import { revalidatePath } from 'next/cache';
+
 
 /**
  * Adds a user by sending a POST request to the server.
@@ -20,20 +20,15 @@ export async function addUser(formData: FormData) {
   });
 
   try {
-    const res = await apiFetch(`${apiUrl}/adm/users`, {
+    const res = await apiFetchForClientComponents(`${apiUrl}/adm/users`, {
       method: 'POST',
       body: JSON.stringify(responseBody),
     });
-    const data = await res.json();
-    revalidatePath('/budget');
-    return {
-      status: res.status,
-      data,
-    };
+    return res;
   } catch (error) {
     return {
       status: 500,
-      error,
+      error: error,
     };
   }
 }

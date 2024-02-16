@@ -1,8 +1,6 @@
 import NextAuth, { AuthOptions, Session, TokenSet } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import { getUserId } from '@/lib/helpers';
-import { apiFetch } from '@/lib/apiFetch';
-import { apiUrl } from '@/lib/settings';
 
 interface ExtendedSession extends Session {
   access_token: string;

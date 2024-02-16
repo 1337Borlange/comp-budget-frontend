@@ -8,6 +8,11 @@ import { CategoryDTO, CategoryUnit, ExpenseDTO, User } from '@/lib/types';
 import BarChart from './BarChart';
 import { getCategories, getExpenses, getUsers } from '../user/actions';
 
+interface IStatsProps {
+  selectedUserId: string;
+}
+
+
 const options = {
   responsive: true,
   plugins: {
@@ -24,14 +29,15 @@ const options = {
 const thisYear = new Date().getFullYear();
 const lastYearFilter = (exp: ExpenseDTO) => new Date(exp.date).getFullYear() < thisYear;
 
-const Stats = async () => {
+const Stats = async ({selectedUserId}: IStatsProps) => {
   let allUsers: User[] | undefined = [];
   let allExpenses: ExpenseDTO[] | undefined = [];
   let categories: CategoryDTO[] = [];
 
   try {
     allUsers = await getUsers();
-    allExpenses = await getExpenses();
+    allExpenses = await getExpenses(selectedUserId);
+    console.log(allExpenses)
     categories = await getCategories();
   } catch (e) {
     console.error(e);

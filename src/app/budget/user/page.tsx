@@ -3,7 +3,6 @@ import { UserProfile } from '@/components/UserProfile';
 import Modal from '@/components/Modal';
 import NewUserForm from '../_components/NewUserForm/NewUserForm';
 import { getMe } from '../_actions/actions';
-
 import Stats from '@/app/budget/_components/Stats';
 import UpdateUser from '../_components/UpdateUser/UpdateUser';
 import AddExpense from '../_components/AddExpense/AddExpense';
@@ -42,7 +41,9 @@ export default async function Page({ searchParams }: BudgetPageProps) {
 
       {showAddUser && me?.isAdmin && (
         <Modal id="user-add-modal" blur visible={true}>
-          <NewUserForm />
+          <Suspense fallback={<div>Loading...</div>}>
+             <NewUserForm />
+          </Suspense>
         </Modal>
       )}
 
@@ -57,7 +58,7 @@ export default async function Page({ searchParams }: BudgetPageProps) {
       {showStatistics && me?.isAdmin && (
         <Modal id="statistics-modal" blur visible={true}>
           <Suspense fallback={<div>Loading...</div>}>
-            <Stats />
+            <Stats selectedUserId={selectedUserId} />
           </Suspense>
         </Modal>
       )}

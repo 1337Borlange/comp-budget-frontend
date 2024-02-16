@@ -35,15 +35,17 @@ const NewUserForm = () => {
 
   async function clientSaveUserAction(formData: FormData) {
     const result = await addUser(formData);
-
+    // @ts-ignore
     if (result?.error) {
+      // @ts-ignore
       const msg = getErrorMessage(result.error);
+      console.log(result);
       toast.error(msg);
     } else {
       formRef?.current?.reset();
       toast.success(`User succesfully added! Redirecting in 2 seconds...`);
       setTimeout(() => {
-        router.push(`/admin?userId=${(result?.data as User)?.id}`);
+        router.push(`/budget/user?id=${(result as unknown as User)?.id}`);
       }, 2000);
     }
   }

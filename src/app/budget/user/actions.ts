@@ -8,9 +8,8 @@ export async function getUser(id: string | undefined): Promise<User | undefined>
   }
 
   try {
-    const response = await apiFetch(`${apiUrl}/users?userId=${id}`);
-    const data = await response.json();
-    return data;
+    const response = await apiFetch(`${apiUrl}/users/${id}`);
+    return await response.json();
   } catch (error) {
     console.error(`Error fetching user with ID ${id}. Error: ${error}`);
     return;
@@ -42,13 +41,9 @@ export async function getUsers(): Promise<User[] | undefined> {
  * @param {string} id - The user ID.
  * @returns {Promise<any>} - A promise that resolves to the expenses data.
  */
-export async function getExpenses(id?: string): Promise<ExpenseDTO[] | undefined> {
-  if (!id) {
-    return Promise.resolve(undefined);
-  }
-
+export async function getExpenses(id: string): Promise<ExpenseDTO[] | undefined> {
   try {
-    const response = await apiFetch(`${apiUrl}/expenses?userId=${id}`);
+    const response = await apiFetch(`${apiUrl}/expenses/${id}`);
 
     if (!response.ok) {
       throw new Error('Error fetching expenses');
@@ -73,7 +68,7 @@ export async function getBudget(id?: string): Promise<Budget | undefined> {
   }
 
   try {
-    const response = await apiFetch(`${apiUrl}/budgets?userId=${id}`);
+    const response = await apiFetch(`${apiUrl}/budgets/${id}`);
 
     if (!response.ok) {
       throw new Error('Error fetching budget');
