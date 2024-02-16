@@ -14,7 +14,7 @@ import { PenIcon } from './Icons/PenIcon';
 import { getBudget, getExpenses, getUser } from '@/app/budget/user/actions';
 
 type UserProfileProps = {
-  selectedUserId?: string;
+  selectedUserId: string;
   showEdit: boolean;
 };
 

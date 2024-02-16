@@ -78,20 +78,18 @@ const TimeLineItem = ({
               </div>
               <Divider spacing="s" color="transparent" />
               <div>
-                <strong>Type: </strong> expenseType
+                <strong>Type: </strong> {expense.expenseType}
               </div>
               <div>
-                <strong>Category: </strong> expenseCategory
+                <strong>Category: </strong> {expense.categoryId}
               </div>
-              <div>
-                <strong>Name: </strong> expenseName
-              </div>
+
               <div>
                 <strong>Comment: </strong> {expense.comment}
               </div>
             </Column>
             <Column lg="4" md="4" sm="4" xs="12" alignItems="flex-end">
-              <span className="expense-sum">{expense.sum} value (hour/currency)</span>
+              <span className="expense-sum">{expense.sum} SEK  </span>
             </Column>
           </Grid>
           {showEdit && (

@@ -62,10 +62,7 @@ export async function getExpenses(id: string): Promise<ExpenseDTO[] | undefined>
  * @param id - The user ID.
  * @returns A Promise that resolves to the budget data.
  */
-export async function getBudget(id?: string): Promise<Budget | undefined> {
-  if (!id) {
-    return Promise.resolve(undefined);
-  }
+export async function getBudget(id: string): Promise<Budget | undefined> {
 
   try {
     const response = await apiFetch(`${apiUrl}/budgets/${id}`);
