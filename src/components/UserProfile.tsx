@@ -1,4 +1,3 @@
-import { Budget, ExpenseDTO, User } from '@/lib/types';
 import { Timeline } from './Timeline/Timeline';
 import Box from './Box';
 import Divider from './Divider';
@@ -22,17 +21,11 @@ export const UserProfile: React.FunctionComponent<UserProfileProps> = async ({
   showEdit,
   selectedUserId,
 }) => {
-  let user: User | undefined;
-  let budget: Budget | undefined;
-  let expenses: ExpenseDTO[] | undefined;
-
-  try {
-    user = await getUser(selectedUserId);
-    budget = await getBudget(selectedUserId);
-    expenses = await getExpenses(selectedUserId);
-  } catch (error) {
-    console.error('Could not fetch user profile. Error:  ', error);
-  }
+  const [user, budget, expenses] = await Promise.all([
+    getUser(selectedUserId),
+    getBudget(selectedUserId),
+    getExpenses(selectedUserId),
+  ]);
 
   return (
     <Box spacing="l" alignItems="stretch">

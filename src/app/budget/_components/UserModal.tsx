@@ -2,13 +2,13 @@
 import Modal from '@/components/Modal';
 import { UserProfile } from '@/components/UserProfile';
 import Button from '@/components/Button';
-import { Budget, Expense, User } from '@/lib/types';
+import { Budget, ExpenseDTO, User } from '@/lib/types';
 import { useState } from 'react';
 
 type UserModalProps = {
   budget?: Budget;
   user?: User;
-  expenses?: Expense[];
+  expenses?: ExpenseDTO[];
 };
 
 const UserModal = ({ user, budget, expenses }: UserModalProps) => {

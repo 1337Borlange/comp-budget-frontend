@@ -19,7 +19,6 @@ export const apiFetch = async (
     },
   };
 
-  // console.log({ url, tokenExsis: !!token });
   return fetch(url, _options);
 };
 
