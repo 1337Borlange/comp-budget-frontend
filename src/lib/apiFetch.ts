@@ -1,20 +1,18 @@
 'use server';
 
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { auth } from './auth';
 
 export const apiFetch = async (
   url: string,
   options: RequestInit = { headers: {} },
 ): Promise<Response> => {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+  const session = await auth();
 
   const _options = {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${session.id_token}`,
       ...options.headers,
     },
   };
@@ -29,14 +27,13 @@ export const apiFetchForClientComponents = async (
   url: string,
   options: RequestInit = { headers: {} },
 ): Promise<Response> => {
-  const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+  const session = await auth();
 
   const _options = {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${session.id_token}`,
       ...options.headers,
     },
   };

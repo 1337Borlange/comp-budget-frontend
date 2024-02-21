@@ -1,20 +1,18 @@
 import Header from '@/components/Header';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
 import '../../styles/components/page.scss';
 import { redirect } from 'next/navigation';
 import { AdminArea } from '@/components/AdminArea/AdminArea';
 import { getMe } from './_actions/actions';
 import { Providers } from '@/lib/Providers';
+import { auth } from '@/lib/auth';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export default async function Layout({ children }: LayoutProps) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const me = await getMe();
-  if (!session) redirect('/api/auth/signin');
 
   return (
     <>

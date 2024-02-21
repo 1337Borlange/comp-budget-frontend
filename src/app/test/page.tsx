@@ -1,16 +1,10 @@
-import { getServerSession } from 'next-auth';
 import { getMe } from '../budget/_actions/actions';
 import { getBudget, getCategories, getExpenses, getUser, getUsers } from '../budget/user/actions';
-import { authOptions } from '../api/auth/[...nextauth]/route';
-import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
 
 export default async function Page() {
-  const session = await getServerSession(authOptions);
-  console.log(session);
-  if (!session) redirect('/api/auth/signin');
-
+  const session = await auth();
   const me = await getMe();
-  console.log(me);
 
   if (!me.isAdmin) {
     return null;

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Providers } from "@/lib/Providers";
 
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
 import "../styles/style.scss";
 import { Main } from "@/components/Main";
+import { auth } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +18,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   return (
     <Providers session={session}>
