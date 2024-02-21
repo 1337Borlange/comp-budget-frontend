@@ -30,18 +30,11 @@ const thisYear = new Date().getFullYear();
 const lastYearFilter = (exp: ExpenseDTO) => new Date(exp.date).getFullYear() < thisYear;
 
 const Stats = async ({selectedUserId}: IStatsProps) => {
-  let allUsers: User[] | undefined = [];
-  let allExpenses: ExpenseDTO[] | undefined = [];
-  let categories: CategoryDTO[] = [];
+  const usersReq = getUsers();
+  const expensesReq = getExpenses(selectedUserId);
+  const categoriesReq = getCategories();
 
-  try {
-    allUsers = await getUsers();
-    allExpenses = await getExpenses(selectedUserId);
-    console.log(allExpenses)
-    categories = await getCategories();
-  } catch (e) {
-    console.error(e);
-  }
+  const [allUsers, allExpenses, categories] = await Promise.all([usersReq, expensesReq, categoriesReq]);
 
   const categoriesWithTimeUnit = categories?.filter((cat) => cat.unit === CategoryUnit.Time) || [];
   const timeExpenses =

@@ -8,7 +8,7 @@ export const apiFetch = async (
   options: RequestInit = { headers: {} },
 ): Promise<Response> => {
   const session = await getServerSession(authOptions);
-  const token = (session as any)?.id_token;
+  const token = session.id_token;
 
   const _options = {
     ...options,
