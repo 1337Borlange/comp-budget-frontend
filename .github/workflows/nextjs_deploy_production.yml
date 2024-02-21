@@ -1,3 +1,4 @@
+name: DeployToAzure
 on:
   push:
     branches:
