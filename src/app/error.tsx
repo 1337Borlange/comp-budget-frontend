@@ -25,7 +25,7 @@ const error: FC<IErrorProps> = ({ error, retry }) => {
       </Box>
       <Box spacing="s">{retry && <Button onClick={() => tryAgain()}>Retry</Button>}</Box>
       <Link href="/" className="button">
-        Go back 
+        Go back
       </Link>
     </Box>
   );
