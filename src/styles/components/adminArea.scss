@@ -1,0 +1,9 @@
+@import '../utils.scss';
+
+.adminArea {
+  border-top: 1px solid var(--colors-silver);
+  border-bottom: 1px solid var(--colors-silver);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+}

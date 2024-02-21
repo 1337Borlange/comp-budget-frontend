@@ -8,6 +8,7 @@ import { ModalContent } from './ModalContent';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { AlignItems, Justify } from '@/lib/types';
 import { getClasses } from '@/lib/style-helpers';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import '../styles/components/modal.scss';
 
@@ -29,12 +30,6 @@ const dropIn = {
   exit: {
     y: '100vh',
     opacity: 0,
-    // transition: {
-    //   duration: 0.1,
-    //   type: "spring",
-    //   damping: 25,
-    //   stiffness: 500,
-    // },
   },
 } satisfies Variants;
 
@@ -44,12 +39,11 @@ export interface ModalProps extends OverlayProps {
   alignItems?: AlignItems;
   justifyContent?: Justify;
   id: string;
-  onClose: () => void;
+  onClose?: () => void;
+  paramToRemoveOnClose?: string;
 }
 
-const Modal: React.FunctionComponent<
-  ModalProps & React.HTMLAttributes<HTMLDivElement>
-> = ({
+const Modal: React.FunctionComponent<ModalProps & React.HTMLAttributes<HTMLDivElement>> = ({
   children,
   visible,
   width = '50rem',
@@ -63,8 +57,11 @@ const Modal: React.FunctionComponent<
   className,
   ...rest
 }) => {
-  // if (!visible) return null;
-
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const userId = searchParams.get('id');
+  const fullUrl = `${pathname}${id ? `?id=${userId}` : ''}`;
   const modalRef = useRef<HTMLDivElement>(null);
 
   const classes = getClasses({
@@ -83,7 +80,11 @@ const Modal: React.FunctionComponent<
 
     const handleEscapeKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        onClose();
+        if (onClose) {
+          onClose();
+          return;
+        }
+        router.push(fullUrl);
       }
     };
 
@@ -91,10 +92,9 @@ const Modal: React.FunctionComponent<
       document.body.style.overflow = 'hidden';
 
       //add any focusable HTML element you want to include to this string
-      const focusableElements: NodeListOf<HTMLElement> =
-        modalElement.querySelectorAll(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
+      const focusableElements: NodeListOf<HTMLElement> = modalElement.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      );
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -103,10 +103,7 @@ const Modal: React.FunctionComponent<
           if (event.shiftKey && document.activeElement === firstElement) {
             event.preventDefault();
             lastElement?.focus();
-          } else if (
-            !event.shiftKey &&
-            document.activeElement === lastElement
-          ) {
+          } else if (!event.shiftKey && document.activeElement === lastElement) {
             event.preventDefault();
             firstElement?.focus();
           }
@@ -121,6 +118,19 @@ const Modal: React.FunctionComponent<
       modalElement?.removeEventListener('keydown', handleEscapeKeyPress);
     };
   }, [visible, onClose]);
+
+  const handleOnClose = () => {
+    if (onClose) {
+      onClose();
+    } else {
+      router.push(fullUrl);
+    }
+  };
+
+  if (!visible) {
+    return null;
+  }
+
   return (
     <AnimatePresence>
       <Overlay
@@ -129,8 +139,7 @@ const Modal: React.FunctionComponent<
         onClose={onClose}
         disableClick={disableClick}
         zIndex={zIndex}
-        blur={blur}
-      >
+        blur={blur}>
         <AnimatePresence>
           {visible && (
             <motion.div
@@ -142,17 +151,15 @@ const Modal: React.FunctionComponent<
               animate="visible"
               exit="exit"
               ref={modalRef}
-              {...rest}
-            >
+              {...rest}>
               <button
                 className={`base-close-button`}
                 data-testid="close-button"
-                onClick={onClose}
+                onClick={() => handleOnClose()}
                 role="button"
                 aria-label="Close"
                 title="Close"
-                type="button"
-              >
+                type="button">
                 <TimesIcon />
               </button>
               <ModalContent>{children}</ModalContent>

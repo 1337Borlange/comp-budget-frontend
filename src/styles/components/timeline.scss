@@ -1,85 +1,84 @@
 .timeline-wrapper {
-    border-left: 1px solid var(--colors-silver);
-    margin-left: 2rem;
-    margin-top: 2.5rem;
-    padding: 0;
+  margin-left: 2rem;
+  margin-top: 2.5rem;
+  padding: 0;
 }
 
 .expense-wrapper {
-    position: relative;
-    margin-bottom: 3rem;
-    display: flex;
-    align-items: flex-start;
-    &:hover {
-        .expense-icon {
-            transform: scale(1.09);
-        }
-        .expense-content {
-            margin-left: var(--spacing-2xs);
-        }
+  position: relative;
+  margin-bottom: 3rem;
+  display: flex;
+  align-items: flex-start;
+  &:hover {
+    .expense-icon {
+      transform: scale(1.09);
     }
+    .expense-content {
+      margin-left: var(--spacing-2xs);
+    }
+  }
 }
 
 .expense-icon {
-    flex-grow: 0;
-    width: 3rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--colors-secondary);
-    color: var(--colors-text);
-    margin-left: -1.5rem;
-    margin-right: 1.5rem;
-    border-radius: 50%;
-    font-size: 2rem;
-    transition: transform 0.2s ease;
+  flex-grow: 0;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--colors-secondary);
+  color: var(--colors-text);
+  margin-left: -1.5rem;
+  margin-right: 1.5rem;
+  border-radius: 50%;
+  font-size: 2rem;
+  transition: transform 0.2s ease;
 }
 
 .expense-content {
-    display: flex;
-    flex: 1;
-    background-color: var(--colors-silver);
-    padding: var(--spacing-m);
-    border-radius: 0.5rem;
-    position: relative;
-    flex-direction: column;
-    transition: all 0.2s ease;
-    box-shadow: var(--elevation-medium);
-    // box-shadow:
-    //     0 1px 1px hsl(0deg 0% 0% / 0.055),
-    //     0 2px 2px hsl(0deg 0% 0% / 0.055),
-    //     0 4px 4px hsl(0deg 0% 0% / 0.055),
-    //     0 8px 8px hsl(0deg 0% 0% / 0.055),
-    //     0 16px 16px hsl(0deg 0% 0% / 0.055);
-    &:after {
-        content: "";
-        border-right: 0.5rem solid var(--colors-silver);
-        border-top: 0.5rem solid transparent;
-        border-bottom: 0.5rem solid transparent;
-        position: absolute;
-        top: 1.25rem;
-        right: 100%;
-    }
+  display: flex;
+  flex: 1;
+  background-color: var(--colors-silver);
+  padding: var(--spacing-m);
+  border-radius: 0.5rem;
+  position: relative;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  box-shadow: var(--elevation-medium);
+  // box-shadow:
+  //     0 1px 1px hsl(0deg 0% 0% / 0.055),
+  //     0 2px 2px hsl(0deg 0% 0% / 0.055),
+  //     0 4px 4px hsl(0deg 0% 0% / 0.055),
+  //     0 8px 8px hsl(0deg 0% 0% / 0.055),
+  //     0 16px 16px hsl(0deg 0% 0% / 0.055);
+  &:after {
+    content: '';
+    border-right: 0.5rem solid var(--colors-silver);
+    border-top: 0.5rem solid transparent;
+    border-bottom: 0.5rem solid transparent;
+    position: absolute;
+    top: 1.25rem;
+    right: 100%;
+  }
 }
 
 .expense-buttons {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    display: flex;
-    gap: 1rem;
-    @media screen and (max-width: 600px) {
-        position: relative;
-        width: 100%;
-        justify-content: flex-end;
-        right: auto;
-        bottom: auto;
-    }
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  @media screen and (max-width: 600px) {
+    position: relative;
+    width: 100%;
+    justify-content: flex-end;
+    right: auto;
+    bottom: auto;
+  }
 }
 
 .expense-sum {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--colors-primary);
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--colors-primary);
 }

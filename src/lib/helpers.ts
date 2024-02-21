@@ -1,42 +1,15 @@
-import { Expense, GoogleJWTProfile } from './types';
+import { CategoryDTO, ExpenseDTO, ExpenseWithCategory, GoogleJWTProfile } from './types';
 import jwt_decode from 'jwt-decode';
 
-export const getExpenseType = (exp: Expense): string =>
-  exp.isHardware ? 'hardware' : exp.type;
-
-const isNumber = (val: unknown) => {
-  const pattern = /^\d+\.?\d*$/;
-  return pattern.test(val as string);
-};
-
 export const getFormValue = (
-  val: FormDataEntryValue
+  val: FormDataEntryValue,
 ): string | boolean | number | FormDataEntryValue => {
-  // if (isNumber(val)) {
-  //   return Number(val);
-  // } else
   if (val === 'on') {
     return true;
   } else if (val === 'off') {
     return false;
   }
   return val;
-};
-
-export const apiFetch = async (
-  token: string,
-  url: string,
-  options: RequestInit = { headers: {} }
-): Promise<Response> => {
-  const _options = {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-      ...options.headers,
-    },
-  };
-  return fetch(url, _options);
 };
 
 export const getUserId = (id_token: string) => {

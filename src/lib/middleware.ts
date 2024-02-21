@@ -7,10 +7,11 @@ export default withAuth(function middleware(req) {}, {
     authorized: ({ req, token }) => {
       if (
         req.nextUrl.pathname.startsWith('/admin') ||
-        (req.nextUrl.pathname.startsWith('/mybudget') && token === null)
+        (req.nextUrl.pathname.startsWith('/budget') && token === null)
       ) {
         return false;
       }
+
       return true;
     },
   },

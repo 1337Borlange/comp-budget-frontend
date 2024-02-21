@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import '../styles/components/userimage.scss';
+import { UserIcon } from './Icons/UserIcon';
 
 type UserImageProps = {
   url: string;
@@ -19,13 +20,17 @@ const UserImage: React.FunctionComponent<UserImageProps> = ({
   const style = { '--user-image-size': `${size}px` } as React.CSSProperties;
   return (
     <div className="user-image-wrapper" style={style}>
-      <Image
-        className="user-image"
-        width={width ?? size}
-        height={height ?? size}
-        src={url}
-        alt={alt}
-      />
+      {url ? (
+        <Image
+          className="user-image"
+          width={width ?? size}
+          height={height ?? size}
+          src={url}
+          alt={alt}
+        />
+      ) : (
+        <UserIcon />
+      )}
     </div>
   );
 };

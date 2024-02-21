@@ -60,6 +60,8 @@ export type Severity = 'success' | 'warning' | 'error' | 'info';
 
 export type FlexGrow = '1' | '0';
 
+export type SearchParams = Record<string, string> | null | undefined;
+
 export type Budget = {
   name: string;
   userId: string;
@@ -76,44 +78,42 @@ export type Budget = {
   currentHardwareBalance: number;
 };
 
-export type BudgetRequestBody = Pick<
-  Budget,
-  | 'userId'
-  | 'id'
-  | 'start'
-  | 'hardwareBudget'
-  | 'openingBalanceMoney'
-  | 'openingBalanceTime'
-  | 'yearlyRefill'
-  | 'comment'
->;
+// New stuff
 
-export type Expense = {
-  id: string;
-  userId: string;
-  type: string;
-  date: string;
-  sum: number;
-  name?: string;
-  isHardware: boolean;
-  comment: string;
-  category: string;
-};
-export type NewExpense = Pick<
+export enum ExpenseTypes {
   Expense,
-  'userId' | 'type' | 'date' | 'sum' | 'name' | 'isHardware' | 'comment' | 'category'
->;
+  Refill,
+  YearlyRefill,
+  Start,
+}
 
-export type CategoryType = {
+export enum CategoryUnit {
+  Monetary,
+  Time,
+}
+
+export interface ExpenseDTO {
+  id: number;
+  sum: number;
+  comment: string;
+  expenseType: ExpenseTypes;
+  categoryId: number;
+  userId: string;
+  date: string;
+}
+
+export interface CategoryDTO {
   id: number;
   name: string;
-};
+  unit: CategoryUnit;
+  isHardware: boolean;
+}
 
-export type Category = {
-  id: string;
-  name: string;
-  categoryTypes: CategoryType[];
-};
+export interface ExpenseWithCategory extends ExpenseDTO {
+  category: CategoryDTO;
+}
+
+//
 
 export type GoogleProfile = {
   sub: string;

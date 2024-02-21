@@ -1,7 +1,12 @@
-import NextAuth, { AuthOptions, TokenSet } from 'next-auth';
+import NextAuth, { AuthOptions, Session, TokenSet } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { apiFetch, getUserId } from '@/lib/helpers';
-import { apiUrl } from '@/lib/settings';
+import { getUserId } from '@/lib/helpers';
+
+interface ExtendedSession extends Session {
+  access_token: string;
+  id_token: string;
+  userId: string;
+}
 
 export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -30,7 +35,7 @@ export const authOptions: AuthOptions = {
         token = Object.assign({}, token, {
           access_token: account.access_token,
           id_token: account.id_token,
-          expires_at: Math.floor(Date.now() / 1000 + Number(account.expires_in)),
+          expires_at: Number(account.expires_at) + 28800, // Adding 8 hours to the token expiration time
           refresh_token: account.refresh_token,
         });
       } else if (Date.now() < Number(token.expires_at) * 1000) {
@@ -75,30 +80,28 @@ export const authOptions: AuthOptions = {
     },
     async session(data) {
       let { session, token } = data;
+      let extendedSession: ExtendedSession = {} as ExtendedSession;
+
       if (session && typeof (session as any)?.isAdmin !== 'boolean') {
-        let me = undefined;
         if (token?.id_token) {
           try {
-            me = await apiFetch(token.id_token as string, `${apiUrl}/me`).then((res) => res.json());
+            extendedSession = {
+              ...session,
+              access_token: String(token.access_token),
+              id_token: String(token.id_token),
+              userId: getUserId(token.id_token as string),
+            };
           } catch (e) {
             console.error(e);
           }
         }
-        session = Object.assign({}, session, {
-          access_token: token.access_token,
-          id_token: token.id_token,
-          userId: getUserId(token.id_token as string),
-          ...(typeof me?.isAdmin === 'boolean' && { isAdmin: me.isAdmin }),
-          ...(typeof me?.user?.id !== 'undefined' && {
-            internalUserId: me.user.id,
-          }),
-          isAdmin: true,
-        });
       }
-      return session;
+
+      return extendedSession;
     },
   },
 };
+
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

@@ -6,7 +6,7 @@ import { FormControl } from './FormControl/FormControl';
 import { AngleDownIcon } from './Icons/AngleDownIcon';
 import '../styles/components/combobox.scss';
 
-type ComboOption = {
+export type ComboOption = {
   id: string;
   title: string;
 };
@@ -30,7 +30,7 @@ const filterOptions = (inputValue?: string) => {
       !inputValue ||
       !lowerCasedInputValue ||
       item.title.toLowerCase().includes(lowerCasedInputValue) ||
-      item.id.toString().toLowerCase().includes(lowerCasedInputValue)
+      item.id?.toString().toLowerCase().includes(lowerCasedInputValue)
     );
   };
 };
@@ -45,6 +45,7 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
   handleChange,
 }) => {
   const [items, setItems] = React.useState<ComboOption[]>(data);
+
   const {
     isOpen,
     getToggleButtonProps,
@@ -63,8 +64,9 @@ const ComboBox: React.FunctionComponent<ComboBoxProps> = ({
     itemToString(item) {
       return item ? item.title : '';
     },
-    onSelectedItemChange: ({ selectedItem: newSelectedItem }) =>
-      typeof handleChange === 'function' ? handleChange(newSelectedItem) : null,
+    onSelectedItemChange: ({ selectedItem: newSelectedItem }) => {
+      typeof handleChange === 'function' ? handleChange(newSelectedItem) : null;
+    },
   });
 
   useEffect(() => {

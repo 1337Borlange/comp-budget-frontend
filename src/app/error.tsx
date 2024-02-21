@@ -12,7 +12,6 @@ interface IErrorProps {
 
 const error: FC<IErrorProps> = ({ error, retry }) => {
   const tryAgain = () => {
-    console.log('try again', retry);
     if (retry) {
       retry();
     }
