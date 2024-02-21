@@ -1,5 +1,5 @@
 # File: .github/workflows/workflow.yml
-name: JavaScript CI
+name: DeployToAzure
 
 on:
   push: 
