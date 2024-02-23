@@ -4,7 +4,7 @@ import Divider from '@/components/Divider';
 import Grid from '@/components/Grid';
 import { ValueContent, ValueHeader } from '@/components/Values';
 import { barColors } from '@/lib/helpers';
-import { CategoryDTO, CategoryUnit, ExpenseDTO, User } from '@/lib/types';
+import { CategoryUnit, ExpenseDTO } from '@/lib/types';
 import BarChart from './BarChart';
 import { getCategories, getExpenses, getUsers } from '../user/actions';
 
@@ -30,18 +30,7 @@ const thisYear = new Date().getFullYear();
 const lastYearFilter = (exp: ExpenseDTO) => new Date(exp.date).getFullYear() < thisYear;
 
 const Stats = async ({selectedUserId}: IStatsProps) => {
-  let allUsers: User[] | undefined = [];
-  let allExpenses: ExpenseDTO[] | undefined = [];
-  let categories: CategoryDTO[] = [];
-
-  try {
-    allUsers = await getUsers();
-    allExpenses = await getExpenses(selectedUserId);
-    console.log(allExpenses)
-    categories = await getCategories();
-  } catch (e) {
-    console.error(e);
-  }
+  const [allUsers, allExpenses, categories] = await Promise.all([getUsers(), getExpenses(selectedUserId), getCategories()]);
 
   const categoriesWithTimeUnit = categories?.filter((cat) => cat.unit === CategoryUnit.Time) || [];
   const timeExpenses =
