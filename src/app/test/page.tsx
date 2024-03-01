@@ -1,8 +1,11 @@
 import { getServerSession } from 'next-auth';
-import { getMe } from '../budget/_actions/actions';
-import { getBudget, getCategories, getExpenses, getUser, getUsers } from '../budget/user/actions';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '@/auth';
 import { redirect } from 'next/navigation';
+import { getMe } from '@/data/UserDal';
+import { isCurrentUserAdmin } from '@/data/AdminDal';
+import { getCurrentUserBudget } from '@/data/BudgetDal';
+import { getCurrentUserExpenses } from '@/data/ExpenseDal';
+
 
 export default async function Page() {
   const session = await getServerSession(authOptions);
@@ -10,18 +13,11 @@ export default async function Page() {
   if (!session) redirect('/api/auth/signin');
 
   const me = await getMe();
-  console.log(me);
-
-  if (!me.isAdmin) {
-    return null;
+  const budget = await getCurrentUserBudget();
+  const expenses = await getCurrentUserExpenses();
+  if (!await isCurrentUserAdmin()) {
+    redirect('/api/auth/signin');
   }
 
-  const user = await getUser(me.id);
-  const users = await getUsers();
-  const expenses = await getExpenses(me.id);
-  const budget = await getBudget(me.id);
-  const categories = await getCategories();
-  const userBudget = await getBudget(me.id);
-
-  return <>{JSON.stringify({ me, user, users, expenses, budget, categories, userBudget })}</>;
+  return <>{JSON.stringify({ expenses })}</>;
 }

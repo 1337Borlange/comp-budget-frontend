@@ -1,0 +1,86 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model EFMigrationsHistory {
+  MigrationId    String @id(map: "PK___EFMigrationsHistory") @db.NVarChar(150)
+  ProductVersion String @db.NVarChar(32)
+
+  @@map("__EFMigrationsHistory")
+}
+
+model Budgets {
+  Id                   Int       @id(map: "PK_Budgets") @default(autoincrement())
+  Start                DateTime? @db.DateTimeOffset
+  HardwareBudget       Float
+  Comment              String?   @db.NVarChar(Max)
+  UserId               Int       @unique(map: "IX_Budgets_UserId")
+  YearlyRefillOverride Float?
+  Users                Users     @relation(fields: [UserId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Budgets_Users_UserId")
+}
+
+model Categories {
+  Id         Int        @id(map: "PK_Categories") @default(autoincrement())
+  Name       String     @db.NVarChar(Max)
+  Unit       Int
+  IsHardware Boolean
+  Expenses   Expenses[]
+}
+
+model Expenses {
+  Id          Int        @id(map: "PK_Expenses") @default(autoincrement())
+  Date        DateTime   @db.DateTimeOffset
+  Sum         Float
+  Comment     String?    @db.NVarChar(Max)
+  ExpenseType Int
+  CategoryId  Int
+  UserId      Int
+  Categories  Categories @relation(fields: [CategoryId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Expenses_Categories_CategoryId")
+  Users       Users      @relation(fields: [UserId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_Expenses_Users_UserId")
+
+  @@index([CategoryId], map: "IX_Expenses_CategoryId")
+  @@index([UserId], map: "IX_Expenses_UserId")
+}
+
+model PersonalAccessTokens {
+  Token   String    @id(map: "PK_PersonalAccessTokens") @db.NVarChar(450)
+  Expires DateTime? @db.DateTimeOffset
+  UserId  Int
+  Users   Users     @relation(fields: [UserId], references: [Id], onUpdate: NoAction, map: "FK_PersonalAccessTokens_Users_UserId")
+
+  @@index([UserId], map: "IX_PersonalAccessTokens_UserId")
+}
+
+model UserRoles {
+  Id     Int    @id(map: "PK_UserRoles") @default(autoincrement())
+  Name   String @db.NVarChar(Max)
+  UserId Int
+  Users  Users  @relation(fields: [UserId], references: [Id], onDelete: Cascade, onUpdate: NoAction, map: "FK_UserRoles_Users_UserId")
+
+  @@index([UserId], map: "IX_UserRoles_UserId")
+}
+
+model Users {
+  Id                   Int                    @id(map: "PK_Users") @default(autoincrement())
+  ClientId             String?                @db.NVarChar(Max)
+  Name                 String                 @db.NVarChar(Max)
+  EmployeeNumber       String                 @db.NVarChar(Max)
+  DepartmentNumber     String?                @db.NVarChar(Max)
+  PersonalNumber       String?                @db.NVarChar(Max)
+  PhoneNumber          String?                @db.NVarChar(Max)
+  Address              String?                @db.NVarChar(Max)
+  Email                String                 @db.NVarChar(Max)
+  ShirtSize            String?                @db.NVarChar(Max)
+  Allergies            String?                @db.NVarChar(Max)
+  Office               String?                @db.NVarChar(Max)
+  Manager              String?                @db.NVarChar(Max)
+  Budgets              Budgets?
+  Expenses             Expenses[]
+  PersonalAccessTokens PersonalAccessTokens[]
+  UserRoles            UserRoles[]
+}

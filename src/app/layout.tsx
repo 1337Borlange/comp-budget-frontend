@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Providers } from "@/lib/Providers";
 
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from '@/auth';
 import "../styles/style.scss";
 import { Main } from "@/components/Main";
 
